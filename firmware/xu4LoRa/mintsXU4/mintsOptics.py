@@ -1,4 +1,4 @@
-
+from __future__ import annotations
 import serial
 import datetime
 import os
@@ -19,7 +19,7 @@ import struct
 import numpy as np
 from datetime import timedelta
 
-from __future__ import annotations
+
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
@@ -135,3 +135,6 @@ def getSpectraSingle(devicesPresent, deviceOpen,\
     else:
         print("No Devices found to setup")   
 
+def closeDevice(deviceOpen,devicesPresent,deviceID):
+    if deviceOpen and devicesPresent:
+        od.close_device(deviceID);

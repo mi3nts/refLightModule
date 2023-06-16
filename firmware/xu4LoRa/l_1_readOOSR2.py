@@ -1,4 +1,5 @@
 
+from __future__ import annotations
 # MQTT Client demo
 # Continuously monitor two different MQTT topics for data,
 # check if the received data matches two predefined 'commands'
@@ -26,7 +27,6 @@ import pynmea2
 import shutil
 
 
-from __future__ import annotations
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
@@ -69,12 +69,14 @@ if __name__ == "__main__":
                     )
     
 
-    mO.getSingleSpectrum(devicesPresent, deviceOpen,device)
+    mO.getSingleSpectrum(devicesPresent,deviceOpen,device)
 
 
-    # # I2C Devices 
-    # scd30Online    = scd30.initiate(30)
-    # as7265xOnline  = as7265x.initiate()
+    mO.getSingleSpectrum(devicesPresent,deviceOpen,device)
+    
+
+    mO.closeDevice(deviceOpen,devicesPresent,deviceID)
+
     
 
    
