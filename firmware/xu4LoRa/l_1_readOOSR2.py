@@ -61,7 +61,7 @@ if __name__ == "__main__":
     devicesPresent, deviceIDs = mO.checkingDevicePresence()
     if devicesPresent:
         print("Ocean Optics Spectrometors found")
-        mO.openDevice(deviceOpen,devicesPresent,deviceIDs)
+        mO.openDevice(deviceIDs,0)
     
     # Only choosing the 1st Device
     deviceID,device,serialNumer =  mO.openDevice(deviceIDs,0)
