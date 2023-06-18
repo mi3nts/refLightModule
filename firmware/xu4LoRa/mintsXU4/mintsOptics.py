@@ -46,68 +46,33 @@ def checkingDevicePresence():
         print("Ocean Optics devices not found")
         return False, [];
 
-def openDevice(deviceOpen,devicesPresent,deviceIDs):
-
-    if devicesPresent:
-        print("Ocean Optics Devices found:")
-        if not(deviceOpen):
-            print("Opening Device")
-            device       = od.open_device(id)
-        else:
-            print("Device Already Opened")
-
-        # Provide the first ID it finds
-        for deviceID in deviceIDs:
-            deviceSerialNumber = device.get_serial_number()
-            print("Device Serial Number: %s" % deviceSerialNumber)
-            return device,True,deviceID,deviceSerialNumber
-
-    print("No devices found")
-    return [],deviceOpen,[],[];
-
-def closeDevice(devicesOpen,devicesPresent,deviceID):
-    if devicesOpen and devicesPresent:
-        od.close_device(deviceID);
-
-
-
-def setUpDevice(devicesPresent, deviceOpen,device,\
+def openDevice(deviceIDs,deviceIndex):
+    deviceID = deviceIDs[deviceIndex]
+    device   = od.open_device(deviceID)
+    serialNumber = device.get_serial_number()
+    print("Device Serial Number: %s" % serialNumber)
+    return deviceID,device,serialNumber;
+    
+def setUpDevice(device,\
                 electricDarkCorrelationUsage,\
                 nonLinearityCorrectionUsage,\
                 integrationTimeMicroSec,\
                 ):
-    if devicesPresent:
-        print("Devices Present")
-        if deviceOpen:
-            print("Device Open")
-            print("Setting Up Device")
-            device.set_electric_dark_correction_usage(electricDarkCorrelationUsage)
-            device.set_nonlinearity_correction_usage(nonLinearityCorrectionUsage)
-            device.set_integration_time(integrationTimeMicroSec)
-        else:
-            print("Device not open")    
-    else:
-        print("No Devices found to setup")    
+    device.set_electric_dark_correction_usage(electricDarkCorrelationUsage)
+    device.set_nonlinearity_correction_usage(nonLinearityCorrectionUsage)
+    device.set_integration_time(integrationTimeMicroSec)
 
-def getSingleSpectrum(devicesPresent, deviceOpen,device):
-    if devicesPresent:
-        print("Devices Present")
-        if deviceOpen:
-            print("Device Open")
-            print("Setting Up Device")
-            try: 
-                spectra_m = device.get_formatted_spectrum()
-                print(spectra_m)
-                return spectra_m;
-            except OceanDirectError as e:
-                print("Error Reading Data")
-                print(e.get_error_details())
-                return [];
-        else:
-            print("Device not open")    
-    else:
-        print("No Devices found to setup")   
+def getSingleSpectrum(device):
+    print("Obtaining Spectrum")
+    spectra = device.get_formatted_spectrum()
+    print(spectra)
+    return spectra;
 
+
+def closeDevice(deviceID):
+    print("Closing Device")
+    od.close_device(deviceID);
+    
 
         
 

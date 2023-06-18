@@ -29,8 +29,6 @@ def get_spectra_single(device,numb_spectra):
     except OceanDirectError as e:
         logger.error(e.get_error_details())   
 
-
-
 print(device_ids)  
 print(device_count)
 

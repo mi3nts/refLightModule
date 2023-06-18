@@ -59,46 +59,23 @@ if __name__ == "__main__":
     print()
 
     devicesPresent, deviceIDs = mO.checkingDevicePresence()
-    device, deviceOpen, deviceID, deviceSerialNumber = \
+    if devicesPresent:
+        print("Ocean Optics Spectrometors found")
         mO.openDevice(deviceOpen,devicesPresent,deviceIDs)
     
-    mO.setUpDevice(devicesPresent, deviceOpen, device,\
+    # Only choosing the 1st Device
+    deviceID,device,serialNumer =  mO.openDevice(deviceIDs,0)
+    
+    mO.setUpDevice(device,\
                     electricDarkCorrelationUsage,\
                     nonLinearityCorrectionUsage,\
                     integrationTimeMicroSec,\
                     )
-    
 
-    mO.getSingleSpectrum(devicesPresent,deviceOpen,device)
-
-
-    mO.getSingleSpectrum(devicesPresent,deviceOpen,device)
-    
-
-    mO.closeDevice(deviceOpen,devicesPresent,deviceID)
-
-    
-
+    mO.getSingleSpectrum(device)
    
-    # while True:
-    #     try:    
 
+    mO.closeDevice(deviceID)
 
+    
 
-        # except Exception as e:
-        #     time.sleep(.5)
-        #     print ("Error and type: %s - %s." % (e,type(e)))
-        #     time.sleep(.5)
-        #     print("Data Packet Not Sent")
-        #     time.sleep(.5)
-
-                  
-        
-        
-        
-
-        
-        
-        
-        
-        
