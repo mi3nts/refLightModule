@@ -40,8 +40,7 @@ if (device_count):
         serialNumber = device.get_serial_number()
         print("Serial Number: %s" % serialNumber)
         
-        deviceID = device.Id;
-        print(deviceID)
+
         
         int_time_us = 218 
         numb_spectra = 4560
