@@ -72,7 +72,7 @@ def getSingleSpectrum(device):
 def closeDevice(deviceID):
     print("Closing Device")
     od.close_device(deviceID);
-    
+
 
         
 
@@ -100,6 +100,3 @@ def getSpectraSingle(devicesPresent, deviceOpen,\
     else:
         print("No Devices found to setup")   
 
-def closeDevice(deviceOpen,devicesPresent,deviceID):
-    if deviceOpen and devicesPresent:
-        od.close_device(deviceID);
