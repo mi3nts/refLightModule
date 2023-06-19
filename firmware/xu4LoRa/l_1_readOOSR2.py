@@ -84,7 +84,7 @@ if __name__ == "__main__":
         titleStr = "Serial Number: " + str(serialNumer) \
                   + "Electric Dark Correlation Usage: " + str(electricDarkCorrelationUsage)\
                   + "Non Linearity Correction Usage: " + str(nonLinearityCorrectionUsage)\
-                  + "Integration Time:" + str(integrationTimeMicroSec) +" μs"\
+                  + "Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
                   + "Spectrum read at: " + str(dateTime) 
         
         plt.title(titleStr)
