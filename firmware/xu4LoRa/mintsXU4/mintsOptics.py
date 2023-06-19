@@ -57,8 +57,8 @@ def openDevice(deviceIDs,deviceIndex):
 def getSpectrumDetails(device):
     device.details()
     waveLengths = device.wavelengths()
-    print("Wave Lengths")
-    print(waveLengths)
+    # print("Wave Lengths")
+    # print(waveLengths)
     return waveLengths
 
 
