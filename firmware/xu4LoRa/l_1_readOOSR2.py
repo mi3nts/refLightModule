@@ -86,9 +86,14 @@ if __name__ == "__main__":
                   + "Non Linearity Correction Usage: " + str(nonLinearityCorrectionUsage)\
                   + "Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
                   + "Spectrum read at: " + str(dateTime) 
-        plt.rc('text', usetex=True)
-        
-        plt.title("r'\fontsize{5pt}{3em}\selectfont{'arial'}{"+titleStr+"}")
+
+
+        font = {'family' : 'normal',
+                'weight' : 'bold',
+                'size'   : 10}
+
+        plt.rc('font', **font)
+        plt.title(titleStr)
         plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
         mO.closeDevice(deviceID)
     
