@@ -74,7 +74,7 @@ if __name__ == "__main__":
                     integrationTimeMicroSec,\
                     )
 
-    mO.getSingleSpectrum(device)
+    # mO.getSingleSpectrum(device)
    
 
     mO.closeDevice(deviceID)
