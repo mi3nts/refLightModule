@@ -25,7 +25,7 @@ import struct
 import numpy as np
 import pynmea2
 import shutil
-
+from matplotlib import pyplot as plt
 
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
@@ -61,23 +61,37 @@ if __name__ == "__main__":
     devicesPresent, deviceIDs = mO.checkingDevicePresence()
     if devicesPresent:
         print("Ocean Optics Spectrometors found")
-        mO.openDevice(deviceIDs,0)
+        # Only choosing the 1st Device
+        deviceID,device,serialNumer =  mO.openDevice(deviceIDs,0)
     
-    # Only choosing the 1st Device
-    deviceID,device,serialNumer =  mO.openDevice(deviceIDs,0)
+        mO.getSpectrumDetails(device)
+
+        mO.setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+        
+        waveLengths  = mO.getSpectrumDetails(device)
+
+        dateTime     = datetime.datetime("now")
+        spectrum     = mO.getSingleSpectrum(device)
+
+        plt.plot(waveLengths,spectrum)
+        plt.xlabel('Wave Lengths (nm)')
+        plt.ylabel('Energy')
+        
+        titleStr = "Serial Number: " + str(serialNumer) + \
+                  + "Electric Dark Correlation Usage " + str(electricDarkCorrelationUsage)\
+                  + "Non Linearity Correction Usage " + str(nonLinearityCorrectionUsage)\
+                  + "Integration Time" + str(nonLinearityCorrectionUsage) +" μs"\
+                  + "Spectrum read at: " + str(dateTime) 
+        
+        plt.title(titleStr)
+        plt.savefig(titleStr.replace(" ","")+".png")
+        mO.closeDevice(deviceID)
     
-    mO.getSpectrumDetails(device)
-
-    mO.setUpDevice(device,\
-                    electricDarkCorrelationUsage,\
-                    nonLinearityCorrectionUsage,\
-                    integrationTimeMicroSec,\
-                    )
-
-    mO.getSingleSpectrum(device)
-   
-
-    mO.closeDevice(deviceID)
-
-    
+    else:
+        print("No Ocean Optics Spectrometors found")
+        
 
