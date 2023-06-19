@@ -47,7 +47,7 @@ deviceOpen = False
 
 macAddress          = mD.macAddress
 
-electricDarkCorrelationUsage = True
+electricDarkCorrelationUsage = False
 nonLinearityCorrectionUsage  = False
 integrationTimeMicroSec      = 1000000 
 
