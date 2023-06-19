@@ -88,7 +88,7 @@ if __name__ == "__main__":
                   + "Spectrum read at: " + str(dateTime) 
         plt.rc('text', usetex=True)
         
-        plt.title("r'\fontsize{10pt}{3em}\selectfont{}{"+titleStr+"}")
+        plt.title("r'\fontsize{5pt}{3em}\selectfont{}{"+titleStr+"}")
         plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
         mO.closeDevice(deviceID)
     
