@@ -82,12 +82,12 @@ if __name__ == "__main__":
         plt.ylabel('Energy')
         
         titleStr = "Serial Number: " + str(serialNumer) \
-                  + "Electric Dark Correlation Usage " + str(electricDarkCorrelationUsage)\
-                  + "Non Linearity Correction Usage " + str(nonLinearityCorrectionUsage)\
-                  + "Integration Time" + str(nonLinearityCorrectionUsage) +" μs"\
+                  + "Electric Dark Correlation Usage: " + str(electricDarkCorrelationUsage)\
+                  + "Non Linearity Correction Usage: " + str(nonLinearityCorrectionUsage)\
+                  + "Integration Time:" + str(nonLinearityCorrectionUsage) +" μs"\
                   + "Spectrum read at: " + str(dateTime) 
         
-        plt.title("Spectrum")
+        plt.title(titleStr)
         plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
         mO.closeDevice(deviceID)
     
