@@ -87,7 +87,7 @@ if __name__ == "__main__":
                   + "Integration Time" + str(nonLinearityCorrectionUsage) +" μs"\
                   + "Spectrum read at: " + str(dateTime) 
         
-        plt.title(titleStr)
+        plt.title("Spectrum")
         plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
         mO.closeDevice(deviceID)
     
