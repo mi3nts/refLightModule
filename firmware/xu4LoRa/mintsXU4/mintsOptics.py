@@ -59,6 +59,7 @@ def getSpectrumDetails(device):
     waveLengths = device.get_wavelengths()
     print("Wave Lengths")
     print(waveLengths)
+    print("Number of Wavelengths returned")
     print(len(waveLengths))
     return waveLengths
 
