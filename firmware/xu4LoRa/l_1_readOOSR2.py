@@ -47,8 +47,8 @@ deviceOpen = False
 
 macAddress          = mD.macAddress
 
-electricDarkCorrelationUsage = False
-nonLinearityCorrectionUsage  = False
+electricDarkCorrelationUsage = True
+nonLinearityCorrectionUsage  = True
 integrationTimeMicroSec      = 1000000 
 
 
@@ -82,10 +82,10 @@ if __name__ == "__main__":
         plt.ylabel('Energy')
         
         titleStr = "Serial Number: " + str(serialNumer) \
-                  + " Electric Dark Correlation Usage: " + str(electricDarkCorrelationUsage)\
-                  + " Non Linearity Correction Usage: " + str(nonLinearityCorrectionUsage)\
-                  + " Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
-                  + " Spectrum read at: " + str(dateTime) 
+                  + " ,Electric Dark Correlation Usage:" + str(electricDarkCorrelationUsage)\
+                  + " ,Non Linearity Correction Usage:" + str(nonLinearityCorrectionUsage)\
+                  + " ,Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
+                  + " ,Spectrum read at:" + str(dateTime) 
 
 
         font = {'family' : 'normal',
