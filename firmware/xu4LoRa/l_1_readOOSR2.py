@@ -82,15 +82,15 @@ if __name__ == "__main__":
         plt.ylabel('Energy')
         
         titleStr = "Serial Number: " + str(serialNumer) \
-                  + "Electric Dark Correlation Usage: " + str(electricDarkCorrelationUsage)\
-                  + "Non Linearity Correction Usage: " + str(nonLinearityCorrectionUsage)\
-                  + "Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
-                  + "Spectrum read at: " + str(dateTime) 
+                  + " Electric Dark Correlation Usage: " + str(electricDarkCorrelationUsage)\
+                  + " Non Linearity Correction Usage: " + str(nonLinearityCorrectionUsage)\
+                  + " Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
+                  + " Spectrum read at: " + str(dateTime) 
 
 
         font = {'family' : 'normal',
                 'weight' : 'bold',
-                'size'   : 4}
+                'size'   : 5}
 
         plt.rc('font', **font)
         plt.title(titleStr)
