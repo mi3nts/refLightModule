@@ -53,6 +53,10 @@ def openDevice(deviceIDs,deviceIndex):
     print("Device Serial Number: %s" % serialNumber)
     return deviceID,device,serialNumber;
     
+
+def getSpectrumDetails(device):
+    device.details()
+
 def setUpDevice(device,\
                 electricDarkCorrelationUsage,\
                 nonLinearityCorrectionUsage,\
