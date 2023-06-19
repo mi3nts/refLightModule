@@ -57,10 +57,10 @@ def openDevice(deviceIDs,deviceIndex):
 def getSpectrumDetails(device):
     device.details()
     waveLengths = device.get_wavelengths()
-    print("Wave Lengths")
-    print(waveLengths)
-    print("Number of Wavelengths returned")
-    print(len(waveLengths))
+    # print("Wave Lengths")
+    # print(waveLengths)
+    # print("Number of Wavelengths returned")
+    # print(len(waveLengths))
     return waveLengths
 
 
@@ -69,15 +69,18 @@ def setUpDevice(device,\
                 nonLinearityCorrectionUsage,\
                 integrationTimeMicroSec,\
                 ):
+    print("Setting Dark Correction usage to: " +electricDarkCorrelationUsage)
     device.set_electric_dark_correction_usage(electricDarkCorrelationUsage)
+    print("Setting Nonlinearity Correction usage to: " +electricDarkCorrelationUsage)
     device.set_nonlinearity_correction_usage(nonLinearityCorrectionUsage)
+    print("Settin Integration Time to: " +electricDarkCorrelationUsage + " micro seconds")
     device.set_integration_time(integrationTimeMicroSec)
 
 def getSingleSpectrum(device):
     print("Obtaining Spectrum")
     spectra = device.get_formatted_spectrum()
     # print(spectra)
-    print(len(spectra))
+    # print(len(spectra))
     return spectra;
 
 
