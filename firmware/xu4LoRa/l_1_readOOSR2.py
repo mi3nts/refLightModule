@@ -49,7 +49,7 @@ macAddress          = mD.macAddress
 
 electricDarkCorrelationUsage = True
 nonLinearityCorrectionUsage  = True
-integrationTimeMicroSec      = 1000 
+integrationTimeMicroSec      = 1000000 
 
 
 if __name__ == "__main__":
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         titleStr = "Serial Number: " + str(serialNumer) \
                   + "Electric Dark Correlation Usage: " + str(electricDarkCorrelationUsage)\
                   + "Non Linearity Correction Usage: " + str(nonLinearityCorrectionUsage)\
-                  + "Integration Time:" + str(nonLinearityCorrectionUsage) +" μs"\
+                  + "Integration Time:" + str(integrationTimeMicroSec) +" μs"\
                   + "Spectrum read at: " + str(dateTime) 
         
         plt.title(titleStr)
