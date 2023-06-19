@@ -76,7 +76,8 @@ def setUpDevice(device,\
 def getSingleSpectrum(device):
     print("Obtaining Spectrum")
     spectra = device.get_formatted_spectrum()
-    print(spectra)
+    # print(spectra)
+    print(len(spectra))
     return spectra;
 
 
