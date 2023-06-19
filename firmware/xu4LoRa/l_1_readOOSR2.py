@@ -74,7 +74,7 @@ if __name__ == "__main__":
         
         waveLengths  = mO.getSpectrumDetails(device)
 
-        dateTime     = datetime.datetime("now")
+        dateTime     = datetime.datetime.now()
         spectrum     = mO.getSingleSpectrum(device)
 
         plt.plot(waveLengths,spectrum)
