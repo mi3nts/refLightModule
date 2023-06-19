@@ -66,8 +66,8 @@ if __name__ == "__main__":
     # Only choosing the 1st Device
     deviceID,device,serialNumer =  mO.openDevice(deviceIDs,0)
     
-    mO.getSpectrumDetails()
-    
+    mO.getSpectrumDetails(device)
+
     mO.setUpDevice(device,\
                     electricDarkCorrelationUsage,\
                     nonLinearityCorrectionUsage,\
