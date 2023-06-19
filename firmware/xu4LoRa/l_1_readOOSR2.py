@@ -81,7 +81,7 @@ if __name__ == "__main__":
         plt.xlabel('Wave Lengths (nm)')
         plt.ylabel('Energy')
         
-        titleStr = "Serial Number: " + str(serialNumer) + \
+        titleStr = "Serial Number: " + str(serialNumer) \
                   + "Electric Dark Correlation Usage " + str(electricDarkCorrelationUsage)\
                   + "Non Linearity Correction Usage " + str(nonLinearityCorrectionUsage)\
                   + "Integration Time" + str(nonLinearityCorrectionUsage) +" μs"\
