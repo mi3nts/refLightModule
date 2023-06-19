@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
         font = {'family' : 'normal',
                 'weight' : 'bold',
-                'size'   : 2}
+                'size'   : 4}
 
         plt.rc('font', **font)
         plt.title(titleStr)
