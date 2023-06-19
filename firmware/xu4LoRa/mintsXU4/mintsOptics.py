@@ -69,11 +69,11 @@ def setUpDevice(device,\
                 nonLinearityCorrectionUsage,\
                 integrationTimeMicroSec,\
                 ):
-    print("Setting Dark Correction usage to: " +electricDarkCorrelationUsage)
+    print("Setting Dark Correction usage to: " +str(electricDarkCorrelationUsage))
     device.set_electric_dark_correction_usage(electricDarkCorrelationUsage)
-    print("Setting Nonlinearity Correction usage to: " +electricDarkCorrelationUsage)
+    print("Setting Nonlinearity Correction usage to: " +str(electricDarkCorrelationUsage))
     device.set_nonlinearity_correction_usage(nonLinearityCorrectionUsage)
-    print("Settin Integration Time to: " +electricDarkCorrelationUsage + " micro seconds")
+    print("Settin Integration Time to: " +str(electricDarkCorrelationUsage)+ " micro seconds")
     device.set_integration_time(integrationTimeMicroSec)
 
 def getSingleSpectrum(device):
