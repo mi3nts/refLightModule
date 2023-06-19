@@ -88,7 +88,7 @@ if __name__ == "__main__":
                   + "Spectrum read at: " + str(dateTime) 
         
         plt.title(titleStr)
-        plt.savefig(titleStr.replace(" ","")+".png")
+        plt.savefig("/home/teamlary/Pictures/"+titleStr.replace(" ","")+".png")
         mO.closeDevice(deviceID)
     
     else:
