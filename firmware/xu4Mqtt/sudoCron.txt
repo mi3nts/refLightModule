@@ -1,0 +1,5 @@
+
+0 09 * * * sudo reboot
+@reboot cd /home/teamlary/gitHubRepos/refLightModule/firmware/xu4Mqtt && sudo ./sudoRun.sh
+
+
