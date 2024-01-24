@@ -16,5 +16,8 @@ Contains firmware for mints reference light sensor
   - Sky cloud pixels
   - Cloud Classification 
     
+## Installing the network driver on the H3
+- Following this tutorial
+  - https://wiki.odroid.com/odroid-h3/hardware/install_ethernet_driver_on_h3plus
  
    
