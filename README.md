@@ -20,7 +20,6 @@ Contains firmware for mints reference light sensor
 - Following this tutorial
   - https://wiki.odroid.com/odroid-h3/hardware/install_ethernet_driver_on_h3plus
  
-## On Boot Up 
 - Make sure all Bios Setting are set up 
   - Make sure all network itenaries are set to to true/ enabled
 - Installing  the realtech network driver
