@@ -14,26 +14,47 @@ Contains firmware for mints reference light sensor
   - **Rubber Sealant**
 - Sky Cam SW
   - Sky cloud pixels
-  - Cloud Classification 
-    
-## Installing the network driver on the H3
-- Following this tutorial
-  - https://wiki.odroid.com/odroid-h3/hardware/install_ethernet_driver_on_h3plus
- 
-- Make sure all Bios Setting are set up 
-  - Make sure all network itenaries are set to to true/ enabled
-- Installing  the realtech network driver
-From this link [https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software](link)
-download the *2.5G/5G Ethernet LINUX driver r8125 for kernel up to 6.4* driver
+  - Cloud Classification
 
-- Extract and install the driver
-  ```
-  tar -xjf r8125-9.012.04.tar.bz2
-  cd r8125-9.012.04
-  sudo apt install build-essential
-  sudo ./autorun.sh
-  ```
-- Check that the Network HW is visible
+
+
+
+**Installing Network Driver on H3**
+The following process s extracted from the following source: https://wiki.odroid.com/odroid-h3/hardware/install_ethernet_driver_on_h3plus
+
+
+
+1. **BIOS Settings and Network Configuration**
+   - Ensure that all BIOS settings are properly configured.
+   - Set all network itineraries to true or enabled.
+
+2. **Download the Realtek Network Driver**
+   - Visit [Realtek's official website](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software).
+   - Download the "2.5G/5G Ethernet LINUX driver r8125" suitable for kernel up to version 6.4.
+
+3. **Extract and Install the Driver**
+   - Open a terminal and navigate to the directory where the downloaded driver file is located.
+   - Extract the driver using the following commands:
+     ```bash
+     tar -xjf r8125-9.012.04.tar.bz2
+     cd r8125-9.012.04
+     ```
+   - Install necessary build tools:
+     ```bash
+     sudo apt install build-essential
+     ```
+   - Run the installation script:
+     ```bash
+     sudo ./autorun.sh
+     ```
+
+4. **Check Network Hardware Visibility**
+   - Confirm that the network hardware is visible by running the following command in the terminal:
+     ```bash
+     sudo lshw -C network
+     ```
+
+   Example output:
 ```
 [sudo] password for teamlary: 
   *-network                 
@@ -76,45 +97,43 @@ download the *2.5G/5G Ethernet LINUX driver r8125 for kernel up to 6.4* driver
        capabilities: ethernet physical wireless
        configuration: broadcast=yes driver=rt2800usb driverversion=5.15.0-91-generic firmware=0.36 ip=192.168.31.125 link=yes multicast=yes wireless=IEEE 802.11
 ```
-At this point, it might show the network card although visible, but disabled.
+**Enabling Network on H3**
 
-- Enable both ethernet ports
-```
-sudo ifconfig enp1s0 up
-sudo ifconfig enp2s0 up
-```
+At this point, the network card might be visible but disabled.
 
-- Edit the /etc/NetworkManager/NetworkManager.conf file so that it looks linke the following: 
-```
-[main]
-plugins=ifupdown,keyfile
+1. **Enable Ethernet Ports**
+   - If not already done, activate both Ethernet ports using the following commands:
+     ```bash
+     sudo ifconfig enp1s0 up
+     sudo ifconfig enp2s0 up
+     ```
 
-[ifupdown]
-managed=true
+2. **Edit NetworkManager Configuration**
+   - Open the NetworkManager configuration file in a text editor:
+     ```bash
+     sudo nano /etc/NetworkManager/NetworkManager.conf
+     ```
+   - Ensure the file has the following configuration:
+     ```ini
+     [main]
+     plugins=ifupdown,keyfile
 
-[device]
-wifi.scan-rand-mac-address=no
+     [ifupdown]
+     managed=true
 
-[keyfile]
-unmanaged-devices=*,except:type:wifi,except:type:wwan,except:type:ethernet
+     [device]
+     wifi.scan-rand-mac-address=no
 
-```
-In the case of a fresh ubuntu install managed key was false and the keyfile was not available.
+     [keyfile]
+     unmanaged-devices=*,except:type:wifi,except:type:wwan,except:type:ethernet
+     ```
 
-- Reboot the H3
+   If the 'managed' key was false or the 'keyfile' was not available, update it accordingly.
 
+3. **Reboot the H3**
+   - After completing the steps, reboot the H3 for the changes to take effect.
 
+This completes the process of installing and enabling the Realtek network driver on the H3 platform. Ensure that both Ethernet ports are activated, and the NetworkManager configuration is correctly set for optimal network functionality.
 
+Source: [ODROID Wiki](https://wiki.odroid.com/odroid-h3/hardware/install_ethernet_driver_on_h3plus))**
 
-
-
-
-
-
-
-
- 
-
-
- 
-   
