@@ -20,4 +20,32 @@ Contains firmware for mints reference light sensor
 - Following this tutorial
   - https://wiki.odroid.com/odroid-h3/hardware/install_ethernet_driver_on_h3plus
  
+## On Boot Up 
+- Make sure all Bios Setting are set up 
+  - Make sure all network itenaries are set to to true/ enabled
+- Installing  the realtech network driver
+From this link [https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software](link)
+download the *2.5G/5G Ethernet LINUX driver r8125 for kernel up to 6.4* driver
+- Extract and install the driver
+  ```
+   1019  tar -xjf r8125-9.012.04.tar.bz2 
+ 1020  ls
+ 1021  cd r8125-9.012.04
+ 1022  ;s
+ 1023  ls
+ 1024  sudo apt install build-essential
+ 1025  cd src/
+ 1026  ls
+ 1027  cd //
+ 1028  cd ~/Downloads/realTechEthernet/
+ 1029  ls
+ 1030  tree
+ 1031  ls
+ 1032  cd r8125-9.012.04/
+ 1033  ls
+ 1034  sudo ./autorun.sh 
+  ```
+
+
+ 
    
