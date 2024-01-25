@@ -19,8 +19,11 @@ Contains firmware for mints reference light sensor
   - BME280: 77 and possibly 76 
   - AS7265x: 49
   - SCD30: 61
-  - LTR390: maybe 10 
+  - LTR390: 53 is missing 
   - INA219: 40
+  - PA1010D: 10
+ 
+The address for 
 ```
 teamlary@teamlary-ODROID-H3:~$ sudo i2cdetect -y -r 1
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
