@@ -15,8 +15,24 @@ Contains firmware for mints reference light sensor
 - Sky Cam SW
   - Sky cloud pixels
   - Cloud Classification
-
-
+- I2C Addresses
+  - BME280: 77 and possibly 76 
+  - AS7265x: 49
+  - SCD30: 61
+  - LTR390: maybe 10 
+  - INA219: 40
+```
+teamlary@teamlary-ODROID-H3:~$ sudo i2cdetect -y -r 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: 10 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: 40 -- -- -- -- -- -- -- -- 49 -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- 61 -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- 76 77
+```
 
 
 **Installing Network Driver on H3**
