@@ -6,7 +6,10 @@ import logging
 import smbus2
 import struct
 import time
-
+from mintsXU4 import mintsSensorReader as mSR
+from mintsXU4 import mintsDefinitions as mD
+from collections import OrderedDict
+import datetime
 # to_s16 = lambda x: (x + 2**15) % 2**16 - 2**15
 # to_u16 = lambda x: x % 2**16
 
@@ -50,14 +53,14 @@ class SCD30:
 
         if not retriesIn:
             time.sleep(1)
-            return False
+            return False;
         else:
             self.get_firmware_version()
             self.set_measurement_interval(5)
             self.set_auto_self_calibration(active=False)
             self.start_periodic_measurement()
             time.sleep(1)
-            return True 
+            return True ;
     
     def read(self):
         if self.get_data_ready():
@@ -69,15 +72,42 @@ class SCD30:
                 return [co2,temp,rh];
             else:
                 time.sleep(1)
-                return;
                 print("SCD30 Measurments not read")    
+                return;
+
         else:
             time.sleep(1)
             print("SCD30 Not Ready")
             return;
+    
+    def readMqtt(self):
+        if self.get_data_ready():
+            dateTime  = datetime.datetime.now()
+            measurement = self.read_measurement()
+            if measurement is not None:
+                co2, temp, rh = measurement
+                # print("CO2: {:.2f}ppm, temp: {:.2f}'C, rh: {:.2f}%".format(co2,temp,rh))
+                sensorDictionary =  OrderedDict([
+                    ("dateTime"     , str(dateTime)), # always the same
+                    ("co2"          ,co2),
+                    ("temperature"  ,temp),
+                    ("humidity"     ,rh),
+                    ])        
+                # print(sensorDictionary)
+                mSR.sensorFinisher(dateTime,"SCD30V2",sensorDictionary)
+                time.sleep(1)   
+                return;
 
 
-        
+            else:
+                time.sleep(1)
+                print("SCD30 Measurments not read")    
+                return;
+
+        else:
+            time.sleep(1)
+            print("SCD30 Not Ready")
+            return;
 
     def get_firmware_version(self):
         """Reads the firmware version from the sensor.
@@ -255,33 +285,7 @@ class SCD30:
         """
         self.job_send_command(SOFT_RESET, num_response_words=0)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ### All The JOBS NEEDED FOR SCD30 I2C  
+   ### All The JOBS NEEDED FOR SCD30 I2C  
     def job_check_word(self, word):
         """Checks weather the data added is actually 2 bytes or less.
          If not it throws an error.

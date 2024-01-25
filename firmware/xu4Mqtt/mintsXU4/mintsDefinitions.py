@@ -49,6 +49,8 @@ def findMacAddress():
     return "xxxxxxxx"
 
 
+latestDisplayOn       = False
+latestOn              = False
 
 macAddress               = findMacAddress()
 
@@ -58,11 +60,20 @@ loRaCredentials          = yaml.load(open('mintsXU4/credentials/loRacredentials.
 fPortIDs                 = yaml.load(open('mintsXU4/credentials/portIDs.yaml'),Loader=yaml.FullLoader)['portIDs']
 nodeIDs                  = yaml.load(open('mintsXU4/credentials/nodeIDs.yaml'),Loader=yaml.FullLoader)
 
+mqttCredentialsFile      = 'mintsXU4/credentials/credentials.yaml'
+mqttBroker               = "mqtt.circ.utdallas.edu"
+mqttPort                 =  8883  # Secure port
+
 keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Loader=yaml.FullLoader)
 
 dataFolder                = mintsDefinitions['dataFolder']
 dataFolderTmp             = mintsDefinitions['dataFolderTmp']
 dataFolderJson            = mintsDefinitions['dataFolderJson']
+
+
+dataFolderReference       = "/home/teamlary/mintsData/reference"
+dataFolderMQTTReference   = "/home/teamlary/mintsData/referenceMQTT"
+dataFolderMQTT            = "/home/teamlary/mintsData/rawMQTT"
 
 mqttPortLoRa              = loRaCredentials['port']
 mqttBrokerLoRa            = loRaCredentials['broker']
