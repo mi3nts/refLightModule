@@ -22,6 +22,16 @@ dL = [L(P + 1) - L(P - 1)] / 2
 The collection area for a measurement is usually taken to be the surface area of the optic closest to the light source.  For instance, if the light source is being sampled most directly by a fiber optic cable, then the end of the fiber is the active optic and its surface area should be used (which can be computed from the fiber diameter).  If a cosine corrector is being used, then the surface area of the cosine corrector provides the collection area.  If an integrating sphere is being used but the light source is outside the sphere, then the size of the aperture in the side of the sphere is what determines the collection area.
 
 
+![image](https://github.com/mi3nts/refLightModule/assets/25510132/a721f0c6-59b9-45a6-95f2-723756937f4a)
+
+The steps appear to be as follows: 
+
+Read in raw spectra (intensity in counts) 
+Subtract a previously captured dark reference spectrum (with fibre covered) 
+Multiply by values from calibration file 
+Divide by collection area
+Divide by integration time
+Divide by wavelength bin size 
 
 # Things to do 
 - Auto boot from power cycling
