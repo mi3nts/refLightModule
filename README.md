@@ -25,13 +25,12 @@ The collection area for a measurement is usually taken to be the surface area of
 ![image](https://github.com/mi3nts/refLightModule/assets/25510132/a721f0c6-59b9-45a6-95f2-723756937f4a)
 
 The steps appear to be as follows: 
-
-Read in raw spectra (intensity in counts) 
-Subtract a previously captured dark reference spectrum (with fibre covered) 
-Multiply by values from calibration file 
-Divide by collection area
-Divide by integration time
-Divide by wavelength bin size 
+- Read in raw spectra (intensity in counts) 
+- Subtract a previously captured dark reference spectrum (with fibre covered) 
+- Multiply by values from calibration file 
+- Divide by collection area
+- Divide by integration time
+- Divide by wavelength bin size 
 
 # Things to do 
 - Auto boot from power cycling
