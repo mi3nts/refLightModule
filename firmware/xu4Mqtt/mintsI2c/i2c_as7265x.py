@@ -4,10 +4,9 @@ import logging
 import smbus2
 import struct
 import time
-
-import time
-import struct
-
+from collections import OrderedDict
+import datetime
+from mintsXU4 import mintsSensorReader as mSR
 AS7265X_I2C_ADDR = 0x49
 
 STATUS_REG = 0x00
@@ -153,6 +152,35 @@ class AS7265X():
         # print(data)
         time.sleep(1)        
         return data;
+
+    def readMqtt(self):
+        dateTime  = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+        ("dateTime"     , str(dateTime)), # always the same
+        ("channelA410nm",self.getCalibratedA()),
+        ("channelA435nm",self.getCalibratedB()),
+        ("channelA460nm",self.getCalibratedC()),
+        ("channelA485nm",self.getCalibratedD()),
+        ("channelA510nm",self.getCalibratedE()),
+        ("channelA535nm",self.getCalibratedF()),
+        ("channelA560nm",self.getCalibratedG()),
+        ("channelA585nm",self.getCalibratedH()),
+        ("channelA610nm",self.getCalibratedR()),
+        ("channelA645nm",self.getCalibratedI()),
+        ("channelA680nm",self.getCalibratedS()),
+        ("channelA705nm",self.getCalibratedJ()),
+        ("channelA730nm",self.getCalibratedT()),
+        ("channelA760nm",self.getCalibratedU()),
+        ("channelA810nm",self.getCalibratedV()),
+        ("channelA860nm",self.getCalibratedW()),
+        ("channelA900nm",self.getCalibratedK()),
+        ("channelA940nm",self.getCalibratedL()),
+            ])        
+        # print(sensorDictionary)
+        mSR.sensorFinisher(dateTime,"AS7265X",sensorDictionary)
+        time.sleep(1)        
+        return;
+
 
     def begin(self):
 
