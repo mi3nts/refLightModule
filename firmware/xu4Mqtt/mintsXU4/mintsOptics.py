@@ -63,6 +63,42 @@ def getSpectrumDetails(device):
     # print(len(waveLengths))
     return waveLengths
 
+def getAllSpectrumDetails(device):
+    print("Ocean Optics Spectrum Details Complete:")
+    device.details()
+    time.sleep(1)
+    deviceType         = device.get_type()
+    time.sleep(1)
+    deviceModel        = device.get_model()
+    time.sleep(1)
+    serialNumber       = device.get_serial_number()
+    time.sleep(1)
+    maxIntensity       = device.get_max_intensity ()
+    time.sleep(1)
+    minIntegrationTime = device.get_minimum_integration_time()    
+    time.sleep(1)
+    maxIntegrationTime = device.get_maximum_integration_time()
+    time.sleep(1)
+    maxIntegrationTime = device.get_maximum_integration_time()
+    time.sleep(1)
+    print("Device Type")
+    print(deviceType)
+    print("Device Model")
+    print(deviceModel)
+    print("Serial Number")
+    print(serialNumber)
+    print("Max Intensity")
+    print(maxIntensity)
+    print("Minimum Integration Time")
+    print(minIntegrationTime)
+    print("Maximum Integration Time")
+    print(maxIntegrationTime)
+    print("Maximum Integration Time")
+    print(maxIntegrationTime)
+
+    return;
+
+
 
 def setUpDevice(device,\
                 electricDarkCorrelationUsage,\
