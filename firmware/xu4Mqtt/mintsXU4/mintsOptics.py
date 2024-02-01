@@ -396,7 +396,7 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
                         )
     time.sleep(1)
 
-    formattedSpectrum                   = device.nonlinearity_correct_spectrum1(darkSpectrum)
+    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
     labelSpaced, labelNoSpaces = \
                 getStringTitle(serialNumber, preTitle,\
                     electricDarkCorrelationUsage,\
