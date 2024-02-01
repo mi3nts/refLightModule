@@ -97,18 +97,18 @@ def getAllSpectrumDetails(device):
 
 
     # print("Device Type", deviceType)
-    print("Device Model", deviceModel)
-    print("Serial Number", serialNumber)
-    print("Max Intensity", maxIntensity)
-    print("Minimum Integration Time", minIntegrationTime)
-    print("Maximum Integration Time", maxIntegrationTime)
-    print("Integration Time", integrationTime)
-    print("# of Dark Pixels", numberOfDarkPixeks)
-    print("Acquisition Delay", acquisitionDelay)
-    print("Acquisition Delay Incriment", acquisitionDelayIncrement)
-    print("Minimum Acquisition Delay",acquisitionDelayIncrementMin)
-    print("Maximum Acquisition Delay",acquisitionDelayIncrementMax)
-    print("Non Linearaty Correction",acquisitionDelayIncrementMax)
+    print("Device Model                :",deviceModel)
+    print("Serial Number               :",serialNumber)
+    print("Max Intensity               :",maxIntensity)
+    print("Minimum Integration Time    :",minIntegrationTime)
+    print("Maximum Integration Time    :",maxIntegrationTime)
+    print("Integration Time            :",integrationTime)
+    print("# of Dark Pixels            :",numberOfDarkPixeks)
+    print("Acquisition Delay           :",acquisitionDelay)
+    print("Acquisition Delay Incriment :",acquisitionDelayIncrement)
+    print("Minimum Acquisition Delay   :",acquisitionDelayIncrementMin)
+    print("Maximum Acquisition Delay   :",acquisitionDelayIncrementMax)
+    print("Non Linearaty Correction    :",nonLinearityCorrectionUsage)
 
     return;
 
