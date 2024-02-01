@@ -64,15 +64,10 @@ if __name__ == "__main__":
         # Only choosing the 1st Device
         deviceID,device =  mO.openDevice(deviceIDs,0)
 
-        # mO.setUpDevice(device,\
-        #                 electricDarkCorrelationUsage,\
-        #                 nonLinearityCorrectionUsage,\
-        #                 integrationTimeMicroSec,\
-        #                 )
-            
         mO.getAllSpectrumDetails(device)
 
-        mO.obtainPrevioslySavedDarkSpectrum(device)
+        mO.obtainTestSpectrums(device,\
+                            integrationTimeMicroSec)
 
         # waveLengths  = mO.getSpectrumDetails(device)
 

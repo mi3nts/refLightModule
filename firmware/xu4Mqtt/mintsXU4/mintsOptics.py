@@ -159,10 +159,10 @@ def obtainTestSpectrums(device,\
                         integrationTimeMicroSec,\
                         )
     time.sleep(1)
-    preTitle = "Formatted Spectrum"
+    preTitle = "Formatted Spectrum 11"
     formattedSpectrum                   = device.get_formatted_spectrum()
-    plotter(waveLengths,electricDarkCorrelationUsage,\
-            serialNumber,\
+    plotter(waveLengths,formattedSpectrum,\
+            serialNumber,preTitle,\
                 electricDarkCorrelationUsage,\
                     nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
@@ -176,10 +176,10 @@ def obtainTestSpectrums(device,\
                         integrationTimeMicroSec,\
                         )
     time.sleep(1)
-    preTitle = "Formatted Spectrum"
+    preTitle = "Formatted Spectrum 10"
     formattedSpectrum                   = device.get_formatted_spectrum()
-    plotter(waveLengths,electricDarkCorrelationUsage,\
-            serialNumber,\
+    plotter(waveLengths,formattedSpectrum,\
+            serialNumber,preTitle,\
                 electricDarkCorrelationUsage,\
                     nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
@@ -193,10 +193,10 @@ def obtainTestSpectrums(device,\
                         integrationTimeMicroSec,\
                         )
     time.sleep(1)
-    preTitle = "Formatted Spectrum"
+    preTitle = "Formatted Spectrum 01"
     formattedSpectrum                   = device.get_formatted_spectrum()
-    plotter(waveLengths,electricDarkCorrelationUsage,\
-            serialNumber,\
+    plotter(waveLengths,formattedSpectrum,\
+            serialNumber,preTitle,\
                 electricDarkCorrelationUsage,\
                     nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
@@ -210,7 +210,7 @@ def obtainTestSpectrums(device,\
                         integrationTimeMicroSec,\
                         )
     time.sleep(1)
-    preTitle = "Formatted Spectrum"
+    preTitle = "Formatted Spectrum 00"
     formattedSpectrum                   = device.get_formatted_spectrum()
     plotter(waveLengths,formattedSpectrum,\
             serialNumber,preTitle,\
