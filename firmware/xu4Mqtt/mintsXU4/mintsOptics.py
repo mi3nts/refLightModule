@@ -348,7 +348,7 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     print("Collecting an Ambient Spectrum")
     
     # Dark Spectrum --------------
-    preTitle = "Dark Spectrum"
+    preTitle = "Dark Spectrum at 00"
     
     electricDarkCorrelationUsage =  False
     nonLinearityCorrectionUsage  =  False
