@@ -49,9 +49,9 @@ def checkingDevicePresence():
 def openDevice(deviceIDs,deviceIndex):
     deviceID = deviceIDs[deviceIndex]
     device   = od.open_device(deviceID)
-    serialNumber = device.get_serial_number()
-    print("Device Serial Number: %s" % serialNumber)
-    return deviceID,device,serialNumber;
+    # serialNumber = device.get_serial_number()
+    # print("Device Serial Number: %s" % serialNumber)
+    return deviceID,device;
     
 
 def getSpectrumDetails(device):
@@ -64,7 +64,9 @@ def getSpectrumDetails(device):
     return waveLengths
 
 def getAllSpectrumDetails(device):
-    print("Ocean Optics Spectrum Details Complete:")
+    
+    print("===========================")
+    print("Ocean Optics Spectrum Info:")
     # device.details()
     # time.sleep(1)
     deviceType         = device.get_device_type()
@@ -117,7 +119,7 @@ def getAllSpectrumDetails(device):
     
     nonLinearityCorrectionUsage    = device.get_nonlinearity_correction_usage()
     print("Non Linearaty Correction    :",nonLinearityCorrectionUsage)
-    
+
     return;
 
 
