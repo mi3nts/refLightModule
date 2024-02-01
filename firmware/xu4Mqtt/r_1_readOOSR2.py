@@ -64,7 +64,7 @@ if __name__ == "__main__":
         # Only choosing the 1st Device
         deviceID,device =  mO.openDevice(deviceIDs,0)
 
-        mO.getAllSpectrumDetails(device)
+        # mO.getAllSpectrumDetails(device)   
 
         mO.obtainDarkSpectrums(device,\
                             integrationTimeMicroSec)
