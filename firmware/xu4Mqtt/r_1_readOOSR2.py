@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
         mO.getAllSpectrumDetails(device)
 
-        mO.obtainTestSpectrums(device,\
+        mO.obtainDarkSpectrums(device,\
                             integrationTimeMicroSec)
 
         # waveLengths  = mO.getSpectrumDetails(device)
