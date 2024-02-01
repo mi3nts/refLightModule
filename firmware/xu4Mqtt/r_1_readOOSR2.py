@@ -64,11 +64,26 @@ if __name__ == "__main__":
         # Only choosing the 1st Device
         deviceID,device =  mO.openDevice(deviceIDs,0)
 
+
+        time.sleep(1)
+        waveLengths                = device.get_wavelengths()
+        time.sleep(1)
+        serialNumber               = device.get_serial_number()
+        time.sleep(1)   
+
+        # Loading the dark spectrum 
+        darkSpectrumFile = "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-01_21:51:19_528865+00:00.pkl"
+
+
         # mO.getAllSpectrumDetails(device)   
 
-        mO.obtainDarkSpectrums(device,\
-                            integrationTimeMicroSec)
+        # mO.obtainDarkSpectrums(device,\
+        #                     integrationTimeMicroSec)
 
+        # mO.obtainDarkSpectrums(device,\
+        #                     integrationTimeMicroSec)
+
+        mO.getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLengths,darkSpectrumFile)
         # waveLengths  = mO.getSpectrumDetails(device)
 
         # dateTime     = datetime.datetime.now()

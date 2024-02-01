@@ -271,6 +271,14 @@ def pickleListFloatSave(floatList,fileName):
         print(f"An error occurred: {e}")
 
 
+def pickleListFloatLoad(fileName):
+    try:
+        with open(fileName, 'rb') as file:
+            loaded_float_list = pickle.load(file)
+            print("Loaded float list:", loaded_float_list)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    return loaded_float_list; 
 
 def plotter(waveLengths,spectrum,\
             titleName, fileName):
@@ -301,10 +309,10 @@ def getSingleSpectrum(device):
     # print(len(spectra))
     return spectra;
 
-
 def closeDevice(deviceID):
     print("Closing Device")
     od.close_device(deviceID);
+
 
 def getSpectraSingle(devicesPresent, deviceOpen,\
                      device,numbSpectra,logger):
@@ -329,4 +337,97 @@ def getSpectraSingle(devicesPresent, deviceOpen,\
             print("Device not open")    
     else:
         print("No Devices found to setup")   
+
+
+def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLengths,darkSpectrumFile):
+
+    print("Loading dark spectrum file")
+    darkSpectrum = pickleListFloatLoad(darkSpectrumFile)
+
+    dateTime     = datetime.now(timezone.utc)
+    print("Collecting an Ambient Spectrum")
+    
+    # 11 --------------
+    electricDarkCorrelationUsage =  True 
+    nonLinearityCorrectionUsage  =  True 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Ambient Spectrum 11"
+    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+   
+    # 10 --------------
+    electricDarkCorrelationUsage =  True 
+    nonLinearityCorrectionUsage  =  False 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Ambient Spectrum 10"
+    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    # 01 --------------
+    electricDarkCorrelationUsage =  False
+    nonLinearityCorrectionUsage  =  True
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Ambient Spectrum 01"
+    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)    
+
+ # 00 --------------
+    electricDarkCorrelationUsage =  False
+    nonLinearityCorrectionUsage  =  True
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Ambient Spectrum 00"
+    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)    
 
