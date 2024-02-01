@@ -67,49 +67,57 @@ def getAllSpectrumDetails(device):
     print("Ocean Optics Spectrum Details Complete:")
     # device.details()
     # time.sleep(1)
-    # deviceType         = device.get_type()
+    deviceType         = device.get_device_type()
+    print("Device Type                 :",deviceType)
     time.sleep(1)
+
     deviceModel        = device.get_model()
-    time.sleep(1)
-    serialNumber       = device.get_serial_number()
-    time.sleep(1)
-    maxIntensity       = device.get_max_intensity ()
-    time.sleep(1)
-    minIntegrationTime = device.get_minimum_integration_time()    
-    time.sleep(1)
-    maxIntegrationTime = device.get_maximum_integration_time()
-    time.sleep(1)
-    integrationTime    = device.get_integration_time()
-    time.sleep(1)
-    numberOfDarkPixeks = device.get_number_electric_dark_pixels()
-    time.sleep(1)    
-    # device.details() 
-    # time.sleep(1)
-    acquisitionDelay               = device.get_acquisition_delay()
-    time.sleep(1)
-    acquisitionDelayIncrement      = device.get_acquisition_delay_increment()
-    time.sleep(1)
-    acquisitionDelayIncrementMin   = device.get_acquisition_delay_minimum()
-    time.sleep(1)
-    acquisitionDelayIncrementMax   = device.get_acquisition_delay_maximum()
-    time.sleep(1)
-    nonLinearityCorrectionUsage    = device.get_nonlinearity_correction_usage()
-
-
-    # print("Device Type", deviceType)
     print("Device Model                :",deviceModel)
-    print("Serial Number               :",serialNumber)
-    print("Max Intensity               :",maxIntensity)
-    print("Minimum Integration Time    :",minIntegrationTime)
-    print("Maximum Integration Time    :",maxIntegrationTime)
-    print("Integration Time            :",integrationTime)
-    print("# of Dark Pixels            :",numberOfDarkPixeks)
-    print("Acquisition Delay           :",acquisitionDelay)
-    print("Acquisition Delay Incriment :",acquisitionDelayIncrement)
-    print("Minimum Acquisition Delay   :",acquisitionDelayIncrementMin)
-    print("Maximum Acquisition Delay   :",acquisitionDelayIncrementMax)
-    print("Non Linearaty Correction    :",nonLinearityCorrectionUsage)
+    time.sleep(1)
 
+    serialNumber       = device.get_serial_number()
+    print("Serial Number               :",serialNumber)    
+    time.sleep(1)
+
+    maxIntensity       = device.get_max_intensity ()
+    print("Max Intensity               :",maxIntensity)
+    time.sleep(1)
+
+    minIntegrationTime = device.get_minimum_integration_time()    
+    print("Minimum Integration Time    :",minIntegrationTime)    
+    time.sleep(1)
+
+    maxIntegrationTime = device.get_maximum_integration_time()
+    print("Maximum Integration Time    :",maxIntegrationTime)   
+    time.sleep(1)
+
+    integrationTime    = device.get_integration_time()
+    print("Integration Time            :",integrationTime)    
+    time.sleep(1)
+    
+    numberOfDarkPixeks = device.get_number_electric_dark_pixels()
+    print("# of Dark Pixels            :",numberOfDarkPixeks)    
+    time.sleep(1)    
+    
+    acquisitionDelay               = device.get_acquisition_delay()
+    print("Acquisition Delay           :",acquisitionDelay)
+    time.sleep(1)
+    
+    acquisitionDelayIncrement      = device.get_acquisition_delay_increment()
+    print("Acquisition Delay Incriment :",acquisitionDelayIncrement)
+    time.sleep(1)
+    
+    acquisitionDelayIncrementMin   = device.get_acquisition_delay_minimum()
+    print("Minimum Acquisition Delay   :",acquisitionDelayIncrementMin)
+    time.sleep(1)
+    
+    acquisitionDelayIncrementMax   = device.get_acquisition_delay_maximum()
+    print("Maximum Acquisition Delay   :",acquisitionDelayIncrementMax)
+    time.sleep(1)
+    
+    nonLinearityCorrectionUsage    = device.get_nonlinearity_correction_usage()
+    print("Non Linearaty Correction    :",nonLinearityCorrectionUsage)
+    
     return;
 
 
