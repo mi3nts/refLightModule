@@ -226,15 +226,16 @@ def plotter(waveLengths,spectrum,\
                     nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
                             dateTime):
+    plt.figure()
     plt.plot(waveLengths,spectrum)
     plt.xlabel('Wave Lengths (nm)')
     plt.ylabel('Energy')
 
-    titleStr = preTitle + " for Serial Number: " + str(serialNumber) \
-                  + " ,Electric Dark Correlation Usage:" + str(electricDarkCorrelationUsage)\
-                  + " ,Non Linearity Correction Usage:" + str(nonLinearityCorrectionUsage)\
-                  + " ,Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
-                  + " ,Spectrum read at:" + str(dateTime) 
+    titleStr = preTitle + " for SN: " + str(serialNumber) \
+                  + " ,EDCU:" + str(electricDarkCorrelationUsage)\
+                  + " ,NLCU:" + str(nonLinearityCorrectionUsage)\
+                  + " ,IT:" + str(integrationTimeMicroSec/1000000) +" s"\
+                  + " ,Date Time:" + str(dateTime) 
 
     font = {'family' : 'normal',
                 'weight' : 'bold',
@@ -243,7 +244,7 @@ def plotter(waveLengths,spectrum,\
     plt.rc('font', **font)
     plt.title(titleStr)
     plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
-
+    plt.close()
 
 
 def getSingleSpectrum(device):
