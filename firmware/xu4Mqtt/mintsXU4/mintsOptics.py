@@ -260,7 +260,7 @@ def getStringTitle(serialNumber, preTitle,\
                   + " ,IT: " + str(integrationTimeMicroSec/1000000) +" s"\
                   + " ,Date Time: " + str(dateTime) 
 
-    return titleStr,titleStr.replace(" ","").replace(",","_");
+    return titleStr,titleStr.replace(" ","").replace(",","_").replace(".","_");
 
 
 def pickleListFloatSave(floatList,fileName):
