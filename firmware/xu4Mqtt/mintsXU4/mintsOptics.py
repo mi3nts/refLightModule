@@ -65,9 +65,9 @@ def getSpectrumDetails(device):
 
 def getAllSpectrumDetails(device):
     print("Ocean Optics Spectrum Details Complete:")
-    device.details()
-    time.sleep(1)
-    deviceType         = device.get_type()
+    # device.details()
+    # time.sleep(1)
+    # deviceType         = device.get_type()
     time.sleep(1)
     deviceModel        = device.get_model()
     time.sleep(1)
@@ -96,7 +96,7 @@ def getAllSpectrumDetails(device):
     nonLinearityCorrectionUsage    = device.get_nonlinearity_correction_usage()
 
 
-    print("Device Type", deviceType)
+    # print("Device Type", deviceType)
     print("Device Model", deviceModel)
     print("Serial Number", serialNumber)
     print("Max Intensity", maxIntensity)
@@ -105,10 +105,11 @@ def getAllSpectrumDetails(device):
     print("Integration Time", integrationTime)
     print("# of Dark Pixels", numberOfDarkPixeks)
     print("Acquisition Delay", acquisitionDelay)
+    print("Acquisition Delay Incriment", acquisitionDelayIncrement)
     print("Minimum Acquisition Delay",acquisitionDelayIncrementMin)
     print("Maximum Acquisition Delay",acquisitionDelayIncrementMax)
     print("Non Linearaty Correction",acquisitionDelayIncrementMax)
-    
+
     return;
 
 
