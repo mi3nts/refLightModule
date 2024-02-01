@@ -64,37 +64,37 @@ if __name__ == "__main__":
         # Only choosing the 1st Device
         deviceID,device,serialNumer =  mO.openDevice(deviceIDs,0)
     
-        mO.getSpectrumDetails(device)
+        mO.getAllSpectrumDetails(device)
 
-        mO.setUpDevice(device,\
-                        electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                        )
+        # mO.setUpDevice(device,\
+        #                 electricDarkCorrelationUsage,\
+        #                 nonLinearityCorrectionUsage,\
+        #                 integrationTimeMicroSec,\
+        #                 )
         
-        waveLengths  = mO.getSpectrumDetails(device)
+        # waveLengths  = mO.getSpectrumDetails(device)
 
-        dateTime     = datetime.datetime.now()
-        spectrum     = mO.getSingleSpectrum(device)
+        # dateTime     = datetime.datetime.now()
+        # spectrum     = mO.getSingleSpectrum(device)
 
-        plt.plot(waveLengths,spectrum)
-        plt.xlabel('Wave Lengths (nm)')
-        plt.ylabel('Energy')
+        # plt.plot(waveLengths,spectrum)
+        # plt.xlabel('Wave Lengths (nm)')
+        # plt.ylabel('Energy')
         
-        titleStr = "Serial Number: " + str(serialNumer) \
-                  + " ,Electric Dark Correlation Usage:" + str(electricDarkCorrelationUsage)\
-                  + " ,Non Linearity Correction Usage:" + str(nonLinearityCorrectionUsage)\
-                  + " ,Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
-                  + " ,Spectrum read at:" + str(dateTime) 
+        # titleStr = "Serial Number: " + str(serialNumer) \
+        #           + " ,Electric Dark Correlation Usage:" + str(electricDarkCorrelationUsage)\
+        #           + " ,Non Linearity Correction Usage:" + str(nonLinearityCorrectionUsage)\
+        #           + " ,Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
+        #           + " ,Spectrum read at:" + str(dateTime) 
 
 
-        font = {'family' : 'normal',
-                'weight' : 'bold',
-                'size'   : 5}
+        # font = {'family' : 'normal',
+        #         'weight' : 'bold',
+        #         'size'   : 5}
 
-        plt.rc('font', **font)
-        plt.title(titleStr)
-        plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
+        # plt.rc('font', **font)
+        # plt.title(titleStr)
+        # plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
         mO.closeDevice(deviceID)
     
     else:
