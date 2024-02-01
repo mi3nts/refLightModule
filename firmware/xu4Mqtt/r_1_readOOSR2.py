@@ -77,13 +77,10 @@ if __name__ == "__main__":
 
         # mO.getAllSpectrumDetails(device)   
 
-        # mO.obtainDarkSpectrums(device,\
-        #                     integrationTimeMicroSec)
+        mO.obtainDarkSpectrums(device,\
+                            integrationTimeMicroSec)
 
-        # mO.obtainDarkSpectrums(device,\
-        #                     integrationTimeMicroSec)
-
-        mO.getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLengths,darkSpectrumFile)
+        # mO.getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLengths,darkSpectrumFile)
         # waveLengths  = mO.getSpectrumDetails(device)
 
         # dateTime     = datetime.datetime.now()
