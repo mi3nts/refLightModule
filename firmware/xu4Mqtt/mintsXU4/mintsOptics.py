@@ -349,6 +349,10 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     
     # Dark Spectrum --------------
     preTitle = "Dark Spectrum"
+    
+    electricDarkCorrelationUsage =  False
+    nonLinearityCorrectionUsage  =  False
+    
     labelSpaced, labelNoSpaces = \
                 getStringTitle(serialNumber, preTitle,\
                     electricDarkCorrelationUsage,\
@@ -358,8 +362,6 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     
     plotter(waveLengths,darkSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
-
-
 
     # 00 --------------
     preTitle = "DC 00"
