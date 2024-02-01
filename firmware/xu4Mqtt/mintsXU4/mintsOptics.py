@@ -389,26 +389,26 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     # plotter(waveLengths,formattedSpectrum,\
     #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
     
-    # 01 --------------
-    electricDarkCorrelationUsage =  False
-    nonLinearityCorrectionUsage  =  True
-    setUpDevice(device,\
-                        electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                        )
-    time.sleep(1)
-    preTitle = "Ambient Spectrum 01"
-    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
-    labelSpaced, labelNoSpaces = \
-                getStringTitle(serialNumber, preTitle,\
-                    electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                            integrationTimeMicroSec,\
-                                dateTime)
+    # # 01 --------------
+    # electricDarkCorrelationUsage =  False
+    # nonLinearityCorrectionUsage  =  True
+    # setUpDevice(device,\
+    #                     electricDarkCorrelationUsage,\
+    #                     nonLinearityCorrectionUsage,\
+    #                     integrationTimeMicroSec,\
+    #                     )
+    # time.sleep(1)
+    # preTitle = "Ambient Spectrum 01"
+    # formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
+    # labelSpaced, labelNoSpaces = \
+    #             getStringTitle(serialNumber, preTitle,\
+    #                 electricDarkCorrelationUsage,\
+    #                     nonLinearityCorrectionUsage,\
+    #                         integrationTimeMicroSec,\
+    #                             dateTime)
     
-    plotter(waveLengths,formattedSpectrum,\
-                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)    
+    # plotter(waveLengths,formattedSpectrum,\
+    #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)    
 
  # 00 --------------
     electricDarkCorrelationUsage =  False
