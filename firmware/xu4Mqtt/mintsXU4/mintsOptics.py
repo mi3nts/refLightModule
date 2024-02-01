@@ -419,6 +419,20 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
                         integrationTimeMicroSec,\
                         )
     time.sleep(1)
+    preTitle = "Dark Spectrum 00"
+    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)    
+
+
+
     preTitle = "Ambient Spectrum 00"
     formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
     labelSpaced, labelNoSpaces = \
