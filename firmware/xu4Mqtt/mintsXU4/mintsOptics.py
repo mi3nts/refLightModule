@@ -173,7 +173,7 @@ def obtainDarkSpectrums(device,\
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
     
-    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
+    pickleListFloatSave(formattedSpectrum,"../../darkSpectrums/" + labelNoSpaces)
 
     # 10 --------------
     electricDarkCorrelationUsage =  True 
@@ -196,7 +196,7 @@ def obtainDarkSpectrums(device,\
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
     
-    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
+    pickleListFloatSave(formattedSpectrum,"../darkSpectrums/" + labelNoSpaces)
 
 
     # 01 --------------
@@ -245,7 +245,7 @@ def obtainDarkSpectrums(device,\
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
     
-    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
+    pickleListFloatSave(formattedSpectrum,"./darkSpectrums/" + labelNoSpaces)
 
 
 def getStringTitle(serialNumber, preTitle,\
