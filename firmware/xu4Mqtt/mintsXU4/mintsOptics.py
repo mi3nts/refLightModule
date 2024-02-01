@@ -173,7 +173,7 @@ def obtainDarkSpectrums(device,\
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
     
-    pickleListFloatSave(formattedSpectrum,"../../darkSpectrums/" + labelNoSpaces)
+    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
 
     # 10 --------------
     electricDarkCorrelationUsage =  True 
@@ -196,7 +196,7 @@ def obtainDarkSpectrums(device,\
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
     
-    pickleListFloatSave(formattedSpectrum,"../darkSpectrums/" + labelNoSpaces)
+    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
 
 
     # 01 --------------
@@ -245,7 +245,7 @@ def obtainDarkSpectrums(device,\
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
     
-    pickleListFloatSave(formattedSpectrum, labelNoSpaces)
+    pickleListFloatSave(formattedSpectrum, "darkSpectrums/" + labelNoSpaces)
 
 
 def getStringTitle(serialNumber, preTitle,\
@@ -260,7 +260,7 @@ def getStringTitle(serialNumber, preTitle,\
                   + " ,IT: " + str(integrationTimeMicroSec/1000000) +" s"\
                   + " ,Date Time: " + str(dateTime) 
 
-    return titleStr,titleStr.replace(" ","").replace(",","_").replace(".","_");
+    return titleStr,titleStr.replace(" ","_").replace(",","_").replace(".","_");
 
 
 def pickleListFloatSave(floatList,fileName):
