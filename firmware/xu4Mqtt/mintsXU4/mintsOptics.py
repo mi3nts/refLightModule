@@ -1,6 +1,6 @@
 from __future__ import annotations
 import serial
-import datetime
+from datetime import datetime, timezone
 import os
 import csv
 #import deepdish as dd
@@ -18,7 +18,7 @@ import json
 import struct
 import numpy as np
 from datetime import timedelta
-
+from matplotlib import pyplot as plt
 
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
@@ -64,7 +64,7 @@ def getSpectrumDetails(device):
     return waveLengths
 
 def getAllSpectrumDetails(device):
-    
+
     print("===========================")
     print("Ocean Optics Spectrum Info:")
     # device.details()
@@ -136,6 +136,46 @@ def setUpDevice(device,\
     print("Settin Integration Time to: " +str(integrationTimeMicroSec)+ " micro seconds")
     device.set_integration_time(integrationTimeMicroSec)
 
+def obtainPrevioslySavedDarkSpectrum(device):
+    dateTime     = datetime.now(timezone.utc)
+    print("Collecting a previosly saved dark Spectrum")
+    
+    spectrum = device.get_stored_dark_spectrum()
+    time.sleep(1)
+    waveLengths  = device.get_wavelengths()
+    time.sleep(1)
+    serialNumber       = device.get_serial_number()
+    time.sleep(1)
+    integrationTimeMicroSec    = device.get_integration_time()
+    time.sleep(1)    
+    # darkCorrectionUsage        = device.get_electric_dark_correction_usage()
+    # time.sleep(1)   
+    # nonLinearityCorrectionUsage      = device.get_nonlinearity_correction_usage()
+    # time.sleep(1)   
+
+    plt.plot(waveLengths,spectrum)
+    plt.xlabel('Wave Lengths (nm)')
+    plt.ylabel('Energy')
+       
+    titleStr = "Saved Dark Spectrum for Serial Number: " + str(serialNumber) \
+                  + " ,Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
+                  + " ,Spectrum read at:" + str(dateTime) 
+
+
+    font = {'family' : 'normal',
+                'weight' : 'bold',
+                'size'   : 5}
+
+    plt.rc('font', **font)
+    plt.title(titleStr)
+    plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
+
+
+
+
+
+
+
 def getSingleSpectrum(device):
     print("Obtaining Spectrum")
     spectra = device.get_formatted_spectrum()
@@ -147,9 +187,6 @@ def getSingleSpectrum(device):
 def closeDevice(deviceID):
     print("Closing Device")
     od.close_device(deviceID);
-
-
-        
 
 def getSpectraSingle(devicesPresent, deviceOpen,\
                      device,numbSpectra,logger):

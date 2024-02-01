@@ -48,7 +48,7 @@ deviceOpen = False
 macAddress          = mD.macAddress
 
 electricDarkCorrelationUsage = False
-nonLinearityCorrectionUsage  = False
+nonLinearityCorrectionUsage  = True
 integrationTimeMicroSec      = 1000000 
 
 
@@ -63,15 +63,17 @@ if __name__ == "__main__":
         print("Ocean Optics Spectrometors found")
         # Only choosing the 1st Device
         deviceID,device =  mO.openDevice(deviceIDs,0)
-    
+
+        mO.setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+            
         mO.getAllSpectrumDetails(device)
 
-        # mO.setUpDevice(device,\
-        #                 electricDarkCorrelationUsage,\
-        #                 nonLinearityCorrectionUsage,\
-        #                 integrationTimeMicroSec,\
-        #                 )
-        
+        mO.obtainPrevioslySavedDarkSpectrum(device)
+
         # waveLengths  = mO.getSpectrumDetails(device)
 
         # dateTime     = datetime.datetime.now()
