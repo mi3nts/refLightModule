@@ -136,31 +136,105 @@ def setUpDevice(device,\
     print("Settin Integration Time to: " +str(integrationTimeMicroSec)+ " micro seconds")
     device.set_integration_time(integrationTimeMicroSec)
 
-def obtainPrevioslySavedDarkSpectrum(device):
-    dateTime     = datetime.now(timezone.utc)
-    print("Collecting a previosly saved dark Spectrum")
+def obtainTestSpectrums(device,\
+                       integrationTimeMicroSec):
     
-    spectrum = device.get_stored_dark_spectrum()
-    time.sleep(1)
-    waveLengths  = device.get_wavelengths()
-    time.sleep(1)
-    serialNumber       = device.get_serial_number()
-    time.sleep(1)
-    integrationTimeMicroSec    = device.get_integration_time()
-    time.sleep(1)    
-    # darkCorrectionUsage        = device.get_electric_dark_correction_usage()
-    # time.sleep(1)   
-    # nonLinearityCorrectionUsage      = device.get_nonlinearity_correction_usage()
-    # time.sleep(1)   
+    dateTime     = datetime.now(timezone.utc)
+    
+    print("Collecting a Dark Spectrum")
+    
 
+    time.sleep(1)
+    waveLengths                = device.get_wavelengths()
+    time.sleep(1)
+    serialNumber               = device.get_serial_number()
+
+    time.sleep(1)   
+
+    electricDarkCorrelationUsage =  True 
+    nonLinearityCorrectionUsage  =  True 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Formatted Spectrum"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    plotter(waveLengths,electricDarkCorrelationUsage,\
+            serialNumber,\
+                electricDarkCorrelationUsage,\
+                    nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                            dateTime)
+
+    electricDarkCorrelationUsage =  True 
+    nonLinearityCorrectionUsage  =  False 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Formatted Spectrum"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    plotter(waveLengths,electricDarkCorrelationUsage,\
+            serialNumber,\
+                electricDarkCorrelationUsage,\
+                    nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                            dateTime)
+
+    electricDarkCorrelationUsage =  False 
+    nonLinearityCorrectionUsage  =  True 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Formatted Spectrum"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    plotter(waveLengths,electricDarkCorrelationUsage,\
+            serialNumber,\
+                electricDarkCorrelationUsage,\
+                    nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                            dateTime)
+
+    electricDarkCorrelationUsage =  False 
+    nonLinearityCorrectionUsage  =  False 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Formatted Spectrum"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    plotter(waveLengths,formattedSpectrum,\
+            serialNumber,preTitle,\
+                electricDarkCorrelationUsage,\
+                    nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                            dateTime)
+    
+
+def plotter(waveLengths,spectrum,\
+            serialNumber, preTitle,\
+                electricDarkCorrelationUsage,\
+                    nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                            dateTime):
     plt.plot(waveLengths,spectrum)
     plt.xlabel('Wave Lengths (nm)')
     plt.ylabel('Energy')
-       
-    titleStr = "Saved Dark Spectrum for Serial Number: " + str(serialNumber) \
+
+    titleStr = preTitle + " for Serial Number: " + str(serialNumber) \
+                  + " ,Electric Dark Correlation Usage:" + str(electricDarkCorrelationUsage)\
+                  + " ,Non Linearity Correction Usage:" + str(nonLinearityCorrectionUsage)\
                   + " ,Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
                   + " ,Spectrum read at:" + str(dateTime) 
-
 
     font = {'family' : 'normal',
                 'weight' : 'bold',
@@ -169,10 +243,6 @@ def obtainPrevioslySavedDarkSpectrum(device):
     plt.rc('font', **font)
     plt.title(titleStr)
     plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
-
-
-
-
 
 
 
