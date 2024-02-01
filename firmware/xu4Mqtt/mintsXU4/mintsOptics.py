@@ -19,6 +19,7 @@ import struct
 import numpy as np
 from datetime import timedelta
 from matplotlib import pyplot as plt
+import pickle
 
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
@@ -136,7 +137,7 @@ def setUpDevice(device,\
     print("Settin Integration Time to: " +str(integrationTimeMicroSec)+ " micro seconds")
     device.set_integration_time(integrationTimeMicroSec)
 
-def obtainTestSpectrums(device,\
+def obtainDarkSpectrums(device,\
                        integrationTimeMicroSec):
     
     dateTime     = datetime.now(timezone.utc)
@@ -148,9 +149,10 @@ def obtainTestSpectrums(device,\
     waveLengths                = device.get_wavelengths()
     time.sleep(1)
     serialNumber               = device.get_serial_number()
-
     time.sleep(1)   
 
+
+    # 11 --------------
     electricDarkCorrelationUsage =  True 
     nonLinearityCorrectionUsage  =  True 
     setUpDevice(device,\
@@ -161,13 +163,19 @@ def obtainTestSpectrums(device,\
     time.sleep(1)
     preTitle = "Formatted Spectrum 11"
     formattedSpectrum                   = device.get_formatted_spectrum()
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
     plotter(waveLengths,formattedSpectrum,\
-            serialNumber,preTitle,\
-                electricDarkCorrelationUsage,\
-                    nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                            dateTime)
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum,"../darkSpectrums/" + labelNoSpaces)
 
+    # 10 --------------
     electricDarkCorrelationUsage =  True 
     nonLinearityCorrectionUsage  =  False 
     setUpDevice(device,\
@@ -178,13 +186,20 @@ def obtainTestSpectrums(device,\
     time.sleep(1)
     preTitle = "Formatted Spectrum 10"
     formattedSpectrum                   = device.get_formatted_spectrum()
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
     plotter(waveLengths,formattedSpectrum,\
-            serialNumber,preTitle,\
-                electricDarkCorrelationUsage,\
-                    nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                            dateTime)
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum,"../darkSpectrums/" + labelNoSpaces)
 
+
+    # 01 --------------
     electricDarkCorrelationUsage =  False 
     nonLinearityCorrectionUsage  =  True 
     setUpDevice(device,\
@@ -192,16 +207,24 @@ def obtainTestSpectrums(device,\
                         nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
                         )
+    
+
     time.sleep(1)
     preTitle = "Formatted Spectrum 01"
     formattedSpectrum                   = device.get_formatted_spectrum()
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
     plotter(waveLengths,formattedSpectrum,\
-            serialNumber,preTitle,\
-                electricDarkCorrelationUsage,\
-                    nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                            dateTime)
-
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum,"../darkSpectrums/" + labelNoSpaces)
+   
+   # 00 --------------
     electricDarkCorrelationUsage =  False 
     nonLinearityCorrectionUsage  =  False 
     setUpDevice(device,\
@@ -212,38 +235,63 @@ def obtainTestSpectrums(device,\
     time.sleep(1)
     preTitle = "Formatted Spectrum 00"
     formattedSpectrum                   = device.get_formatted_spectrum()
-    plotter(waveLengths,formattedSpectrum,\
-            serialNumber,preTitle,\
-                electricDarkCorrelationUsage,\
-                    nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                            dateTime)
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
     
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum,"../darkSpectrums/" + labelNoSpaces)
 
-def plotter(waveLengths,spectrum,\
-            serialNumber, preTitle,\
+
+def getStringTitle(serialNumber, preTitle,\
                 electricDarkCorrelationUsage,\
                     nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
                             dateTime):
+    
+    titleStr = preTitle + " for SN: " + str(serialNumber) \
+                  + " ,EDCU: " + str(electricDarkCorrelationUsage)\
+                  + " ,NLCU: " + str(nonLinearityCorrectionUsage)\
+                  + " ,IT: " + str(integrationTimeMicroSec/1000000) +" s"\
+                  + " ,Date Time: " + str(dateTime) 
+
+    return titleStr,+titleStr.replace(" ","");
+
+
+def pickleListFloatSave(floatList,fileName):
+    try:
+        with open( fileName + '.pkl', 'wb') as file:
+            pickle.dump(floatList, file)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+
+def plotter(waveLengths,spectrum,\
+            titleName, fileName):
     plt.figure()
     plt.plot(waveLengths,spectrum)
     plt.xlabel('Wave Lengths (nm)')
     plt.ylabel('Energy')
 
-    titleStr = preTitle + " for SN: " + str(serialNumber) \
-                  + " ,EDCU:" + str(electricDarkCorrelationUsage)\
-                  + " ,NLCU:" + str(nonLinearityCorrectionUsage)\
-                  + " ,IT:" + str(integrationTimeMicroSec/1000000) +" s"\
-                  + " ,Date Time:" + str(dateTime) 
+    # titleStr = preTitle + " for SN: " + str(serialNumber) \
+    #               + " ,EDCU: " + str(electricDarkCorrelationUsage)\
+    #               + " ,NLCU: " + str(nonLinearityCorrectionUsage)\
+    #               + " ,IT: " + str(integrationTimeMicroSec/1000000) +" s"\
+    #               + " ,Date Time: " + str(dateTime) 
 
     font = {'family' : 'normal',
                 'weight' : 'bold',
                 'size'   : 5}
 
     plt.rc('font', **font)
-    plt.title(titleStr)
-    plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
+    plt.title(titleName)
+    plt.savefig(fileName+".png")
     plt.close()
 
 
