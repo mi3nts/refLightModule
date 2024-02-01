@@ -72,7 +72,7 @@ if __name__ == "__main__":
         time.sleep(1)   
 
         # Loading the dark spectrum 
-        darkSpectrumFile = "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-01_23:17:03_868724+00:00.pkl.pkl"
+        darkSpectrumFile = "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-01_23:17:03_868724+00:00.pkl"
 
 
         # mO.getAllSpectrumDetails(device)   
