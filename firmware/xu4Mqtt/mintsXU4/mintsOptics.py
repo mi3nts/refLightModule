@@ -285,8 +285,7 @@ def plotter(waveLengths,spectrum,\
     #               + " ,IT: " + str(integrationTimeMicroSec/1000000) +" s"\
     #               + " ,Date Time: " + str(dateTime) 
 
-    font = {'family' : 'normal',
-                'weight' : 'bold',
+    font = {'weight' : 'bold',
                 'size'   : 5}
 
     plt.rc('font', **font)
