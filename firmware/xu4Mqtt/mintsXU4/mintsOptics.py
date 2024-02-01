@@ -385,6 +385,30 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
+    # 00 --------------
+    preTitle = "DC + NL 00"
+    electricDarkCorrelationUsage =  False
+    nonLinearityCorrectionUsage  =  False
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+
+    formattedSpectrum                   = device.nonlinearity_correct_spectrum1(darkSpectrum)
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces) 
+
+
+
     # # 01 --------------
     # preTitle = "DC 01"
     # electricDarkCorrelationUsage =  False
@@ -457,17 +481,7 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
 
 
 
-    # preTitle = "DC Spectrum 00"
-    # formattedSpectrum                   = device.get_dark_corrected_spectrum1(darkSpectrum)
-    # labelSpaced, labelNoSpaces = \
-    #             getStringTitle(serialNumber, preTitle,\
-    #                 electricDarkCorrelationUsage,\
-    #                     nonLinearityCorrectionUsage,\
-    #                         integrationTimeMicroSec,\
-    #                             dateTime)
-    
-    # plotter(waveLengths,formattedSpectrum,\
-    #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)    
+
 
 
 
