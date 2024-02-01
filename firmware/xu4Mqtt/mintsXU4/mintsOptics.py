@@ -385,27 +385,27 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
-    # 01 --------------
-    preTitle = "DC 01"
-    electricDarkCorrelationUsage =  False
-    nonLinearityCorrectionUsage  =  True
-    setUpDevice(device,\
-                        electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                        )
-    time.sleep(1)
+    # # 01 --------------
+    # preTitle = "DC 01"
+    # electricDarkCorrelationUsage =  False
+    # nonLinearityCorrectionUsage  =  True
+    # setUpDevice(device,\
+    #                     electricDarkCorrelationUsage,\
+    #                     nonLinearityCorrectionUsage,\
+    #                     integrationTimeMicroSec,\
+    #                     )
+    # time.sleep(1)
 
-    formattedSpectrum                   = device.get_dark_corrected_spectrum1(darkSpectrum)
-    labelSpaced, labelNoSpaces = \
-                getStringTitle(serialNumber, preTitle,\
-                    electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                            integrationTimeMicroSec,\
-                                dateTime)
+    # formattedSpectrum                   = device.get_dark_corrected_spectrum1(darkSpectrum)
+    # labelSpaced, labelNoSpaces = \
+    #             getStringTitle(serialNumber, preTitle,\
+    #                 electricDarkCorrelationUsage,\
+    #                     nonLinearityCorrectionUsage,\
+    #                         integrationTimeMicroSec,\
+    #                             dateTime)
     
-    plotter(waveLengths,formattedSpectrum,\
-                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+    # plotter(waveLengths,formattedSpectrum,\
+    #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
     # 10 --------------
     preTitle = "DC 10"    
