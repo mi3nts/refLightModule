@@ -275,7 +275,7 @@ def pickleListFloatLoad(fileName):
     try:
         with open(fileName, 'rb') as file:
             loaded_float_list = pickle.load(file)
-            print("Loaded float list:", loaded_float_list)
+            # print("Loaded float list:", loaded_float_list)
     except Exception as e:
         print(f"An error occurred: {e}")
     return loaded_float_list; 
@@ -347,26 +347,26 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     dateTime     = datetime.now(timezone.utc)
     print("Collecting an Ambient Spectrum")
     
-    # 11 --------------
-    electricDarkCorrelationUsage =  True 
-    nonLinearityCorrectionUsage  =  True 
-    setUpDevice(device,\
-                        electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                        )
-    time.sleep(1)
-    preTitle = "Ambient Spectrum 11"
-    formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
-    labelSpaced, labelNoSpaces = \
-                getStringTitle(serialNumber, preTitle,\
-                    electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                            integrationTimeMicroSec,\
-                                dateTime)
+    # # 11 --------------
+    # electricDarkCorrelationUsage =  True 
+    # nonLinearityCorrectionUsage  =  True 
+    # setUpDevice(device,\
+    #                     electricDarkCorrelationUsage,\
+    #                     nonLinearityCorrectionUsage,\
+    #                     integrationTimeMicroSec,\
+    #                     )
+    # time.sleep(1)
+    # preTitle = "Ambient Spectrum 11"
+    # formattedSpectrum                   = device.get_nonlinearity_corrected_spectrum1(darkSpectrum)
+    # labelSpaced, labelNoSpaces = \
+    #             getStringTitle(serialNumber, preTitle,\
+    #                 electricDarkCorrelationUsage,\
+    #                     nonLinearityCorrectionUsage,\
+    #                         integrationTimeMicroSec,\
+    #                             dateTime)
     
-    plotter(waveLengths,formattedSpectrum,\
-                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    # plotter(waveLengths,formattedSpectrum,\
+    #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
    
     # 10 --------------
     electricDarkCorrelationUsage =  True 
@@ -412,7 +412,7 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
 
  # 00 --------------
     electricDarkCorrelationUsage =  False
-    nonLinearityCorrectionUsage  =  True
+    nonLinearityCorrectionUsage  =  False
     setUpDevice(device,\
                         electricDarkCorrelationUsage,\
                         nonLinearityCorrectionUsage,\
