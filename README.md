@@ -10,7 +10,7 @@ Contains firmware for mints reference light sensor
  Minimum Integration Time    : 1
  Maximum Integration Time    : 6000000
  Integration Time            : 1000000
- # of Dark Pixels            : 12
+ \# of Dark Pixels            : 12
  Acquisition Delay           : 0
  Acquisition Delay Incriment : 1
  Minimum Acquisition Delay   : 0
