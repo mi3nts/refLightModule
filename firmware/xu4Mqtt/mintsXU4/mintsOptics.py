@@ -25,6 +25,8 @@ from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
 
+# Add Box Car Width = 5 
+# Scans to Average  = 10 
 
 macAddress     = mD.macAddress
 dataFolder     = mD.dataFolder
@@ -86,8 +88,16 @@ def getAllSpectrumDetails(device):
     print("Max Intensity               :",maxIntensity)
     time.sleep(1)
 
-    minIntegrationTime = device.get_minimum_integration_time()    
-    print("Minimum Integration Time    :",minIntegrationTime)    
+    scansToAverage     =  device.get_scans_to_average ()
+    print("Scans To Average            :",scansToAverage)
+    time.sleep(1)
+
+    scansToAverage     =  device.get_scans_to_average ()
+    print("Scans To Average            :",scansToAverage)
+    time.sleep(1)
+
+    boxCarWidth        = device.get_boxcar_width()    
+    print("Minimum Integration Time    :",boxCarWidth)    
     time.sleep(1)
 
     maxIntegrationTime = device.get_maximum_integration_time()
