@@ -78,7 +78,97 @@ if __name__ == "__main__":
                                     integrationTimeMicroSec)
 
         # Loading the dark spectrum 
-        ?
+        # darkSpectrumFile = \
+        #     "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-01_23:17:03_868724+00:00.pkl"
+        # calibrationFile = \
+        #     "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
+
+        # waveLengthSpread = mO.calculateBinSize(waveLengths)
+        # electricDarkCorrelationUsage =  False
+        # nonLinearityCorrectionUsage  =  False
+
+        # dateTime     = datetime.now(timezone.utc)
+        # preTitle = "Wavelength Spread"
+        # time.sleep(1)
+
+        # labelSpaced, labelNoSpaces = \
+        #             mO.getStringTitle(serialNumber, preTitle,\
+        #                 electricDarkCorrelationUsage,\
+        #                     nonLinearityCorrectionUsage,\
+        #                         integrationTimeMicroSec,\
+        #                             dateTime)
+
+        # mO.plotter(waveLengths,waveLengthSpread,\
+        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+
+
+
+
+
+
+        # dateTime     = datetime.now(timezone.utc)
+        # formattedSpectrum = \
+        #     mO.getCorrectedSpectrums(device,\
+        #                              integrationTimeMicroSec,\
+        #                                 serialNumber,\
+        #                                     waveLengths,\
+        #                                         darkSpectrumFile)
+        # # Later add something that gets the dark spectrum at the start of the code 
+        # print(len(formattedSpectrum))
+        # # Apply the calibration
+
+        # ## Collecting the calibration file 
+
+        # calibrationData = \
+        #             mO.collectCalibrationData(integrationTimeMicroSec,\
+        #                                         serialNumber,\
+        #                                             waveLengths,\
+        #                                                 calibrationFile)
+            
+
+
+        # # Fiber Diametor --> 200 µm
+        # # 
+        # energyInMicroJoules = mO.multiplyLists(formattedSpectrum,calibrationData)
+
+        # preTitle = "Energy In Micro Joules"
+        # time.sleep(1)
+
+        # labelSpaced, labelNoSpaces = \
+        #             mO.getStringTitle(serialNumber, preTitle,\
+        #                 electricDarkCorrelationUsage,\
+        #                     nonLinearityCorrectionUsage,\
+        #                         integrationTimeMicroSec,\
+        #                             dateTime)
+
+        # mO.plotter(waveLengths,energyInMicroJoules,\
+        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+
+
+        # areaInSquareCM = mO.squareMicroMetersToSquareCentimeters(\
+        #                     mO.calculateCirceArea(\
+        #                         fiberDiametorMicroMeter/2))
+
+
+        # unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
+
+        # energyInMicroJoulesPerAreaPerSec\
+        #                = [x / (unitTransformDenomenator) for x in energyInMicroJoules]
+        
+
+        # preTitle = "Energy In Micro Joules Per Area Per Time"
+        # time.sleep(1)
+
+        # labelSpaced, labelNoSpaces = \
+        #             mO.getStringTitle(serialNumber, preTitle,\
+        #                 electricDarkCorrelationUsage,\
+        #                     nonLinearityCorrectionUsage,\
+        #                         integrationTimeMicroSec,\
+        #                             dateTime)
+
+        # mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
+        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+
 
         # mO.getAllSpectrumDetails(device)   
 
