@@ -485,6 +485,9 @@ def zeroCorrection(inputList):
 def multiplyLists(list1, list2):
     return [a * b for a, b in zip(list1, list2)]
 
+def divideLists(list1, list2):
+    return [a / b for a, b in zip(list1, list2)]
+
 def calculateCirceArea(radius):
      return  math.pi * (radius**2)
         

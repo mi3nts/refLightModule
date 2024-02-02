@@ -169,6 +169,24 @@ if __name__ == "__main__":
         mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
                     labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
+        energyInMicroJoulesPerAreaPerSecPerNanoMeter\
+                       = mO.divideLists(energyInMicroJoulesPerAreaPerSec,waveLengthSpread)
+        
+
+        preTitle = "Energy In Micro Joules Per Area Per Time Per Nano Meter"
+        time.sleep(1)
+
+        labelSpaced, labelNoSpaces = \
+                    mO.getStringTitle(serialNumber, preTitle,\
+                        electricDarkCorrelationUsage,\
+                            nonLinearityCorrectionUsage,\
+                                integrationTimeMicroSec,\
+                                    dateTime)
+
+        mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
+                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+
+
 
         # mO.getAllSpectrumDetails(device)   
 
