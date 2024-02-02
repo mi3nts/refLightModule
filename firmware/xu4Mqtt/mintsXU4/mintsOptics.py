@@ -447,7 +447,7 @@ def collectCalibrationData(integrationTimeMicroSec,serialNumber,waveLengths,cali
     calibrationData = []
     with open(calibrationFile, 'r') as file:
         # Skip the first 7 lines (header information)
-        for _ in range(7):
+        for _ in range(9):
             next(file)
 
         # Read the remaining lines and convert them to floats

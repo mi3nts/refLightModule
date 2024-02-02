@@ -71,7 +71,7 @@ if __name__ == "__main__":
         serialNumber               = device.get_serial_number()
         time.sleep(1)   
 
-        mO.getAllSpectrumDetails(device)   
+        # mO.getAllSpectrumDetails(device)   
 
 
         # Loading the dark spectrum 
