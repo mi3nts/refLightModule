@@ -16,6 +16,7 @@ Contains firmware for mints reference light sensor
 -  Maximum Acquisition Delay   : 335500
 -  Non Linearaty Correction    : True
 
+## Steps in collecting Absolute Irradiance Spectrum 
 To conduct an absolute irradiance measurement, it is necessary to have the following:
  - S: Sample spectrum (counts per nanometer)
  - D: Dark spectrum (counts per nanometer, with the same integration time, corrections, and smoothing as sample)
