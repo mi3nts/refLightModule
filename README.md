@@ -2,20 +2,19 @@
 Contains firmware for mints reference light sensor
 
 ## Ocean Optics Spectrometor meta data 
-
- Device Type                 : OCEANSR2
- Device Model                : OCEANSR2
- Serial Number               : SR200544
- Max Intensity               : 65535.0
- Minimum Integration Time    : 1
- Maximum Integration Time    : 6000000
- Integration Time            : 1000000
- \# of Dark Pixels            : 12
- Acquisition Delay           : 0
- Acquisition Delay Incriment : 1
- Minimum Acquisition Delay   : 0
- Maximum Acquisition Delay   : 335500
- Non Linearaty Correction    : True
+- Device Type                  : OCEANSR2
+-  Device Model                : OCEANSR2
+-  Serial Number               : SR200544
+-  Max Intensity               : 65535.0
+-  Minimum Integration Time    : 1
+-  Maximum Integration Time    : 6000000
+-  Integration Time            : 1000000
+-  \# of Dark Pixels           : 12
+-  Acquisition Delay           : 0
+-  Acquisition Delay Incriment : 1
+-  Minimum Acquisition Delay   : 0
+-  Maximum Acquisition Delay   : 335500
+-  Non Linearaty Correction    : True
 
 To conduct an absolute irradiance measurement, it is necessary to have the following:
  - S: Sample spectrum (counts per nanometer)
