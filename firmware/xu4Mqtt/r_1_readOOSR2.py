@@ -78,7 +78,7 @@ if __name__ == "__main__":
         darkSpectrumFile = \
             "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-01_23:17:03_868724+00:00.pkl"
         calibrationFile = \
-            "darkCalibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
+            "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
 
 
         formattedSpectrum = \
