@@ -453,12 +453,12 @@ def collectCalibrationData(integrationTimeMicroSec,serialNumber,waveLengths,cali
         # Read the remaining lines and convert them to floats
         for line in file:
             print(line.strip())
-            # float_value = float(line.strip())
-            # calibrationData.append(float_value)
+            float_value = float(line.strip())
+            calibrationData.append(float_value)
     
     
 
-    # print(len(calibrationData))
+    print(len(calibrationData))
     
     # preTitle = "Callibration Data"
     # electricDarkCorrelationUsage =  False
