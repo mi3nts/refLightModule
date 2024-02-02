@@ -435,7 +435,46 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
+    return formattedSpectrum;
 
+
+
+def collectCalibrationData(integrationTimeMicroSec,serialNumber,waveLengths,calibrationFile):
+    
+    dateTime     = datetime.now(timezone.utc)
+    print("Collecting an Ambient Spectrum")
+    
+    calibrationData = []
+    with open(calibrationFile, 'r') as file:
+        # Skip the first 7 lines (header information)
+        for _ in range(7):
+            next(file)
+
+        # Read the remaining lines and convert them to floats
+        for line in file:
+            float_value = float(line.strip())
+            calibrationData.append(float_value)
+    
+    
+
+    print(len(calibrationData))
+    
+    preTitle = "Callibration Data"
+    electricDarkCorrelationUsage =  False
+    nonLinearityCorrectionUsage  =  False
+
+    time.sleep(1)
+
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+
+    plotter(waveLengths,calibrationData,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+    return calibrationData;
 
     # # 00 --------------
     # preTitle = "DC 00"

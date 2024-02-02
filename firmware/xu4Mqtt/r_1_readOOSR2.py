@@ -60,19 +60,47 @@ if __name__ == "__main__":
 
     devicesPresent, deviceIDs = mO.checkingDevicePresence()
     if devicesPresent:
+        
         print("Ocean Optics Spectrometors found")
         # Only choosing the 1st Device
         deviceID,device =  mO.openDevice(deviceIDs,0)
-
-
+        
         time.sleep(1)
         waveLengths                = device.get_wavelengths()
         time.sleep(1)
         serialNumber               = device.get_serial_number()
         time.sleep(1)   
 
+        mO.getAllSpectrumDetails(device)   
+
+
         # Loading the dark spectrum 
-        darkSpectrumFile = "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-01_23:17:03_868724+00:00.pkl"
+        darkSpectrumFile = \
+            "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-01_23:17:03_868724+00:00.pkl"
+        calibrationFile = \
+            "darkCalibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
+
+
+        formattedSpectrum = \
+            mO.getCorrectedSpectrums(device,\
+                                     integrationTimeMicroSec,\
+                                        serialNumber,\
+                                            waveLengths,\
+                                                darkSpectrumFile)
+        # Later add something that gets the dark spectrum at the start of the code 
+        
+        # Apply the calibration
+
+        ## Collecting the calibration file 
+
+        calibrationData = \
+                    mO.collectCalibrationData(integrationTimeMicroSec,\
+                                                serialNumber,\
+                                                    waveLengths,\
+                                                        calibrationFile)
+            
+
+
 
 
         # mO.getAllSpectrumDetails(device)   
@@ -80,7 +108,9 @@ if __name__ == "__main__":
         # mO.obtainDarkSpectrums(device,\
         #                     integrationTimeMicroSec)
 
-        mO.getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLengths,darkSpectrumFile)
+
+
+
         # waveLengths  = mO.getSpectrumDetails(device)
 
         # dateTime     = datetime.datetime.now()
