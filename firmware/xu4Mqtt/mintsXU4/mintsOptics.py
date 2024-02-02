@@ -435,7 +435,7 @@ def getCorrectedSpectrums(device,integrationTimeMicroSec,serialNumber,waveLength
     plotter(waveLengths,formattedSpectrum,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
-    return formattedSpectrum;
+    return zeroCorrection(formattedSpectrum);
 
 
 
@@ -476,6 +476,17 @@ def collectCalibrationData(integrationTimeMicroSec,serialNumber,waveLengths,cali
     plotter(waveLengths,calibrationData,\
                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
     return calibrationData;
+
+
+def zeroCorrection(inputList):
+    return [max(0.0, value) for value in inputList]
+
+
+def multiplyLists(list1, list2):
+    return [a * b for a, b in zip(list1, list2)]
+
+
+
 
     # # 00 --------------
     # preTitle = "DC 00"
