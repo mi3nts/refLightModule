@@ -88,7 +88,7 @@ if __name__ == "__main__":
                                             waveLengths,\
                                                 darkSpectrumFile)
         # Later add something that gets the dark spectrum at the start of the code 
-        print(formattedSpectrum)
+        print(len(formattedSpectrum))
         # Apply the calibration
 
         ## Collecting the calibration file 
