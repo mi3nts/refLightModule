@@ -452,28 +452,29 @@ def collectCalibrationData(integrationTimeMicroSec,serialNumber,waveLengths,cali
 
         # Read the remaining lines and convert them to floats
         for line in file:
-            float_value = float(line.strip())
-            calibrationData.append(float_value)
+            print(line.strip())
+            # float_value = float(line.strip())
+            # calibrationData.append(float_value)
     
     
 
-    print(len(calibrationData))
+    # print(len(calibrationData))
     
-    preTitle = "Callibration Data"
-    electricDarkCorrelationUsage =  False
-    nonLinearityCorrectionUsage  =  False
+    # preTitle = "Callibration Data"
+    # electricDarkCorrelationUsage =  False
+    # nonLinearityCorrectionUsage  =  False
 
-    time.sleep(1)
+    # time.sleep(1)
 
-    labelSpaced, labelNoSpaces = \
-                getStringTitle(serialNumber, preTitle,\
-                    electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                            integrationTimeMicroSec,\
-                                dateTime)
+    # labelSpaced, labelNoSpaces = \
+    #             getStringTitle(serialNumber, preTitle,\
+    #                 electricDarkCorrelationUsage,\
+    #                     nonLinearityCorrectionUsage,\
+    #                         integrationTimeMicroSec,\
+    #                             dateTime)
 
-    plotter(waveLengths,calibrationData,\
-                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+    # plotter(waveLengths,calibrationData,\
+    #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
     return calibrationData;
 
     # # 00 --------------
