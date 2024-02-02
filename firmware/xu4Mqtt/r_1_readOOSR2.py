@@ -26,7 +26,7 @@ import numpy as np
 import pynmea2
 import shutil
 from matplotlib import pyplot as plt
-
+from datetime import datetime, timezone
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
@@ -50,7 +50,8 @@ macAddress          = mD.macAddress
 electricDarkCorrelationUsage = False
 nonLinearityCorrectionUsage  = True
 integrationTimeMicroSec      = 1000000 
-
+integrationTimeSec           = integrationTimeMicroSec/1000000
+fiberDiametorMicroMeter      = 200
 
 if __name__ == "__main__":
     
@@ -80,7 +81,30 @@ if __name__ == "__main__":
         calibrationFile = \
             "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
 
+        waveLengthSpread = mO.calculateBinSize(waveLengths)
+        electricDarkCorrelationUsage =  False
+        nonLinearityCorrectionUsage  =  False
 
+        dateTime     = datetime.now(timezone.utc)
+        preTitle = "Wavelength Spread"
+        time.sleep(1)
+
+        labelSpaced, labelNoSpaces = \
+                    mO.getStringTitle(serialNumber, preTitle,\
+                        electricDarkCorrelationUsage,\
+                            nonLinearityCorrectionUsage,\
+                                integrationTimeMicroSec,\
+                                    dateTime)
+
+        mO.plotter(waveLengths,waveLengthSpread,\
+                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+
+
+
+
+
+
+        dateTime     = datetime.now(timezone.utc)
         formattedSpectrum = \
             mO.getCorrectedSpectrums(device,\
                                      integrationTimeMicroSec,\
@@ -103,6 +127,45 @@ if __name__ == "__main__":
 
         # Fiber Diametor --> 200 µm
         # 
+        energyInMicroJoules = mO.multiplyLists(formattedSpectrum,calibrationData)
+
+        preTitle = "Energy In Micro Joules"
+        time.sleep(1)
+
+        labelSpaced, labelNoSpaces = \
+                    mO.getStringTitle(serialNumber, preTitle,\
+                        electricDarkCorrelationUsage,\
+                            nonLinearityCorrectionUsage,\
+                                integrationTimeMicroSec,\
+                                    dateTime)
+
+        mO.plotter(waveLengths,energyInMicroJoules,\
+                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+
+
+        areaInSquareCM = mO.squareMicroMetersToSquareCentimeters(\
+                            mO.calculateCirceArea(\
+                                fiberDiametorMicroMeter/2))
+
+
+        unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
+
+        energyInMicroJoulesPerAreaPerSec\
+                       = [x / (unitTransformDenomenator) for x in energyInMicroJoules]
+        
+
+        preTitle = "Energy In Micro Joules Per Area Per Time"
+        time.sleep(1)
+
+        labelSpaced, labelNoSpaces = \
+                    mO.getStringTitle(serialNumber, preTitle,\
+                        electricDarkCorrelationUsage,\
+                            nonLinearityCorrectionUsage,\
+                                integrationTimeMicroSec,\
+                                    dateTime)
+
+        mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
+                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
 
         # mO.getAllSpectrumDetails(device)   

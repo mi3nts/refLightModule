@@ -485,6 +485,25 @@ def zeroCorrection(inputList):
 def multiplyLists(list1, list2):
     return [a * b for a, b in zip(list1, list2)]
 
+def calculateCirceArea(radius):
+     return  math.pi * (radius**2)
+        
+def squareMicroMetersToSquareCentimeters(valueIn):
+    return valueIn / 1e8
+
+
+
+def calculateBinSize(floatList):
+    n = len(floatList)
+    bin_sizes = [floatList[1] - floatList[0]]  # Assuming bin size for the first element is 0
+
+    for P in range(1, n - 1):
+        dL = (floatList[P + 1] - floatList[P - 1]) / 2
+        bin_sizes.append(dL)
+
+    bin_sizes.append(floatList[-1] - floatList[-2])  # Assuming bin size for the last element is 0
+
+    return bin_sizes
 
 
 
