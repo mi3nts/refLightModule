@@ -72,34 +72,34 @@ if __name__ == "__main__":
         serialNumber               = device.get_serial_number()
         time.sleep(1)   
 
-        # mO.getAllSpectrumDetails(device)   
+        mO.getAllSpectrumDetails(device)   
 
         # mO.obtainDarkSpectrums(device,\
         #                             integrationTimeMicroSec)
 
         # Loading the dark spectrum 
-        darkSpectrumFile = \
-            "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-02_21:05:53_771689+00:00.pkl"
-        calibrationFile = \
-            "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
+        # darkSpectrumFile = \
+        #     "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-02_21:05:53_771689+00:00.pkl"
+        # calibrationFile = \
+        #     "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
 
-        waveLengthSpread = mO.calculateBinSize(waveLengths)
-        electricDarkCorrelationUsage =  False
-        nonLinearityCorrectionUsage  =  False
+        # waveLengthSpread = mO.calculateBinSize(waveLengths)
+        # electricDarkCorrelationUsage =  False
+        # nonLinearityCorrectionUsage  =  False
 
-        dateTime     = datetime.now(timezone.utc)
-        preTitle = "Wavelength Spread"
-        time.sleep(1)
+        # dateTime     = datetime.now(timezone.utc)
+        # preTitle = "Wavelength Spread"
+        # time.sleep(1)
 
-        labelSpaced, labelNoSpaces = \
-                    mO.getStringTitle(serialNumber, preTitle,\
-                        electricDarkCorrelationUsage,\
-                            nonLinearityCorrectionUsage,\
-                                integrationTimeMicroSec,\
-                                    dateTime)
+        # labelSpaced, labelNoSpaces = \
+        #             mO.getStringTitle(serialNumber, preTitle,\
+        #                 electricDarkCorrelationUsage,\
+        #                     nonLinearityCorrectionUsage,\
+        #                         integrationTimeMicroSec,\
+        #                             dateTime)
 
-        mO.plotter(waveLengths,waveLengthSpread,\
-                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+        # mO.plotter(waveLengths,waveLengthSpread,\
+        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
 
 

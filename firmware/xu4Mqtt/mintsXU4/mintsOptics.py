@@ -25,8 +25,14 @@ from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
 
+# Set these and collect a new Dark spectra 
+# Individual commands to collect dark spectra 
+# Individual command to collect ambient specta 
+# Add it to the MQTT pipeline 
+# Check on the calibration file 
 # Add Box Car Width = 5 
 # Scans to Average  = 10 
+
 
 macAddress     = mD.macAddress
 dataFolder     = mD.dataFolder
@@ -84,20 +90,19 @@ def getAllSpectrumDetails(device):
     print("Serial Number               :",serialNumber)    
     time.sleep(1)
 
-    maxIntensity       = device.get_max_intensity ()
-    print("Max Intensity               :",maxIntensity)
-    time.sleep(1)
-
-    scansToAverage     =  device.get_scans_to_average ()
-    print("Scans To Average            :",scansToAverage)
-    time.sleep(1)
-
     scansToAverage     =  device.get_scans_to_average ()
     print("Scans To Average            :",scansToAverage)
     time.sleep(1)
 
     boxCarWidth        = device.get_boxcar_width()    
     print("Minimum Integration Time    :",boxCarWidth)    
+    time.sleep(1)
+    maxIntensity       = device.get_max_intensity ()
+    print("Max Intensity               :",maxIntensity)
+    time.sleep(1)
+
+    scansToAverage     =  device.get_scans_to_average ()
+    print("Scans To Average            :",scansToAverage)
     time.sleep(1)
 
     maxIntegrationTime = device.get_maximum_integration_time()
