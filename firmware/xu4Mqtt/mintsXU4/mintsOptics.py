@@ -149,6 +149,9 @@ def setUpDevice(device,\
                 boxCarWidth\
                 ):
     
+    print("===========================")
+    print("Setting up Device:")
+
     print("Setting Dark Correction usage to: " +str(electricDarkCorrelationUsage))
     device.set_electric_dark_correction_usage(electricDarkCorrelationUsage)
     time.sleep(1)    
