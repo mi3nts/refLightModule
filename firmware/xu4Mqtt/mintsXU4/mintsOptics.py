@@ -233,7 +233,7 @@ def getStringTitle(serialNumber, preTitle,\
                   + ", BCW: " + str(boxCarWidth)  \
                   + ", DT: " + str(dateTime) \
 
-    return titleStr,titleStr.replace(" ","_").replace(",","_").replace(".","_");
+    return titleStr,titleStr.replace(" ","_").replace(",","-").replace(".","~");
 
 def plotter(waveLengths,spectrum,xLabel,yLabel,\
             titleName, fileName):
