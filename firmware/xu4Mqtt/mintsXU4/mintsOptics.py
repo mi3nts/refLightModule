@@ -241,12 +241,13 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
     plt.plot(waveLengths,spectrum)
     plt.xlabel(xLabel)
     plt.ylabel(yLabel)
-    plt.axis(True)
+    plt.grid(True)
+    
     font = {'weight' : 'bold',
-                'size'   : 5}
+                'size'   : 10}
     plt.rc('font', **font)
     plt.title(titleName)
-    plt.savefig(fileName+".png" ,dpi=300, bbox_inches='tight')
+    plt.savefig(fileName+".png" ,dpi=300)
     plt.close()
 
 
