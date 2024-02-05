@@ -204,7 +204,9 @@ def obtainDarkSpecta(
                     electricDarkCorrelationUsage,\
                         nonLinearityCorrectionUsage,\
                             integrationTimeMicroSec,\
-                                dateTime)
+                                scansToAverage,\
+                                    boxCarWidth,\
+                                        dateTime)
     
     plotter(waveLengths,\
                 formattedSpectrum,\
