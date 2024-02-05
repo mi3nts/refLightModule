@@ -226,12 +226,12 @@ def getStringTitle(serialNumber, preTitle,\
                                     dateTime):
     
     titleStr = preTitle + " for SN: " + str(serialNumber) \
-                  + " ,EDCU: " + str(electricDarkCorrelationUsage)\
-                  + " ,NLCU: " + str(nonLinearityCorrectionUsage)\
-                  + " ,IT: " + str(integrationTimeMicroSec/1000000) + " s"\
-                  + " ,StA: " + str(scansToAverage) \
-                  + " ,BCW: " + str(boxCarWidth)  \
-                  + " ,DT: " + str(dateTime) \
+                  + ", EDCU: " + str(electricDarkCorrelationUsage)\
+                  + ", NLCU: " + str(nonLinearityCorrectionUsage)\
+                  + ", IT: " + str(integrationTimeMicroSec/1000000) + " s"\
+                  + ", StA: " + str(scansToAverage) \
+                  + ", BCW: " + str(boxCarWidth)  \
+                  + ", DT: " + str(dateTime) \
 
     return titleStr,titleStr.replace(" ","_").replace(",","_").replace(".","_");
 
