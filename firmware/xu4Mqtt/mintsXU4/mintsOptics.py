@@ -95,7 +95,7 @@ def getAllSpectrumDetails(device):
     time.sleep(1)
 
     boxCarWidth        = device.get_boxcar_width()    
-    print("Minimum Integration Time    :",boxCarWidth)    
+    print("Box Car Width Time    :",boxCarWidth)    
     time.sleep(1)
     maxIntensity       = device.get_max_intensity ()
     print("Max Intensity               :",maxIntensity)
