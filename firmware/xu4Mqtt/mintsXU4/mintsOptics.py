@@ -237,7 +237,7 @@ def getStringTitle(serialNumber, preTitle,\
 
 def plotter(waveLengths,spectrum,xLabel,yLabel,\
             titleName, fileName):
-    plt.figure()
+    plt.figure(figsize=(16, 12))
     plt.plot(waveLengths,spectrum)
     plt.xlabel(xLabel)
     plt.ylabel(yLabel)
@@ -246,7 +246,7 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
                 'size'   : 5}
     plt.rc('font', **font)
     plt.title(titleName)
-    plt.savefig(fileName+".png")
+    plt.savefig(fileName+".png" dpi=300, bbox_inches='tight')
     plt.close()
 
 
