@@ -246,7 +246,7 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
                 'size'   : 5}
     plt.rc('font', **font)
     plt.title(titleName)
-    plt.savefig(fileName+".png" dpi=300, bbox_inches='tight')
+    plt.savefig(fileName+".png" ,dpi=300, bbox_inches='tight')
     plt.close()
 
 
