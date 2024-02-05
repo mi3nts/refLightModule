@@ -95,7 +95,7 @@ def getAllSpectrumDetails(device):
     time.sleep(1)
 
     boxCarWidth        = device.get_boxcar_width()    
-    print("Box Car Width Time    :",boxCarWidth)    
+    print("Box Car Width Time          :",boxCarWidth)    
     time.sleep(1)
     maxIntensity       = device.get_max_intensity ()
     print("Max Intensity               :",maxIntensity)
@@ -144,13 +144,142 @@ def setUpDevice(device,\
                 electricDarkCorrelationUsage,\
                 nonLinearityCorrectionUsage,\
                 integrationTimeMicroSec,\
+                scansToAverage, \
+                boxCarWidth\
                 ):
+    
     print("Setting Dark Correction usage to: " +str(electricDarkCorrelationUsage))
     device.set_electric_dark_correction_usage(electricDarkCorrelationUsage)
+    time.sleep(1)    
+    
     print("Setting Nonlinearity Correction usage to: " +str(electricDarkCorrelationUsage))
     device.set_nonlinearity_correction_usage(nonLinearityCorrectionUsage)
-    print("Settin Integration Time to: " +str(integrationTimeMicroSec)+ " micro seconds")
+    time.sleep(1)
+
+    print("Setting Integration Time to: " +str(integrationTimeMicroSec)+ " micro seconds")
     device.set_integration_time(integrationTimeMicroSec)
+    time.sleep(1)
+
+    print("Setting Scans to Average to: " +str(scansToAverage)+ " scans")
+    device.set_scans_to_average(scansToAverage)
+    time.sleep(1)
+
+    print("Setting Boxcar Width to: " + str(boxCarWidth)+ " wave lengths")
+    device.set_scans_to_average(boxCarWidth)
+    time.sleep(1)
+
+def obtainDarkSpecta(device,\
+                       integrationTimeMicroSec):
+    
+    dateTime     = datetime.now(timezone.utc)
+    
+    print("Collecting a Dark Spectrum")
+    
+
+    time.sleep(1)
+    waveLengths                = device.get_wavelengths()
+    time.sleep(1)
+    serialNumber               = device.get_serial_number()
+    time.sleep(1)   
+
+
+    # 11 --------------
+    electricDarkCorrelationUsage =  True 
+    nonLinearityCorrectionUsage  =  True 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Formatted Spectrum 11"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
+
+    # 10 --------------
+    electricDarkCorrelationUsage =  True 
+    nonLinearityCorrectionUsage  =  False 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Formatted Spectrum 10"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
+
+
+    # 01 --------------
+    electricDarkCorrelationUsage =  False 
+    nonLinearityCorrectionUsage  =  True 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    
+
+    time.sleep(1)
+    preTitle = "Formatted Spectrum 01"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum,"darkSpectrums/" + labelNoSpaces)
+   
+   # 00 --------------
+    electricDarkCorrelationUsage =  False 
+    nonLinearityCorrectionUsage  =  False 
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        )
+    time.sleep(1)
+    preTitle = "Formatted Spectrum 00"
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    labelSpaced, labelNoSpaces = \
+                getStringTitle(serialNumber, preTitle,\
+                    electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                            integrationTimeMicroSec,\
+                                dateTime)
+    
+    plotter(waveLengths,formattedSpectrum,\
+                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)
+    
+    pickleListFloatSave(formattedSpectrum, "darkSpectrums/" + labelNoSpaces)
+
+
+
 
 def obtainDarkSpectrums(device,\
                        integrationTimeMicroSec):

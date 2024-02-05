@@ -106,85 +106,85 @@ if __name__ == "__main__":
 
 
 
-        dateTime     = datetime.now(timezone.utc)
-        formattedSpectrum = \
-            mO.getCorrectedSpectrums(device,\
-                                     integrationTimeMicroSec,\
-                                        serialNumber,\
-                                            waveLengths,\
-                                                darkSpectrumFile)
-        # Later add something that gets the dark spectrum at the start of the code 
-        print(len(formattedSpectrum))
-        # Apply the calibration
+        # dateTime     = datetime.now(timezone.utc)
+        # formattedSpectrum = \
+        #     mO.getCorrectedSpectrums(device,\
+        #                              integrationTimeMicroSec,\
+        #                                 serialNumber,\
+        #                                     waveLengths,\
+        #                                         darkSpectrumFile)
+        # # Later add something that gets the dark spectrum at the start of the code 
+        # print(len(formattedSpectrum))
+        # # Apply the calibration
 
-        ## Collecting the calibration file 
+        # ## Collecting the calibration file 
 
-        calibrationData = \
-                    mO.collectCalibrationData(integrationTimeMicroSec,\
-                                                serialNumber,\
-                                                    waveLengths,\
-                                                        calibrationFile)
+        # calibrationData = \
+        #             mO.collectCalibrationData(integrationTimeMicroSec,\
+        #                                         serialNumber,\
+        #                                             waveLengths,\
+        #                                                 calibrationFile)
             
 
 
-        # Fiber Diametor --> 200 µm
-        # 
-        energyInMicroJoules = mO.multiplyLists(formattedSpectrum,calibrationData)
+        # # Fiber Diametor --> 200 µm
+        # # 
+        # energyInMicroJoules = mO.multiplyLists(formattedSpectrum,calibrationData)
 
-        preTitle = "Energy In Micro Joules"
-        time.sleep(1)
+        # preTitle = "Energy In Micro Joules"
+        # time.sleep(1)
 
-        labelSpaced, labelNoSpaces = \
-                    mO.getStringTitle(serialNumber, preTitle,\
-                        electricDarkCorrelationUsage,\
-                            nonLinearityCorrectionUsage,\
-                                integrationTimeMicroSec,\
-                                    dateTime)
+        # labelSpaced, labelNoSpaces = \
+        #             mO.getStringTitle(serialNumber, preTitle,\
+        #                 electricDarkCorrelationUsage,\
+        #                     nonLinearityCorrectionUsage,\
+        #                         integrationTimeMicroSec,\
+        #                             dateTime)
 
-        mO.plotter(waveLengths,energyInMicroJoules,\
-                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
-
-
-        areaInSquareCM = mO.squareMicroMetersToSquareCentimeters(\
-                            mO.calculateCirceArea(\
-                                fiberDiametorMicroMeter/2))
+        # mO.plotter(waveLengths,energyInMicroJoules,\
+        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
 
-        unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
+        # areaInSquareCM = mO.squareMicroMetersToSquareCentimeters(\
+        #                     mO.calculateCirceArea(\
+        #                         fiberDiametorMicroMeter/2))
 
-        energyInMicroJoulesPerAreaPerSec\
-                       = [x / (unitTransformDenomenator) for x in energyInMicroJoules]
+
+        # unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
+
+        # energyInMicroJoulesPerAreaPerSec\
+        #                = [x / (unitTransformDenomenator) for x in energyInMicroJoules]
         
 
-        preTitle = "Energy In Micro Joules Per Area Per Time"
-        time.sleep(1)
+        # preTitle = "Energy In Micro Joules Per Area Per Time"
+        # time.sleep(1)
 
-        labelSpaced, labelNoSpaces = \
-                    mO.getStringTitle(serialNumber, preTitle,\
-                        electricDarkCorrelationUsage,\
-                            nonLinearityCorrectionUsage,\
-                                integrationTimeMicroSec,\
-                                    dateTime)
+        # labelSpaced, labelNoSpaces = \
+        #             mO.getStringTitle(serialNumber, preTitle,\
+        #                 electricDarkCorrelationUsage,\
+        #                     nonLinearityCorrectionUsage,\
+        #                         integrationTimeMicroSec,\
+        #                             dateTime)
 
-        mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
-                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+        # mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
+        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
-        energyInMicroJoulesPerAreaPerSecPerNanoMeter\
-                       = mO.divideLists(energyInMicroJoulesPerAreaPerSec,waveLengthSpread)
+        # energyInMicroJoulesPerAreaPerSecPerNanoMeter\
+        #                = mO.divideLists(energyInMicroJoulesPerAreaPerSec,waveLengthSpread)
         
 
-        preTitle = "Energy In Micro Joules Per Area Per Time Per Nano Meter"
-        time.sleep(1)
+        # preTitle = "Energy In Micro Joules Per Area Per Time Per Nano Meter"
+        # time.sleep(1)
 
-        labelSpaced, labelNoSpaces = \
-                    mO.getStringTitle(serialNumber, preTitle,\
-                        electricDarkCorrelationUsage,\
-                            nonLinearityCorrectionUsage,\
-                                integrationTimeMicroSec,\
-                                    dateTime)
+        # labelSpaced, labelNoSpaces = \
+        #             mO.getStringTitle(serialNumber, preTitle,\
+        #                 electricDarkCorrelationUsage,\
+        #                     nonLinearityCorrectionUsage,\
+        #                         integrationTimeMicroSec,\
+        #                             dateTime)
 
-        mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
-                    labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+        # mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
+        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
 
 
 

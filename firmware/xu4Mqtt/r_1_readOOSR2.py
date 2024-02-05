@@ -51,6 +51,9 @@ electricDarkCorrelationUsage = False
 nonLinearityCorrectionUsage  = True
 integrationTimeMicroSec      = 1000000 
 integrationTimeSec           = integrationTimeMicroSec/1000000
+scansToAverage               = 5
+boxCarWidth                  = 5 
+
 fiberDiametorMicroMeter      = 200
 
 if __name__ == "__main__":
@@ -74,6 +77,18 @@ if __name__ == "__main__":
 
         mO.getAllSpectrumDetails(device)   
 
+        mO.setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        scansToAverage,\
+                        boxCarWidth,\
+                        )
+        
+        mO.getAllSpectrumDetails(device)   
+
+
+        
         # # mO.obtainDarkSpectrums(device,\
         # #                             integrationTimeMicroSec)
 
