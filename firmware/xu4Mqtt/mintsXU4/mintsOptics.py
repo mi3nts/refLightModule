@@ -95,14 +95,15 @@ def getAllSpectrumDetails(device):
     time.sleep(1)
 
     boxCarWidth        = device.get_boxcar_width()    
-    print("Box Car Width Time          :",boxCarWidth)    
+    print("Box Car Width               :",boxCarWidth)    
     time.sleep(1)
+
     maxIntensity       = device.get_max_intensity ()
     print("Max Intensity               :",maxIntensity)
     time.sleep(1)
 
-    scansToAverage     =  device.get_scans_to_average ()
-    print("Scans To Average            :",scansToAverage)
+    minIntegrationTime = device.get_minimum_integration_time()
+    print("Minimum Integration Time    :",minIntegrationTime)   
     time.sleep(1)
 
     maxIntegrationTime = device.get_maximum_integration_time()
@@ -165,7 +166,7 @@ def setUpDevice(device,\
     time.sleep(1)
 
     print("Setting Boxcar Width to: " + str(boxCarWidth)+ " wave lengths")
-    device.set_scans_to_average(boxCarWidth)
+    device.set_boxcar_width(boxCarWidth)
     time.sleep(1)
 
 def obtainDarkSpecta(device,\
