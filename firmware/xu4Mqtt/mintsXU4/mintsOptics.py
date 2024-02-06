@@ -21,6 +21,7 @@ from datetime import timedelta
 from matplotlib import pyplot as plt
 import pickle
 import re
+import sys
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
@@ -252,6 +253,9 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
     plt.close()
 
 
+
+
+
 def loadCalibrationData(calibrationFile):
     print("Collecting Callibration Data")
     calibrationData = []
@@ -277,7 +281,7 @@ def loadDarkSpectra(darkSpectrumFile):
 
 def getDarkSpectaMeta(fileIn):
     # "Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:1_0_s-_StA:5-_BCW:5-_DT:2024-02-05_22:56:38_619126+00:00.pkl"
-# Define a regular expression pattern to capture the required components
+    # Define a regular expression pattern to capture the required components
     pattern = re.compile(r'SN:(\w+)-_EDCU:(\w+)-_NLCU:(\w+)-_IT:(\d+_\d+)_s-_StA:(\d+)-_BCW:(\d+)-_DT:(\d{4}-\d{2}-\d{2}_\d{2}:\d{2}:\d{2}_\d{6})[+-]\d{2}:\d{2}.pkl')
 
     # Use the pattern to search for matches in the formatted string
@@ -312,9 +316,36 @@ def getDarkSpectaMeta(fileIn):
         print("Minute:", minute)
         print("Second:", second)
         print("Microseconds:", micro_seconds)
+        return year,month,date,hour,minute,second,micro_seconds;
     else:
+        time.sleep(5)
         print("No match found.")
+        sys.exit()  
+        return;
 
+def getCalibrationMeta(fileIn):
+    pattern = re.compile(r'SR(\d+)_cc_(\d{4})(\d{2})(\d{2})_OOIIrrad\.CAL')
+
+    # Use the pattern to search for matches in the formatted string
+    match = pattern.search(fileIn)
+
+    if match:
+        serial_number = match.group(1)
+        year = int(match.group(2))
+        month = int(match.group(3))
+        day = int(match.group(4))
+
+        print("Serial Number:", serial_number)
+        print("Year:", year)
+        print("Month:", month)
+        print("Day:", day)
+
+        return year,month,day;
+    else:
+        time.sleep(5)
+        print("No match found.")
+        sys.exit()  
+        return;
 
 def obtainDarkSpectrums(device,\
                        integrationTimeMicroSec):

@@ -87,6 +87,8 @@ if __name__ == "__main__":
         # darkSpectra          = mO.loadDarkSpectra(darkSpectrumFile)
 
         mO.getDarkSpectaMeta(darkSpectrumFile)
+        
+        mO.getCalibrationMeta(calibrationFile)
 
         # if metaPlotter:
         #     mO.plotter(waveLengths,\
