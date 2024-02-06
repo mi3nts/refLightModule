@@ -357,9 +357,8 @@ def getAbsouluteIrradiance(device,
                                 darkSpectra,\
                                     calibrationData,\
                                         unitTransformDenomenator,
-                                            waveLengthSpread\
-                                                )                    
-
+                                            waveLengthSpread):
+    
 
     zeroCorrectedSpectrum   = zeroCorrection(\
                                 device.nonlinearity_correct_spectrum2(\
