@@ -239,6 +239,8 @@ def getStringTitle(serialNumber, preTitle,\
 
 def plotter(waveLengths,spectrum,xLabel,yLabel,\
             titleName, fileName):
+    print("===========================")
+    print("Plotting:")
     plt.figure(figsize=(16, 12))
     plt.plot(waveLengths,spectrum)
     plt.xlabel(xLabel)
@@ -257,7 +259,8 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
 
 
 def loadCalibrationData(calibrationFile):
-    print("Collecting Callibration Data")
+    print("===========================")
+    print("Loading calibration data file")
     calibrationData = []
     with open(calibrationFile, 'r') as file:
         # Skip the first 9 lines (header information)
@@ -273,6 +276,7 @@ def loadCalibrationData(calibrationFile):
 
 
 def loadDarkSpectra(darkSpectrumFile):
+    print("===========================")
     print("Loading dark spectrum file")
     darkSpectrum = pickleListFloatLoad(darkSpectrumFile)
     return darkSpectrum;
@@ -280,6 +284,8 @@ def loadDarkSpectra(darkSpectrumFile):
 
 
 def getDarkSpectaMeta(fileIn):
+    print("===========================")
+    print("Dark Spectra Meta Data")    
     # "Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:1_0_s-_StA:5-_BCW:5-_DT:2024-02-05_22:56:38_619126+00:00.pkl"
     # Define a regular expression pattern to capture the required components
     pattern = re.compile(r'SN:(\w+)-_EDCU:(\w+)-_NLCU:(\w+)-_IT:(\d+_\d+)_s-_StA:(\d+)-_BCW:(\d+)-_DT:(\d{4}-\d{2}-\d{2}_\d{2}:\d{2}:\d{2}_\d{6})[+-]\d{2}:\d{2}.pkl')
@@ -324,6 +330,9 @@ def getDarkSpectaMeta(fileIn):
         return;
 
 def getCalibrationMeta(fileIn):
+    print("===========================")
+    print("Calibration Meta Data")   
+
     pattern = re.compile(r'SR(\d+)_cc_(\d{4})(\d{2})(\d{2})_OOIIrrad\.CAL')
 
     # Use the pattern to search for matches in the formatted string
@@ -346,6 +355,39 @@ def getCalibrationMeta(fileIn):
         print("No match found.")
         sys.exit()  
         return;
+
+def publishSR200544RC(dateTime,\
+                        waveLengths,\
+                            counts,\
+                                integrationTimeMicroSec,\
+                                    scansToAverage,\
+                                        boxCarWidth):
+    if(len(waveLengths) == counts ):
+        sensorDictionary = OrderedDict([
+            ("dateTime"                  ,str(dateTime)),
+           	("integrationTimeMicroSec"   ,integrationTimeMicroSec),
+           	("scansToAverage"            ,scansToAverage),
+           	("boxCarWidth"               ,boxCarWidth),
+        ])
+        for key, value in zip(waveLengths, counts):
+            sensorDictionary[str(key)] = value        
+
+        print(sensorDictionary)
+        return;
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def obtainDarkSpectrums(device,\
                        integrationTimeMicroSec):
@@ -413,7 +455,7 @@ def obtainDarkSpectrums(device,\
                         nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
                         )
-    
+     
 
     time.sleep(1)
     preTitle = "Formatted Spectrum 01"

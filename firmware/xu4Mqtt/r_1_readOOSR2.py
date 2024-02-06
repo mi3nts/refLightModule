@@ -78,53 +78,81 @@ if __name__ == "__main__":
         deviceID,device             =  mO.openDevice(deviceIDs,0)
 
 
-        # serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
+        serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
                 
-        # waveLengthSpread     = mO.calculateBinSize(waveLengths)
+        waveLengthSpread     = mO.calculateBinSize(waveLengths)
 
-        # calibrationData      = mO.loadCalibrationData(calibrationFile)
+        calibrationData      = mO.loadCalibrationData(calibrationFile)
 
-        # darkSpectra          = mO.loadDarkSpectra(darkSpectrumFile)
+        darkSpectra          = mO.loadDarkSpectra(darkSpectrumFile)
 
-        mO.getDarkSpectaMeta(darkSpectrumFile)
-        
-        mO.getCalibrationMeta(calibrationFile)
 
-        # if metaPlotter:
-        #     mO.plotter(waveLengths,\
-        #                 waveLengthSpread,\
-        #                     "Wave Lengths (nm)",\
-        #                         "Wave Length Spread (nm)",\
-        #                             "Wave Lengths Bin Size (Spread)",\
-        #                                 "mintsPlots/waveLengthSpread")
+  
+        calibrationYear,\
+            calibrationMonth,\
+                calibrationDay \
+                    = mO.getCalibrationMeta(\
+                            calibrationFile)
+
+        darkSpectaYear,\
+            darkSpectaMonth,\
+                darkSpectaDate,\
+                    darkSpectaHour,\
+                        darkSpectaMinute,\
+                            darkSpectaSecond,\
+                                darkSpectaMicroSeconds = \
+                                    mO.getDarkSpectaMeta(\
+                                        darkSpectrumFile)
+      
+
+        if metaPlotter:
+            mO.plotter(waveLengths,\
+                        waveLengthSpread,\
+                            "Wave Lengths (nm)",\
+                                "Wave Length Spread (nm)",\
+                                    "Wave Lengths Bin Size (Spread)",\
+                                        "mintsPlots/waveLengthSpread")
             
             
-        #     plotTitle = "Calibratation curve for " + calibrationFile.replace("calibrationFiles/","")
-        #     mO.plotter(waveLengths,\
-        #                 calibrationData,\
-        #                     "Wave Lengths (nm)",\
-        #                         "Calibration Curve (uJoule/count) ",\
-        #                             "Calibration data for " + calibrationFile ,\
-        #                                 "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+            plotTitle = "Calibratation curve for " + calibrationFile.replace("calibrationFiles/","")
+            mO.plotter(waveLengths,\
+                        calibrationData,\
+                            "Wave Lengths (nm)",\
+                                "Calibration Curve (uJoule/count) ",\
+                                    "Calibration data for " + calibrationFile ,\
+                                        "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
 
-        #     plotTitle = "Wave Lengths Spread for " + darkSpectrumFile.replace("darkSpectrums/","") 
-        #     mO.plotter(waveLengths,\
-        #                 darkSpectra,\
-        #                     "Wave Lengths (nm)",\
-        #                         "Dark Spectra (counts) ",\
-        #                             "Dark Spectra Collected from " + darkSpectrumFile ,\
-        #                                 "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+            plotTitle = "Wave Lengths Spread for " + darkSpectrumFile.replace("darkSpectrums/","") 
+            mO.plotter(waveLengths,\
+                        darkSpectra,\
+                            "Wave Lengths (nm)",\
+                                "Dark Spectra (counts) ",\
+                                    "Dark Spectra Collected from " + darkSpectrumFile ,\
+                                        "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
 
 
-        # mO.setUpDevice(device,\
-        #                 electricDarkCorrelationUsage,\
-        #                 nonLinearityCorrectionUsage,\
-        #                 integrationTimeMicroSec,\
-        #                 scansToAverage,\
-        #                 boxCarWidth,\
-        #                 )
+        mO.setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        scansToAverage,\
+                        boxCarWidth,\
+                        )
         
-        # mO.getAllSpectrumDetails(device)   
+        mO.getAllSpectrumDetails(device)   
+
+        #  Obtaining raw spectrum 
+        dateTime           = datetime.now(timezone.utc)
+        formattedSpectrum  = device.get_formatted_spectrum()
+
+        mO.publishSR200544RC(dateTime,\
+                                waveLengths,\
+                                    formattedSpectrum,\
+                                        integrationTimeMicroSec,\
+                                            scansToAverage,\
+                                                boxCarWidth)
+
+
 
         # mO.obtainDarkSpecta(
         #     device,\
