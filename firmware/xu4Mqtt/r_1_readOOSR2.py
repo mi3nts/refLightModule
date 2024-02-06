@@ -142,7 +142,7 @@ if __name__ == "__main__":
                                 illuminatedSpectrum,\
                                     "Wave Lengths (nm)",\
                                         "Illuminated Spectrum (counts) ",\
-                                            "Illuminated Spectrum Collected from " + illuminatedSpectrum ,\
+                                            "Illuminated Spectrum Collected on " + str(dateTime) ,\
                                                 "/home/teamlary/mintsData/spectrumDiagrams/" + \
                                                     plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
                     
@@ -151,8 +151,7 @@ if __name__ == "__main__":
                                 energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
                                     "Wave Lengths (nm)",\
                                         "Absolute Irradiance(uJ/(cm2*nm*sec)) ",\
-                                            "Dark Spectra Collected from " + \
-                                                energyInMicroJoulesPerAreaPerSecPerNanoMeter ,\
+                                            "Absolute Irradiance Collected Collected on " + str(dateTime) ,\
                                                 "/home/teamlary/mintsData/spectrumDiagrams/" + \
                                                     plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
                     
