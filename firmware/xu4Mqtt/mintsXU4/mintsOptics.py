@@ -245,7 +245,7 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
     plt.grid(True)
     
     font = {'weight' : 'bold',
-                'size'   : 12}
+                'size'   : 11}
     plt.rc('font', **font)
     plt.title(titleName)
     plt.savefig(fileName+".png" ,dpi=300)
