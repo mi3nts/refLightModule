@@ -75,7 +75,7 @@ if __name__ == "__main__":
         
         print("Ocean Optics Spectrometors found")
         # Only choosing the 1st Device
-        # deviceID,device             =  mO.openDevice(deviceIDs,0)
+        deviceID,device             =  mO.openDevice(deviceIDs,0)
 
 
         # serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
