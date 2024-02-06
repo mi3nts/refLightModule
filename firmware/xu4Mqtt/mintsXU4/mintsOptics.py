@@ -25,7 +25,7 @@ import sys
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
-
+from mintsXU4 import mintsSensorReader as mSR
 # Set these and collect a new Dark spectra 
 # Individual commands to collect dark spectra 
 # Individual command to collect ambient specta 
@@ -254,10 +254,6 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
     plt.savefig(fileName+".png" ,dpi=300)
     plt.close()
 
-
-
-
-
 def loadCalibrationData(calibrationFile):
     print("===========================")
     print("Loading calibration data file")
@@ -273,15 +269,11 @@ def loadCalibrationData(calibrationFile):
 
     return calibrationData;
 
-
-
 def loadDarkSpectra(darkSpectrumFile):
     print("===========================")
     print("Loading dark spectrum file")
     darkSpectrum = pickleListFloatLoad(darkSpectrumFile)
     return darkSpectrum;
-
-
 
 def getDarkSpectaMeta(fileIn):
     print("===========================")
@@ -322,7 +314,9 @@ def getDarkSpectaMeta(fileIn):
         print("Minute:", minute)
         print("Second:", second)
         print("Microseconds:", micro_seconds)
-        return year,month,date,hour,minute,second,micro_seconds;
+        darkSpectraTime =  "DST"+ "_" + str(year)+ "_" + str(month)+ "_" + str(date)+ "_" + str(minute)+ "_" + str(second)+ "_" + str(micro_seconds)
+
+        return darkSpectraTime;
     else:
         time.sleep(5)
         print("No match found.")
@@ -348,13 +342,45 @@ def getCalibrationMeta(fileIn):
         print("Year:", year)
         print("Month:", month)
         print("Day:", day)
+        calibrationDate =  "CD"+ "_" + str(year)+ "_" + str(month)+ "_" + str(day)
+        return calibrationDate;
 
-        return year,month,day;
     else:
         time.sleep(5)
         print("No match found.")
         sys.exit()  
         return;
+
+
+def getAbsouluteIrradiance(device,
+                            illuminatedSpectrum,\
+                                darkSpectra,\
+                                    calibrationData,\
+                                        unitTransformDenomenator,
+                                            waveLengthSpread\
+                                                )                                      ,):
+
+    zeroCorrectedSpectrum   = zeroCorrection(\
+                                device.nonlinearity_correct_spectrum2(\
+                                    darkSpectra,\
+                                        illuminatedSpectrum\
+                                            ))
+        
+    energyInMicroJoules     = multiplyLists(\
+                                zeroCorrectedSpectrum,\
+                                    calibrationData\
+                                        )
+
+    energyInMicroJoulesPerAreaPerSec\
+                            = [x / (unitTransformDenomenator) for x in energyInMicroJoules]
+        
+    energyInMicroJoulesPerAreaPerSecPerNanoMeter\
+                            = divideLists(\
+                                energyInMicroJoulesPerAreaPerSec,\
+                                    waveLengthSpread)
+
+    return energyInMicroJoulesPerAreaPerSecPerNanoMeter;
+        
 
 def publishSR200544RC(dateTime,\
                         waveLengths,\
@@ -376,9 +402,36 @@ def publishSR200544RC(dateTime,\
             sensorDictionary[str(key)] = value        
 
         print(sensorDictionary)
+        mSR.sensorFinisher(dateTime,"SR200544AI",sensorDictionary)        
         return;
                 
+def publishSR200544AI(dateTime,\
+                        waveLengths,\
+                            energy,\
+                                integrationTimeMicroSec,\
+                                    scansToAverage,\
+                                        boxCarWidth,\
+                                            calibrationDate,\
+                                                darkSpectraTime):
+    
+    print("===========================")
+    print("Publish SR200544AI - Absolute Irradiance")   
 
+    if(len(waveLengths) == len(energy)):
+        sensorDictionary = OrderedDict([
+            ("dateTime"                  ,str(dateTime)),
+           	("integrationTimeMicroSec"   ,integrationTimeMicroSec),
+           	("scansToAverage"            ,scansToAverage),
+           	("boxCarWidth"               ,boxCarWidth),               
+           	("calibrationDate"           ,calibrationDate),
+            ("darkSpectraTime"           ,darkSpectraTime),
+        ])
+
+        for key, value in zip(waveLengths, energy):
+            sensorDictionary[str(key)] = value        
+        print(sensorDictionary)
+        mSR.sensorFinisher(dateTime,"SR200544AI",sensorDictionary)
+        return;
 
 
 
@@ -846,6 +899,11 @@ def calculateBinSize(floatList):
     bin_sizes.append(floatList[-1] - floatList[-2])  # Assuming bin size for the last element is 0
 
     return bin_sizes
+
+
+
+
+
 
 
 

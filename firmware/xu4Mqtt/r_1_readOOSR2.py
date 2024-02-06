@@ -40,12 +40,12 @@ import sys
 import time
 import os
 
-debug          = False 
+debug           = False 
 
-devicesPresent = False
-deviceOpen     = False
+devicesPresent  = False
+deviceOpen      = False
 
-metaPlotter = False
+spectrumPlotter = True
 
 macAddress          = mD.macAddress
 
@@ -57,11 +57,19 @@ scansToAverage               = 5
 boxCarWidth                  = 5 
 fiberDiametorMicroMeter      = 200
 
-darkSpectrumFile = \
+darkSpectrumFile         = \
     "darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:1_0_s-_StA:5-_BCW:5-_DT:2024-02-05_22:56:38_619126+00:00.pkl"
 
-calibrationFile = \
+calibrationFile          = \
     "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
+
+
+areaInSquareCM           = mO.squareMicroMetersToSquareCentimeters(\
+                                mO.calculateCirceArea(\
+                                    fiberDiametorMicroMeter/2))
+
+unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
+
 
 if __name__ == "__main__":
     
@@ -75,62 +83,14 @@ if __name__ == "__main__":
         
         print("Ocean Optics Spectrometors found")
         # Only choosing the 1st Device
-        deviceID,device             =  mO.openDevice(deviceIDs,0)
-
-
-        serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
-                
-        waveLengthSpread     = mO.calculateBinSize(waveLengths)
-
-        calibrationData      = mO.loadCalibrationData(calibrationFile)
-
-        darkSpectra          = mO.loadDarkSpectra(darkSpectrumFile)
-
-
-  
-        calibrationYear,\
-            calibrationMonth,\
-                calibrationDay \
-                    = mO.getCalibrationMeta(\
-                            calibrationFile)
-
-        darkSpectaYear,\
-            darkSpectaMonth,\
-                darkSpectaDate,\
-                    darkSpectaHour,\
-                        darkSpectaMinute,\
-                            darkSpectaSecond,\
-                                darkSpectaMicroSeconds = \
-                                    mO.getDarkSpectaMeta(\
-                                        darkSpectrumFile)
+        deviceID,device             = mO.openDevice(deviceIDs,0)
+        serialNumber, waveLengths   = mO.getAllSpectrumDetails(device)   
+        waveLengthSpread            = mO.calculateBinSize(waveLengths)
+        calibrationData             = mO.loadCalibrationData(calibrationFile)
+        darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
+        calibrationDate             = mO.getCalibrationMeta(calibrationFile)
+        darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
       
-
-        if metaPlotter:
-            mO.plotter(waveLengths,\
-                        waveLengthSpread,\
-                            "Wave Lengths (nm)",\
-                                "Wave Length Spread (nm)",\
-                                    "Wave Lengths Bin Size (Spread)",\
-                                        "mintsPlots/waveLengthSpread")
-            
-            
-            plotTitle = "Calibratation curve for " + calibrationFile.replace("calibrationFiles/","")
-            mO.plotter(waveLengths,\
-                        calibrationData,\
-                            "Wave Lengths (nm)",\
-                                "Calibration Curve (uJoule/count) ",\
-                                    "Calibration data for " + calibrationFile ,\
-                                        "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
-
-            plotTitle = "Wave Lengths Spread for " + darkSpectrumFile.replace("darkSpectrums/","") 
-            mO.plotter(waveLengths,\
-                        darkSpectra,\
-                            "Wave Lengths (nm)",\
-                                "Dark Spectra (counts) ",\
-                                    "Dark Spectra Collected from " + darkSpectrumFile ,\
-                                        "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
-
-
         mO.setUpDevice(device,\
                         electricDarkCorrelationUsage,\
                         nonLinearityCorrectionUsage,\
@@ -139,188 +99,77 @@ if __name__ == "__main__":
                         boxCarWidth,\
                         )
         
-        mO.getAllSpectrumDetails(device)   
+        mO.getAllSpectrumDetails(device)  
 
-        #  Obtaining raw spectrum 
-        dateTime           = datetime.now(timezone.utc)
-        formattedSpectrum  = device.get_formatted_spectrum()
+        try:
+            while True:
 
-        mO.publishSR200544RC(dateTime,\
-                                waveLengths,\
-                                    formattedSpectrum,\
-                                        integrationTimeMicroSec,\
-                                            scansToAverage,\
-                                                boxCarWidth)
+                dateTime           = datetime.now(timezone.utc)
+                
+                illuminatedSpectrum  = device.get_formatted_spectrum()
 
-
-
-        # mO.obtainDarkSpecta(
-        #     device,\
-        #         electricDarkCorrelationUsage,\
-        #             nonLinearityCorrectionUsage,\
-        #                 integrationTimeMicroSec,\
-        #                     scansToAverage,\
-        #                         boxCarWidth,\
-        #                     )
-
-        # while(True):
-        #     mO.getSingleSpectra(device,\
-        #         electricDarkCorrelationUsage,\
-        #             nonLinearityCorrectionUsage,\
-        #                 integrationTimeMicroSec,\
-        #                     scansToAverage,\
-        #                         boxCarWidth,\
-        #                            calibrationFile,\
-        #                               darkSpectra,\                            
-        #                     )
-        
+                mO.publishSR200544RC(dateTime,\
+                                        waveLengths,\
+                                            illuminatedSpectrum,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth)
+                
 
 
+                energyInMicroJoulesPerAreaPerSecPerNanoMeter = \
+                                    mO.getAbsouluteIrradiance(device,
+                                        illuminatedSpectrum,\
+                                            darkSpectra,\
+                                                calibrationData,\
+                                                    unitTransformDenomenator,
+                                                        waveLengthSpread\
+                                                            )
 
-        # # mO.obtainDarkSpectrums(device,\
-        # #                             integrationTimeMicroSec)
+                mO.publishSR200544AI(dateTime,\
+                                        waveLengths,\
+                                            energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth,\
+                                                            calibrationDate,\
+                                                                darkSpectraTime)
+                
+                if spectrumPlotter:
+                    
+                    plotTitle = "Illuminated Spectrum Counts for " + str(dateTime) 
+                    mO.plotter(waveLengths,\
+                                illuminatedSpectrum,\
+                                    "Wave Lengths (nm)",\
+                                        "Illuminated Spectrum (counts) ",\
+                                            "Illuminated Spectrum Collected from " + illuminatedSpectrum ,\
+                                                "/home/teamlary/mintsData/spectrumDiagrams/" + \
+                                                    plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+                    
+                    plotTitle = "Absolute Irradiance for " + str(dateTime) 
+                    mO.plotter(waveLengths,\
+                                energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
+                                    "Wave Lengths (nm)",\
+                                        "Absolute Irradiance(uJ/(cm2*nm*sec)) ",\
+                                            "Dark Spectra Collected from " + \
+                                                energyInMicroJoulesPerAreaPerSecPerNanoMeter ,\
+                                                "/home/teamlary/mintsData/spectrumDiagrams/" + \
+                                                    plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+                    
 
-        # # Loading the dark spectrum 
+                time.sleep(10)
 
-        # waveLengthSpread = mO.calculateBinSize(waveLengths)
-        # electricDarkCorrelationUsage =  False
-        # nonLinearityCorrectionUsage  =  False
+        except KeyboardInterrupt:
+            # Handle a keyboard interrupt (Ctrl+C)
+            print("Keyboard interrupt detected. Exiting gracefully.")
 
-        # dateTime     = datetime.now(timezone.utc)
-        # preTitle = "Wavelength Spread"
-        # time.sleep(1)
-
-        # labelSpaced, labelNoSpaces = \
-        #             mO.getStringTitle(serialNumber, preTitle,\
-        #                 electricDarkCorrelationUsage,\
-        #                     nonLinearityCorrectionUsage,\
-        #                         integrationTimeMicroSec,\
-        #                             dateTime)
-
-        # mO.plotter(waveLengths,waveLengthSpread,\
-        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
-
-
-
-
-
-
-        # dateTime     = datetime.now(timezone.utc)
-        # formattedSpectrum = \
-        #     mO.getCorrectedSpectrums(device,\
-        #                              integrationTimeMicroSec,\
-        #                                 serialNumber,\
-        #                                     waveLengths,\
-        #                                         darkSpectrumFile)
-        # # Later add something that gets the dark spectrum at the start of the code 
-        # print(len(formattedSpectrum))
-        # # Apply the calibration
-
-        # ## Collecting the calibration file 
-
-        # calibrationData = \
-        #             mO.collectCalibrationData(integrationTimeMicroSec,\
-        #                                         serialNumber,\
-        #                                             waveLengths,\
-        #                                                 calibrationFile)
-            
-
-
-        # # Fiber Diametor --> 200 µm
-        # # 
-        # energyInMicroJoules = mO.multiplyLists(formattedSpectrum,calibrationData)
-
-        # preTitle = "Energy In Micro Joules"
-        # time.sleep(1)
-
-        # labelSpaced, labelNoSpaces = \
-        #             mO.getStringTitle(serialNumber, preTitle,\
-        #                 electricDarkCorrelationUsage,\
-        #                     nonLinearityCorrectionUsage,\
-        #                         integrationTimeMicroSec,\
-        #                             dateTime)
-
-        # mO.plotter(waveLengths,energyInMicroJoules,\
-        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+            # Perform any necessary cleanup or device closing operations
+            mO.closeDevice(deviceID)
 
 
-        # areaInSquareCM = mO.squareMicroMetersToSquareCentimeters(\
-        #                     mO.calculateCirceArea(\
-        #                         fiberDiametorMicroMeter/2))
-
-
-        # unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
-
-        # energyInMicroJoulesPerAreaPerSec\
-        #                = [x / (unitTransformDenomenator) for x in energyInMicroJoules]
-        
-
-        # preTitle = "Energy In Micro Joules Per Area Per Time"
-        # time.sleep(1)
-
-        # labelSpaced, labelNoSpaces = \
-        #             mO.getStringTitle(serialNumber, preTitle,\
-        #                 electricDarkCorrelationUsage,\
-        #                     nonLinearityCorrectionUsage,\
-        #                         integrationTimeMicroSec,\
-        #                             dateTime)
-
-        # mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
-        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
-
-        # energyInMicroJoulesPerAreaPerSecPerNanoMeter\
-        #                = mO.divideLists(energyInMicroJoulesPerAreaPerSec,waveLengthSpread)
-        
-
-        # preTitle = "Energy In Micro Joules Per Area Per Time Per Nano Meter"
-        # time.sleep(1)
-
-        # labelSpaced, labelNoSpaces = \
-        #             mO.getStringTitle(serialNumber, preTitle,\
-        #                 electricDarkCorrelationUsage,\
-        #                     nonLinearityCorrectionUsage,\
-        #                         integrationTimeMicroSec,\
-        #                             dateTime)
-
-        # mO.plotter(waveLengths,energyInMicroJoulesPerAreaPerSec,\
-        #             labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
-
-
-
-        # mO.getAllSpectrumDetails(device)   
-
-        # mO.obtainDarkSpectrums(device,\
-        #                     integrationTimeMicroSec)
-
-
-
-
-        # waveLengths  = mO.getSpectrumDetails(device)
-
-        # dateTime     = datetime.datetime.now()
-        # spectrum     = mO.getSingleSpectrum(device)
-
-        # plt.plot(waveLengths,spectrum)
-        # plt.xlabel('Wave Lengths (nm)')
-        # plt.ylabel('Energy')
-        
-        # titleStr = "Serial Number: " + str(serialNumer) \
-        #           + " ,Electric Dark Correlation Usage:" + str(electricDarkCorrelationUsage)\
-        #           + " ,Non Linearity Correction Usage:" + str(nonLinearityCorrectionUsage)\
-        #           + " ,Integration Time:" + str(integrationTimeMicroSec/1000000) +" s"\
-        #           + " ,Spectrum read at:" + str(dateTime) 
-
-
-        # font = {'family' : 'normal',
-        #         'weight' : 'bold',
-        #         'size'   : 5}
-
-        # plt.rc('font', **font)
-        # plt.title(titleStr)
-        # plt.savefig("/home/teamlary/mintsData/spectrumDiagrams/"+titleStr.replace(" ","")+".png")
-        mO.closeDevice(deviceID)
     
     else:
         print("No Ocean Optics Spectrometors found")
         
 
+        
