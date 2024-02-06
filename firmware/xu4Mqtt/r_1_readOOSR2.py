@@ -107,7 +107,7 @@ if __name__ == "__main__":
                         darkSpectra,\
                             "Wave Lengths (nm)",\
                                 "Dark Spectra (counts) ",\
-                                    "Dark Spectra Collected from " + darkSpectra ,\
+                                    "Dark Spectra Collected from " + darkSpectrumFile ,\
                                         "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
 
 
