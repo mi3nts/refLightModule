@@ -20,7 +20,7 @@ import numpy as np
 from datetime import timedelta
 from matplotlib import pyplot as plt
 import pickle
-
+import re
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
 from oceandirect.od_logger import od_logger
 from threading import Thread
@@ -273,13 +273,46 @@ def loadDarkSpectra(darkSpectrumFile):
     darkSpectrum = pickleListFloatLoad(darkSpectrumFile)
     return darkSpectrum;
 
-# 
-# 
-# 
 
 
+def getDarkSpectaMeta(fileIn):
+    # "Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:1_0_s-_StA:5-_BCW:5-_DT:2024-02-05_22:56:38_619126+00:00.pkl"
+# Define a regular expression pattern to capture the required components
+    pattern = re.compile(r'SN:(\w+)-_EDCU:(\w+)-_NLCU:(\w+)-_IT:(\d+_\d+)_s-_StA:(\d+)-_BCW:(\d+)-_DT:(\d{4}-\d{2}-\d{2}_\d{2}:\d{2}:\d{2}_\d{6})[+-]\d{2}:\d{2}.pkl')
 
+    # Use the pattern to search for matches in the formatted string
+    match = pattern.search(fileIn.replace("darkSpectrums/", ""))
 
+    if match:
+        serial_number = match.group(1)
+        edcu_value = match.group(2)
+        nlcu_value = match.group(3)
+        it_value = match.group(4)
+        sta_value = match.group(5)
+        bcw_value = match.group(6)
+        dt_value = match.group(7)
+
+        # Extracting individual components of the datetime
+        dt_components = dt_value.split('_')
+        year, month, date = map(int, dt_components[0].split('-'))
+        hour, minute, second = map(int, dt_components[1].split(':'))
+        micro_seconds = int(dt_components[2])
+
+        print("Serial Number:", serial_number)
+        print("EDCU Value:", edcu_value)
+        print("NLCU Value:", nlcu_value)
+        print("IT Value:", it_value)
+        print("StA Value:", sta_value)
+        print("BCW Value:", bcw_value)
+        print("Year:", year)
+        print("Month:", month)
+        print("Date:", date)
+        print("Hour:", hour)
+        print("Minute:", minute)
+        print("Second:", second)
+        print("Microseconds:", micro_seconds)
+    else:
+        print("No match found.")
 
 
 def obtainDarkSpectrums(device,\
