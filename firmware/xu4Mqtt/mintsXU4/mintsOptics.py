@@ -402,7 +402,7 @@ def publishSR200544RC(dateTime,\
             sensorDictionary[str(key)] = value        
 
         # print(sensorDictionary)
-        mSR.sensorFinisher(dateTime,"SR200544AI",sensorDictionary)        
+        mSR.sensorFinisher(dateTime,"SR200544RC",sensorDictionary)        
         return;
                 
 def publishSR200544AI(dateTime,\
