@@ -102,7 +102,7 @@ if __name__ == "__main__":
                                     "Calibration data for " + calibrationFile ,\
                                         "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
 
-            plotTitle = "Wave Lengths Spread for " + darkSpectrumFile
+            plotTitle = "Wave Lengths Spread for " + darkSpectrumFile.replace("darkSpectrums/","") 
             mO.plotter(waveLengths,\
                         darkSpectra,\
                             "Wave Lengths (nm)",\
