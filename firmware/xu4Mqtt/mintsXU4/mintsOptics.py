@@ -285,12 +285,13 @@ def getDarkSpectaMeta(fileIn):
 
     if match:
         serial_number = match.group(1)
-        edcu_value = match.group(2)
-        nlcu_value = match.group(3)
-        it_value = match.group(4)
-        sta_value = match.group(5)
-        bcw_value = match.group(6)
-        dt_value = match.group(7)
+        edcu_value = 0 if match.group(2) == "False" else 1 if match.group(2) == "True" else int(match.group(2))
+        nlcu_value = 0 if match.group(3) == "False" else 1 if match.group(3) == "True" else int(match.group(3))
+        
+        it_value   = float(f"{match.group(4)}.{match.group(5)}") if match.group(5) else float(match.group(4))
+        sta_value  = match.group(5)
+        bcw_value  = match.group(6)
+        dt_value   = match.group(7)
 
         # Extracting individual components of the datetime
         dt_components = dt_value.split('_')
