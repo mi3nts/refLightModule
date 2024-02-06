@@ -48,7 +48,7 @@ deviceOpen = False
 macAddress          = mD.macAddress
 
 electricDarkCorrelationUsage = False
-nonLinearityCorrectionUsage  = True
+nonLinearityCorrectionUsage  = False
 integrationTimeMicroSec      = 1000000 
 integrationTimeSec           = integrationTimeMicroSec/1000000
 fiberDiametorMicroMeter      = 200
@@ -66,17 +66,21 @@ if __name__ == "__main__":
         # Only choosing the 1st Device
         deviceID,device =  mO.openDevice(deviceIDs,0)
         
-        time.sleep(1)
-        waveLengths                = device.get_wavelengths()
+
         time.sleep(1)
         serialNumber               = device.get_serial_number()
         time.sleep(1)   
 
         mO.getAllSpectrumDetails(device)   
 
-        # mO.obtainDarkSpectrums(device,\
-        #                             integrationTimeMicroSec)
+        mO.obtainDarkSpectrums(device,\
+                                    integrationTimeMicroSec)
 
+     
+    else:
+        print("No Devices Found")
+        time.sleep(10)
+        sys.exit() 
         # Loading the dark spectrum 
         # darkSpectrumFile = \
         #     "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-02_21:05:53_771689+00:00.pkl"

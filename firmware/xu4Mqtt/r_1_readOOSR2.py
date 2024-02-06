@@ -40,10 +40,12 @@ import sys
 import time
 import os
 
-debug  = False 
+debug          = False 
 
 devicesPresent = False
-deviceOpen = False
+deviceOpen     = False
+
+metaPlotter = True
 
 macAddress          = mD.macAddress
 
@@ -53,8 +55,13 @@ integrationTimeMicroSec      = 1000000
 integrationTimeSec           = integrationTimeMicroSec/1000000
 scansToAverage               = 5
 boxCarWidth                  = 5 
-
 fiberDiametorMicroMeter      = 200
+
+darkSpectrumFile = \
+    "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-02_21:05:53_771689+00:00.pkl"
+
+calibrationFile = \
+    "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
 
 if __name__ == "__main__":
     
@@ -63,19 +70,46 @@ if __name__ == "__main__":
     print()
 
     devicesPresent, deviceIDs = mO.checkingDevicePresence()
+
     if devicesPresent:
         
         print("Ocean Optics Spectrometors found")
         # Only choosing the 1st Device
-        deviceID,device =  mO.openDevice(deviceIDs,0)
-        
-        time.sleep(1)
-        waveLengths                = device.get_wavelengths()
-        time.sleep(1)
-        serialNumber               = device.get_serial_number()
-        time.sleep(1)   
+        deviceID,device             =  mO.openDevice(deviceIDs,0)
 
-        mO.getAllSpectrumDetails(device)   
+        serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
+                
+        waveLengthSpread     = mO.calculateBinSize(waveLengths)
+
+        calibrationData      = mO.loadCalibrationData(calibrationFile)
+
+        darkSpectra          = mO.loadDarkSpectra(darkSpectrumFile)
+
+        if metaPlotter:
+            mO.plotter(waveLengths,\
+                        waveLengthSpread,\
+                            "Wave Lengths (nm)",\
+                                "Wave Length Spread (nm)",\
+                                    "Wave Lengths Bin Siz (Spread)",\
+                                        "mintsPlots/waveLengthSpread")
+            
+            
+            plotTitle = "Wave Lengths Spread for " + calibrationFile
+            mO.plotter(waveLengths,\
+                        calibrationData,\
+                            "Wave Lengths (nm)",\
+                                "Calibration Curve (uJoule/count) ",\
+                                    "Calibration data for " + calibrationFile ,\
+                                        "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+
+            plotTitle = "Wave Lengths Spread for " + darkSpectrumFile
+            mO.plotter(waveLengths,\
+                        darkSpectra,\
+                            "Wave Lengths (nm)",\
+                                "Dark Spectra (counts) ",\
+                                    "Dark Spectra Collected from " + darkSpectra ,\
+                                        "mintsPlots/" + plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+
 
         mO.setUpDevice(device,\
                         electricDarkCorrelationUsage,\
@@ -87,14 +121,26 @@ if __name__ == "__main__":
         
         mO.getAllSpectrumDetails(device)   
 
-        mO.obtainDarkSpecta(
-            device,\
-                electricDarkCorrelationUsage,\
-                    nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                            scansToAverage,\
-                                boxCarWidth,\
-                            )
+        # mO.obtainDarkSpecta(
+        #     device,\
+        #         electricDarkCorrelationUsage,\
+        #             nonLinearityCorrectionUsage,\
+        #                 integrationTimeMicroSec,\
+        #                     scansToAverage,\
+        #                         boxCarWidth,\
+        #                     )
+
+        # while(True):
+        #     mO.getSingleSpectra(device,\
+        #         electricDarkCorrelationUsage,\
+        #             nonLinearityCorrectionUsage,\
+        #                 integrationTimeMicroSec,\
+        #                     scansToAverage,\
+        #                         boxCarWidth,\
+        #                            calibrationFile,\
+        #                               darkSpectra,\                            
+        #                     )
+        
 
 
 
@@ -102,10 +148,6 @@ if __name__ == "__main__":
         # #                             integrationTimeMicroSec)
 
         # # Loading the dark spectrum 
-        # darkSpectrumFile = \
-        #     "darkSpectrums/Formatted_Spectrum_00_for_SN:_SR200544__EDCU:_False__NLCU:_False__IT:_1_0_s__Date_Time:_2024-02-02_21:05:53_771689+00:00.pkl"
-        # calibrationFile = \
-        #     "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
 
         # waveLengthSpread = mO.calculateBinSize(waveLengths)
         # electricDarkCorrelationUsage =  False

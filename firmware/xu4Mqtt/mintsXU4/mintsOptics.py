@@ -137,9 +137,10 @@ def getAllSpectrumDetails(device):
     nonLinearityCorrectionUsage    = device.get_nonlinearity_correction_usage()
     print("Non Linearaty Correction    :",nonLinearityCorrectionUsage)
 
-    return;
-
-
+    time.sleep(1)
+    waveLengths                    = device.get_wavelengths()
+    
+    return serialNumber, waveLengths;
 
 def setUpDevice(device,\
                 electricDarkCorrelationUsage,\
@@ -249,6 +250,36 @@ def plotter(waveLengths,spectrum,xLabel,yLabel,\
     plt.title(titleName)
     plt.savefig(fileName+".png" ,dpi=300)
     plt.close()
+
+
+def loadCalibrationData(calibrationFile):
+    print("Collecting Callibration Data")
+    calibrationData = []
+    with open(calibrationFile, 'r') as file:
+        # Skip the first 9 lines (header information)
+        for _ in range(9):
+            next(file)
+        # Read the remaining lines and convert them to floats
+        for line in file:
+            float_value = float(line.strip())
+            calibrationData.append(float_value)
+
+    return calibrationData;
+
+
+
+def loadDarkSpectra(darkSpectrumFile):
+    print("Loading dark spectrum file")
+    darkSpectrum = pickleListFloatLoad(darkSpectrumFile)
+    return darkSpectrum;
+
+# 
+# 
+# 
+
+
+
+
 
 
 def obtainDarkSpectrums(device,\
@@ -637,44 +668,43 @@ def getCorrectedSpectra(device,\
 
 
 
-
-def collectCalibrationData(integrationTimeMicroSec,serialNumber,waveLengths,calibrationFile):
+# def collectCalibrationData(integrationTimeMicroSec,serialNumber,waveLengths,calibrationFile):
     
-    dateTime     = datetime.now(timezone.utc)
-    print("Collecting an Ambient Spectrum")
+#     dateTime     = datetime.now(timezone.utc)
+#     print("Collecting an Ambient Spectrum")
     
-    calibrationData = []
-    with open(calibrationFile, 'r') as file:
-        # Skip the first 7 lines (header information)
-        for _ in range(9):
-            next(file)
+#     calibrationData = []
+#     with open(calibrationFile, 'r') as file:
+#         # Skip the first 7 lines (header information)
+#         for _ in range(9):
+#             next(file)
 
-        # Read the remaining lines and convert them to floats
-        for line in file:
-            # print(line.strip())
-            float_value = float(line.strip())
-            calibrationData.append(float_value)
+#         # Read the remaining lines and convert them to floats
+#         for line in file:
+#             # print(line.strip())
+#             float_value = float(line.strip())
+#             calibrationData.append(float_value)
     
     
 
-    print(len(calibrationData))
+#     print(len(calibrationData))
     
-    preTitle = "Callibration Data"
-    electricDarkCorrelationUsage =  False
-    nonLinearityCorrectionUsage  =  False
+#     preTitle = "Callibration Data"
+#     electricDarkCorrelationUsage =  False
+#     nonLinearityCorrectionUsage  =  False
 
-    time.sleep(1)
+#     time.sleep(1)
 
-    labelSpaced, labelNoSpaces = \
-                getStringTitle(serialNumber, preTitle,\
-                    electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                            integrationTimeMicroSec,\
-                                dateTime)
+#     labelSpaced, labelNoSpaces = \
+#                 getStringTitle(serialNumber, preTitle,\
+#                     electricDarkCorrelationUsage,\
+#                         nonLinearityCorrectionUsage,\
+#                             integrationTimeMicroSec,\
+#                                 dateTime)
 
-    plotter(waveLengths,calibrationData,\
-                labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
-    return calibrationData;
+#     plotter(waveLengths,calibrationData,\
+#                 labelSpaced,"/home/teamlary/mintsData/spectrumDiagrams/" + labelNoSpaces)   
+#     return calibrationData;
 
 
 def zeroCorrection(inputList):
