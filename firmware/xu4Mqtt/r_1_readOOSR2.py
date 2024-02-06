@@ -90,11 +90,11 @@ if __name__ == "__main__":
                         waveLengthSpread,\
                             "Wave Lengths (nm)",\
                                 "Wave Length Spread (nm)",\
-                                    "Wave Lengths Bin Siz (Spread)",\
+                                    "Wave Lengths Bin Size (Spread)",\
                                         "mintsPlots/waveLengthSpread")
             
             
-            plotTitle = "Wave Lengths Spread for " + calibrationFile
+            plotTitle = "Calibratation curve for " + calibrationFile.replace("calibrationFiles/","")
             mO.plotter(waveLengths,\
                         calibrationData,\
                             "Wave Lengths (nm)",\
