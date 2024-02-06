@@ -362,7 +362,10 @@ def publishSR200544RC(dateTime,\
                                 integrationTimeMicroSec,\
                                     scansToAverage,\
                                         boxCarWidth):
-    if(len(waveLengths) == counts ):
+    print("===========================")
+    print("Publish SR200544RC - Raw Counts")   
+
+    if(len(waveLengths) == len(counts)):
         sensorDictionary = OrderedDict([
             ("dateTime"                  ,str(dateTime)),
            	("integrationTimeMicroSec"   ,integrationTimeMicroSec),
