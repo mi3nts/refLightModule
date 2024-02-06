@@ -401,7 +401,7 @@ def publishSR200544RC(dateTime,\
         for key, value in zip(waveLengths, counts):
             sensorDictionary[str(key)] = value        
 
-        print(sensorDictionary)
+        # print(sensorDictionary)
         mSR.sensorFinisher(dateTime,"SR200544AI",sensorDictionary)        
         return;
                 
@@ -429,7 +429,7 @@ def publishSR200544AI(dateTime,\
 
         for key, value in zip(waveLengths, energy):
             sensorDictionary[str(key)] = value        
-        print(sensorDictionary)
+        # print(sensorDictionary)
         mSR.sensorFinisher(dateTime,"SR200544AI",sensorDictionary)
         return;
 
