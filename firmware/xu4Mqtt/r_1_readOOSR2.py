@@ -95,34 +95,33 @@ if __name__ == "__main__":
         darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
         calibrationDate             = mO.getCalibrationMeta(calibrationFile)
         darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
-      
-        mO.setUpDevice(device,\
-                        electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                        scansToAverage,\
-                        boxCarWidth,\
-                        )
-        
-        mO.getAllSpectrumDetails(device)  
 
         try:
             while True:
+                start_time = time.time()
+                mO.setUpDevice(device,\
+                                electricDarkCorrelationUsage,\
+                                nonLinearityCorrectionUsage,\
+                                integrationTimeMicroSec,\
+                                scansToAverage,\
+                                boxCarWidth,\
+                                )
+                dateTimeRaw           = datetime.now(timezone.utc)
+                illuminatedSpectrum   = device.get_formatted_spectrum()
 
-                dateTime           = datetime.now(timezone.utc)
+                mO.setUpDevice(device,\
+                                True,\
+                                True,\
+                                integrationTimeMicroSec,\
+                                scansToAverage,\
+                                boxCarWidth,\
+                                )
                 
-                illuminatedSpectrum  = device.get_formatted_spectrum()
-
-                mO.publishSR200544RC(dateTime,\
-                                        waveLengths,\
-                                            illuminatedSpectrum,\
-                                                integrationTimeMicroSec,\
-                                                    scansToAverage,\
-                                                        boxCarWidth)
+                dateTimeIC            = datetime.now(timezone.utc)
+                illuminatedSpectrumIC = device.get_formatted_spectrum()
                 
 
-
-                energyInMicroJoulesPerAreaPerSecPerNanoMeter = \
+                energyInMicroJoulesPerAreaPerSecPerNanoMeter, zeroCorrectedSpectrum = \
                                     mO.getAbsouluteIrradiance(device,
                                         illuminatedSpectrum,\
                                             darkSpectra,\
@@ -131,39 +130,121 @@ if __name__ == "__main__":
                                                         waveLengthSpread\
                                                             )
 
-
-
-                mO.publishSR200544AI(dateTime,\
+                energyInMicroJoulesPerAreaPerSecPerNanoMeterIC, zeroCorrectedSpectrumIC = \
+                                    mO.getAbsouluteIrradianceIC(device,
+                                        illuminatedSpectrumIC,\
+                                                calibrationData,\
+                                                    unitTransformDenomenator,
+                                                        waveLengthSpread\
+                                                            )
+                
+                mO.publishSR200544RC(dateTimeRaw,\
+                                        waveLengths,\
+                                            illuminatedSpectrum,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth)
+                # Publishing Zero Corrected Spectrum
+                time.sleep(.1)
+                mO.publishSR200544(dateTimeRaw,\
+                                        waveLengths,\
+                                            zeroCorrectedSpectrum,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth,\
+                                                            calibrationDate,\
+                                                                darkSpectraTime,
+                                                                    "SR200544ZC")
+                time.sleep(.1)
+                mO.publishSR200544(dateTimeIC,\
+                                        waveLengths,\
+                                            zeroCorrectedSpectrumIC,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth,\
+                                                            calibrationDate,\
+                                                                darkSpectraTime,
+                                                                    "SR200544ZCIC")   
+                
+                # Publishing Absolute Irradiance
+                time.sleep(.1)
+                mO.publishSR200544(dateTimeRaw,\
                                         waveLengths,\
                                             energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
                                                 integrationTimeMicroSec,\
                                                     scansToAverage,\
                                                         boxCarWidth,\
                                                             calibrationDate,\
-                                                                darkSpectraTime)
-                
+                                                                darkSpectraTime,
+                                                                    "SR200544AI")
+                time.sleep(.1)
+                mO.publishSR200544(dateTimeIC,\
+                                        waveLengths,\
+                                            energyInMicroJoulesPerAreaPerSecPerNanoMeterIC,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth,\
+                                                            calibrationDate,\
+                                                                darkSpectraTime,
+                                                                    "SR200544AIIC")
+
                 if spectrumPlotter:
-                    
-                    plotTitle = "Illuminated Spectrum Counts for " + str(dateTime) 
+                    time.sleep(.1)
+                    plotTitle = "Illuminated Spectrum Counts for " + str(dateTimeRaw) 
                     mO.plotter(waveLengths,\
                                 illuminatedSpectrum,\
                                     "Wave Lengths (nm)",\
                                         "Illuminated Spectrum (counts) ",\
-                                            "Illuminated Spectrum Collected on " + str(dateTime) ,\
+                                            "Illuminated Spectrum collected on " + str(dateTimeRaw) ,\
                                                 "/home/teamlary/mintsData/spectrumDiagrams/" + \
                                                     plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
                     
-                    plotTitle = "Absolute Irradiance for " + str(dateTime) 
+                    time.sleep(.1)
+                    plotTitle = "Dark Corrected Counts for " + str(dateTimeRaw) 
+                    mO.plotter(waveLengths,\
+                                zeroCorrectedSpectrum,\
+                                    "Wave Lengths (nm)",\
+                                        "Zero Corrected Illuminated Spectrum (counts) ",\
+                                            "Zero Corrected Illuminated Spectrum Collected on " + str(dateTimeRaw) ,\
+                                                "/home/teamlary/mintsData/spectrumDiagrams/" + \
+                                                    plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+
+                    time.sleep(.1)
+                    plotTitle = "Absolute Irradiance for " + str(dateTimeRaw) 
                     mO.plotter(waveLengths,\
                                 energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
                                     "Wave Lengths (nm)",\
                                         "Absolute Irradiance(uJ/(cm2*nm*sec)) ",\
-                                            "Absolute Irradiance Collected Collected on " + str(dateTime) ,\
+                                            "Absolute Irradiance collected on " + str(dateTimeRaw) ,\
                                                 "/home/teamlary/mintsData/spectrumDiagrams/" + \
                                                     plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
                     
 
-                time.sleep(10)
+                    # For Instrument Corrected Values
+                    time.sleep(.1)
+                    plotTitle = "Dark Corrected Counts (IC) for " + str(dateTimeRaw) 
+                    mO.plotter(waveLengths,\
+                                zeroCorrectedSpectrumIC,\
+                                    "Wave Lengths (nm)",\
+                                        "Zero Corrected Illuminated Spectrum IC (counts) ",\
+                                            "Zero Corrected Illuminated Spectrum (IC) collected on " + str(dateTimeRaw) ,\
+                                                "/home/teamlary/mintsData/spectrumDiagrams/" + \
+                                                    plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+
+                    time.sleep(.1)
+                    plotTitle = "Absolute Irradiance (IC) for " + str(dateTimeRaw) 
+                    mO.plotter(waveLengths,\
+                                energyInMicroJoulesPerAreaPerSecPerNanoMeterIC,\
+                                    "Wave Lengths (nm)",\
+                                        "Absolute Irradiance IC (uJ/(cm2*nm*sec))  ",\
+                                            "Absolute Irradiance IC collected on " + str(dateTimeRaw) ,\
+                                                "/home/teamlary/mintsData/spectrumDiagrams/" + \
+                                                    plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+                    
+                    end_time = time.time()
+                    elapsed_time = end_time - start_time
+                    print(f"Elapsed time: {elapsed_time} seconds")
+                    # time.sleep(10)
 
         except KeyboardInterrupt:
             # Handle a keyboard interrupt (Ctrl+C)

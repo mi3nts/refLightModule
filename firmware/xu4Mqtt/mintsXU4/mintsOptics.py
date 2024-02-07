@@ -153,26 +153,26 @@ def setUpDevice(device,\
     
     print("===========================")
     print("Setting up Device:")
-
+    time.sleep(.5)    
     print("Setting Dark Correction usage to: " +str(electricDarkCorrelationUsage))
     device.set_electric_dark_correction_usage(electricDarkCorrelationUsage)
-    time.sleep(1)    
+    time.sleep(.5)    
     
     print("Setting Nonlinearity Correction usage to: " +str(electricDarkCorrelationUsage))
     device.set_nonlinearity_correction_usage(nonLinearityCorrectionUsage)
-    time.sleep(1)
+    time.sleep(.5)
 
     print("Setting Integration Time to: " +str(integrationTimeMicroSec)+ " micro seconds")
     device.set_integration_time(integrationTimeMicroSec)
-    time.sleep(1)
+    time.sleep(.5)
 
     print("Setting Scans to Average to: " +str(scansToAverage)+ " scans")
     device.set_scans_to_average(scansToAverage)
-    time.sleep(1)
+    time.sleep(.5)
 
     print("Setting Boxcar Width to: " + str(boxCarWidth)+ " wave lengths")
     device.set_boxcar_width(boxCarWidth)
-    time.sleep(1)
+    time.sleep(.5)
 
 def obtainDarkSpecta(
         device,\
@@ -379,8 +379,34 @@ def getAbsouluteIrradiance(device,
                                 energyInMicroJoulesPerAreaPerSec,\
                                     waveLengthSpread)
 
-    return energyInMicroJoulesPerAreaPerSecPerNanoMeter;
+    return energyInMicroJoulesPerAreaPerSecPerNanoMeter,zeroCorrectedSpectrum;
         
+
+
+def getAbsouluteIrradianceIC(device,
+                            illuminatedSpectrum,\
+                                    calibrationData,\
+                                        unitTransformDenomenator,
+                                            waveLengthSpread):
+    
+    zeroCorrectedSpectrumIC   = zeroCorrection(illuminatedSpectrum)
+        
+    energyInMicroJoules     = multiplyLists(\
+                                zeroCorrectedSpectrumIC,\
+                                    calibrationData\
+                                        )
+
+    energyInMicroJoulesPerAreaPerSec\
+                            = [x / (unitTransformDenomenator) for x in energyInMicroJoules]
+        
+    energyInMicroJoulesPerAreaPerSecPerNanoMeterIC\
+                            = divideLists(\
+                                energyInMicroJoulesPerAreaPerSec,\
+                                    waveLengthSpread)
+
+    return energyInMicroJoulesPerAreaPerSecPerNanoMeterIC,zeroCorrectedSpectrumIC;
+
+
 
 def publishSR200544RC(dateTime,\
                         waveLengths,\
@@ -405,14 +431,15 @@ def publishSR200544RC(dateTime,\
         mSR.sensorFinisher(dateTime,"SR200544RC",sensorDictionary)        
         return;
                 
-def publishSR200544AI(dateTime,\
+def publishSR200544(dateTime,\
                         waveLengths,\
                             energy,\
                                 integrationTimeMicroSec,\
                                     scansToAverage,\
                                         boxCarWidth,\
                                             calibrationDate,\
-                                                darkSpectraTime):
+                                                darkSpectraTime,\
+                                                    sensorID):
     
     print("===========================")
     print("Publish SR200544AI - Absolute Irradiance")   
@@ -430,7 +457,7 @@ def publishSR200544AI(dateTime,\
         for key, value in zip(waveLengths, energy):
             sensorDictionary[str(key)] = value        
         # print(sensorDictionary)
-        mSR.sensorFinisher(dateTime,"SR200544AI",sensorDictionary)
+        mSR.sensorFinisher(dateTime,sensorID,sensorDictionary)
         return;
 
 
