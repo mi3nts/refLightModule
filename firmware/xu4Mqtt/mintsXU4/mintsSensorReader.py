@@ -53,7 +53,7 @@ def sensorFinisher(dateTime,sensorName,sensorDictionary):
 
     print("-----------------------------------")
     print(sensorName)
-    print(sensorDictionary)
+    # print(sensorDictionary)
 
 
 def sensorFinisherReference(dateTime,sensorName,sensorDictionary):
