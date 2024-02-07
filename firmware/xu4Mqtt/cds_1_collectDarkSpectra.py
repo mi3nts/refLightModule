@@ -74,14 +74,6 @@ if __name__ == "__main__":
 
         serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
 
-        mO.setUpDevice(device,\
-                        electricDarkCorrelationUsage,\
-                        nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                        scansToAverage,\
-                        boxCarWidth,\
-                        )
-
         mO.obtainDarkSpecta(
             device,\
                 electricDarkCorrelationUsage,\

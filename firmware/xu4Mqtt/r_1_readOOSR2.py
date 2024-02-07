@@ -40,6 +40,11 @@ import sys
 import time
 import os
 
+# Collect New Dark Spectra 
+# Automate the collection of both 
+
+
+
 debug           = False 
 
 devicesPresent  = False
@@ -125,6 +130,8 @@ if __name__ == "__main__":
                                                     unitTransformDenomenator,
                                                         waveLengthSpread\
                                                             )
+
+
 
                 mO.publishSR200544AI(dateTime,\
                                         waveLengths,\
