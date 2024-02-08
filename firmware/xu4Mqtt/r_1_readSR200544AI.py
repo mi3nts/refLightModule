@@ -167,7 +167,7 @@ if __name__ == "__main__":
                     
          
                 elapsedTime = time.time() - startTime
-                remainingWaitingTime = totalWaitingTime - elapsedTime
+                remainingWaitingTime = totalWaitingTime - elapsedTime - 0.001053
 
                 # If remaining waiting time is positive, wait for it; otherwise, no additional waiting
                 if remainingWaitingTime > 0:
