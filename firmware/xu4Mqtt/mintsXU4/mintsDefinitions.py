@@ -99,6 +99,20 @@ rainPorts                = ['/dev/ttyS1'] # Direct connected to the gpio port - 
 
 
  
+# For Ref Light Module 
 
 
+darkSpectrumFile         = \
+    "darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:1_0_s-_StA:5-_BCW:5-_DT:2024-02-07_17:54:22_097455+00:00.pkl"
+
+calibrationFile          = \
+    "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
+
+electricDarkCorrelationUsage = False
+nonLinearityCorrectionUsage  = False
+integrationTimeMicroSec      = 1000000 
+integrationTimeSec           = integrationTimeMicroSec/1000000
+scansToAverage               = 5
+boxCarWidth                  = 5 
+fiberDiametorMicroMeter      = 200
      

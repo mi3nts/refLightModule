@@ -49,13 +49,14 @@ metaPlotter = False
 
 macAddress          = mD.macAddress
 
-electricDarkCorrelationUsage = False
-nonLinearityCorrectionUsage  = False
-integrationTimeMicroSec      = 1000000 
-integrationTimeSec           = integrationTimeMicroSec/1000000
-scansToAverage               = 5
-boxCarWidth                  = 5 
-fiberDiametorMicroMeter      = 200
+
+electricDarkCorrelationUsage = mD.electricDarkCorrelationUsage
+nonLinearityCorrectionUsage  = mD.nonLinearityCorrectionUsage
+integrationTimeMicroSec      = mD.integrationTimeMicroSec
+
+scansToAverage               = mD.scansToAverage
+boxCarWidth                  = mD.boxCarWidth
+
 
 if __name__ == "__main__":
     

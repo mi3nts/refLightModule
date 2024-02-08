@@ -49,24 +49,27 @@ metaPlotter = False
 
 macAddress          = mD.macAddress
 
-electricDarkCorrelationUsage = False
-nonLinearityCorrectionUsage  = False
-integrationTimeMicroSec      = 1000000 
-integrationTimeSec           = integrationTimeMicroSec/1000000
-scansToAverage               = 5
-boxCarWidth                  = 5 
-fiberDiametorMicroMeter      = 200
 
-darkSpectrumFile         = \
-    "darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:1_0_s-_StA:5-_BCW:5-_DT:2024-02-05_22:56:38_619126+00:00.pkl"
 
-calibrationFile          = \
-    "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
+electricDarkCorrelationUsage = mD.electricDarkCorrelationUsage
+nonLinearityCorrectionUsage  = mD.nonLinearityCorrectionUsage
+integrationTimeMicroSec      = mD.integrationTimeMicroSec
+
+scansToAverage               = mD.scansToAverage
+boxCarWidth                  = mD.boxCarWidth
+fiberDiametorMicroMeter      = mD.fiberDiametorMicroMeter
+
+
+
+darkSpectrumFile         = mD.darkSpectrumFile
+calibrationFile          = mD.calibrationFile
 
 
 areaInSquareCM           = mO.squareMicroMetersToSquareCentimeters(\
                                 mO.calculateCirceArea(\
                                     fiberDiametorMicroMeter/2))
+
+integrationTimeSec           = integrationTimeMicroSec/1000000
 
 unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
