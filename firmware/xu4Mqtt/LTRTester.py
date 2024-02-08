@@ -91,9 +91,10 @@ if __name__ == '__main__':
     time.sleep(1)
     try:
         while True:
-            val = sensor.UVS()
-            # val = sensor.ALS()
-            print("UVS: %d"  %val)
+            uv  = sensor.UVS()
+            als = sensor.ALS()
+            print("UVS: %d"  %uv)
+            print("ALS: %d"  %als)
             time.sleep(0.5)
     except KeyboardInterrupt:
         exit()            
