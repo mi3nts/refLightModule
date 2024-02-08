@@ -112,7 +112,7 @@ if __name__ == "__main__":
                 dateTimeRaw           = datetime.now(timezone.utc)
                 
                 illuminatedSpectrum   = device.get_formatted_spectrum()
-                print("Collecttion Time:" + dateTimeRaw)
+                print("Collecttion Time:" + str(dateTimeRaw))
                 energyInMicroJoulesPerAreaPerSecPerNanoMeter, zeroCorrectedSpectrum = \
                                     mO.getAbsouluteIrradiance(device,
                                         illuminatedSpectrum,\
