@@ -95,4 +95,5 @@ if __name__ == '__main__':
             # val = sensor.ALS()
             print("UVS: %d"  %val)
             time.sleep(0.5)
-            
+    except KeyboardInterrupt:
+        exit()            
