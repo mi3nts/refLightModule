@@ -107,10 +107,12 @@ if __name__ == "__main__":
         try:
             while True:
                 startTime = time.time()
+                print()
+                print("========================")
                 dateTimeRaw           = datetime.now(timezone.utc)
-                print(dateTimeRaw)
+                
                 illuminatedSpectrum   = device.get_formatted_spectrum()
-
+                print("Collecttion Time:" + dateTimeRaw)
                 energyInMicroJoulesPerAreaPerSecPerNanoMeter, zeroCorrectedSpectrum = \
                                     mO.getAbsouluteIrradiance(device,
                                         illuminatedSpectrum,\
