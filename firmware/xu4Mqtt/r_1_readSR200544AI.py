@@ -74,6 +74,7 @@ areaInSquareCM           = mO.squareMicroMetersToSquareCentimeters(\
 
 unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
+totalWaitingTime       = 10
 
 if __name__ == "__main__":
     
@@ -105,8 +106,9 @@ if __name__ == "__main__":
 
         try:
             while True:
-                start_time = time.time()
+                startTime = time.time()
                 dateTimeRaw           = datetime.now(timezone.utc)
+                print(dateTimeRaw)
                 illuminatedSpectrum   = device.get_formatted_spectrum()
 
                 energyInMicroJoulesPerAreaPerSecPerNanoMeter, zeroCorrectedSpectrum = \
@@ -161,9 +163,15 @@ if __name__ == "__main__":
                     
 
                     
-                end_time = time.time()
-                elapsed_time = end_time - start_time
-                print(f"Elapsed time: {elapsed_time} seconds")
+         
+                elapsedTime = time.time() - startTime
+                remainingWaitingTime = totalWaitingTime - elapsedTime
+
+                # If remaining waiting time is positive, wait for it; otherwise, no additional waiting
+                if remainingWaitingTime > 0:
+                    time.sleep(remainingWaitingTime)
+
+
 
         except KeyboardInterrupt:
             # Handle a keyboard interrupt (Ctrl+C)

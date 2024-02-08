@@ -240,7 +240,7 @@ def getStringTitle(serialNumber, preTitle,\
 def plotter(waveLengths,spectrum,xLabel,yLabel,\
             titleName, fileName):
     print("===========================")
-    print("Plotting:")
+    print("Plotting:" + titleName)
     plt.figure(figsize=(16, 12))
     plt.plot(waveLengths,spectrum)
     plt.xlabel(xLabel)
