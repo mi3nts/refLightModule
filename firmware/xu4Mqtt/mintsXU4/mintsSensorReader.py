@@ -40,8 +40,6 @@ debugMints     =  True
 
 
 def sensorFinisher(dateTime,sensorName,sensorDictionary):
-    print("-----------------------------------")
-    print("-----------------------------------")
     writePath = getWritePath(sensorName,dateTime)
 
     exists = directoryCheck(writePath)
