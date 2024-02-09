@@ -88,16 +88,16 @@ class LTR390:
         self.i2c.write_byte_data(self.address, 0x25, (low>>8)&0xff)
         self.i2c.write_byte_data(self.address, 0x26, (low>>16)&0x0f)
     
-if __name__ == '__main__':
-    sensor = LTR390()
-    sensor.SetIntVal(5, 20) # uvs/als set low/high int val
-    time.sleep(1)
-    try:
-        while True:
-            uv  = sensor.UVS()
-            als = sensor.ALS()
-            print("UVS: %d"  %uv)
-            print("ALS: %d"  %als)
-            time.sleep(0.5)
-    except KeyboardInterrupt:
-        exit()            
+# if __name__ == '__main__':
+#     sensor = LTR390()
+#     sensor.SetIntVal(5, 20) # uvs/als set low/high int val
+#     time.sleep(1)
+#     try:
+#         while True:
+#             uv  = sensor.UVS()
+#             als = sensor.ALS()
+#             print("UVS: %d"  %uv)
+#             print("ALS: %d"  %als)
+#             time.sleep(0.5)
+#     except KeyboardInterrupt:
+#         exit()            

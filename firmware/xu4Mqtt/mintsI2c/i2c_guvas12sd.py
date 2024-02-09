@@ -1,0 +1,63 @@
+# GUVA-S12SD
+
+import datetime
+from datetime import timedelta
+import time
+import math
+
+from ina219 import INA219
+from ina219 import DeviceRangeError
+
+SHUNT_OHMS = 0.1
+MAX_EXPECTED_AMPS = 0.2
+
+# Mints Battery level SoLo nodes
+class MBLSL001:
+
+    def __init__(self, busNum,pinNum,resistorGround,resisterHigh):
+        print("Initiating INA219 for GUVAS12SD")
+        self.ina    =None
+        
+        try:
+            self.ina   = INA219(SHUNT_OHMS, busnum=busNum)
+        
+        except Exception as e:
+            time.sleep(.5)
+            print ("Error and type: %s - %s." % (e,type(e)))
+            time.sleep(.5)
+            print("INA not found")
+            time.sleep(.5)
+    
+    def initiate(self):
+        time.sleep(1)
+        try:
+            if "Adafruit_GPIO.I2C" in str(self.ina._i2c)\
+                self.ina.configure()
+                print("Initiated INA for GUVAS12SD")
+                return True;
+
+        except Exception as e:
+            time.sleep(.5)
+            print ("Error and type: %s - %s." % (e,type(e)))
+            time.sleep(.5)
+            print("INAs not configured")
+            time.sleep(.5)
+            return False
+
+      
+    def read(self):
+        uv  = self.ina.voltage()
+        return [lk];
+
+    def readMqtt(self):
+        dateTime  = datetime.datetime.now()
+        uv  = self.ina.voltage()
+
+        sensorDictionary =  OrderedDict([
+            ("dateTime"     , str(dateTime)), # always the same
+            ("uv"           ,uv),
+             ])        
+        print(sensorDictionary)
+        mSR.sensorFinisher(dateTime,"GUVAS12SD",sensorDictionary)
+        time.sleep(1)   
+        return;

@@ -87,7 +87,6 @@ class LTR390:
         als = self.ALS()
         print("UVS: %d"  %uv)
         print("ALS: %d"  %als)
-        
         return [uv,als];
 
     def readMqtt(self):
@@ -96,10 +95,10 @@ class LTR390:
         als = self.ALS()
 
         sensorDictionary =  OrderedDict([
-        ("dateTime"     , str(dateTime)), # always the same
-        ("uv"           ,uv),
-        ("als"          ,als),
-        ])        
+            ("dateTime"     , str(dateTime)), # always the same
+            ("uv"           ,uv),
+            ("als"          ,als),
+            ])        
         print(sensorDictionary)
         mSR.sensorFinisher(dateTime,"LTR390",sensorDictionary)
         time.sleep(1)   
