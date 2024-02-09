@@ -80,7 +80,7 @@ class LTR390:
             return False
         
         else:
-            print("LTR390 Found")
+            # print("LTR390 Found")
             time.sleep(1)
             return True       
 
