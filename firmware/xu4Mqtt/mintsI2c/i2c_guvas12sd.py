@@ -55,20 +55,20 @@ class GUVAS12SD:
             time.sleep(.5)
             return False
 
-      
-    def read(self):
-        uv  = self.ina.voltage()
-        return [lk];
-
     def readMqtt(self):
         dateTime  = datetime.datetime.now()
-        uv  = self.ina.voltage()
+        uv        = self.ina.voltage()
 
         sensorDictionary =  OrderedDict([
             ("dateTime"     , str(dateTime)), # always the same
             ("uv"           ,uv),
              ])        
-        print(sensorDictionary)
+        # print(sensorDictionary)
         mSR.sensorFinisher(dateTime,"GUVAS12SD",sensorDictionary)
         time.sleep(1)   
-        return;
+        return;      
+
+    def read(self):
+        uv  = self.ina.voltage()
+        return [uv];
+
