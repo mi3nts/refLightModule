@@ -25,8 +25,7 @@ class GUVAS12SD:
         # self.address = address
         self.i2c      = i2c_dev
         self.debug    = debugIn     
-        
-        print("Initiating INA219 for GUVAS12SD")
+        # print("Initiating INA219 for GUVAS12SD")
         self.ina    =None
         
         try:

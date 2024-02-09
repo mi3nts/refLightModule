@@ -50,8 +50,8 @@ bus       = smbus2.SMBus(busNumber)
 scd30     = SCD30(bus,debug)
 bme280    = BME280(bus,debug)
 as7265x   = AS7265X(bus,debug)
-ltr390    = LTR390(bus,debug)
-guvas12sd = GUVAS12SD(bus,debug,busNumber)
+# ltr390    = LTR390(bus,debug)
+# guvas12sd = GUVAS12SD(bus,debug,busNumber)
 
 # pa101d  = PAI101D_(bus,debug)
 
@@ -73,11 +73,11 @@ if __name__ == "__main__":
     scd30Online        =  scd30.initiate(30)
     scd30ReadTime      = time.time()
 
-    ltr390Online       =  ltr390.initiate()
-    ltr390ReadTime     = time.time()
+    # ltr390Online       =  ltr390.initiate()
+    # ltr390ReadTime     = time.time()
 
-    guvas12sdOnline    =  guvas12sd.initiate()
-    guvas12sdReadTime  = time.time()
+    # guvas12sdOnline    =  guvas12sd.initiate()
+    # guvas12sdReadTime  = time.time()
 
     delta = 10
 
@@ -92,12 +92,12 @@ if __name__ == "__main__":
             if scd30Online and mSR.getDeltaTimeAM(scd30ReadTime,delta):
                 scd30.readMqtt();
                 scd30ReadTime  = time.time()
-            if  ltr390Online and mSR.getDeltaTimeAM(ltr390ReadTime,delta):
-                ltr390.readMqtt();
-                ltr390ReadTime  = time.time()
-            if guvas12sdOnline and mSR.getDeltaTimeAM(guvas12sdReadTime,delta):
-                scd30.readMqtt();
-                guvas12sdReadTime  = time.time()       
+            # if  ltr390Online and mSR.getDeltaTimeAM(ltr390ReadTime,delta):
+            #     ltr390.readMqtt();
+            #     ltr390ReadTime  = time.time()
+            # if guvas12sdOnline and mSR.getDeltaTimeAM(guvas12sdReadTime,delta):
+            #     scd30.readMqtt();
+            #     guvas12sdReadTime  = time.time()       
 
         except Exception as e:
             time.sleep(.5)
