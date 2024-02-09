@@ -44,7 +44,7 @@ class GUVAS12SD:
         try:
             if "Adafruit_GPIO.I2C" in str(self.ina._i2c):
                 self.ina.configure()
-                print("Initiated INA for GUVAS12SD")
+                # print("Initiated INA for GUVAS12SD")
                 return True;
 
         except Exception as e:
