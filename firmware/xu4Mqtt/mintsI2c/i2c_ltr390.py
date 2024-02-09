@@ -65,7 +65,7 @@ class LTR390:
                 print("read ID error!,Check the hardware...")
                 time.sleep(1)
                 if ready:
-                    self.Write_Byte(LTR390_MAIN_CTRL, 0x02) # MAIN_CTRL=UVS in Active Mode
+                    # self.Write_Byte(LTR390_MAIN_CTRL, 0x02) # MAIN_CTRL=UVS in Active Mode
                     self.Write_Byte(LTR390_MEAS_RATE, RESOLUTION_18BIT_TIME100MS | RATE_100MS)# default
                     self.Write_Byte(LTR390_GAIN, GAIN_3) # default
                     time.sleep(1)
