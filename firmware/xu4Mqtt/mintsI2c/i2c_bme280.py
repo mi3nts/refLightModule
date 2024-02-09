@@ -25,6 +25,7 @@ class BME280:
         self.debug    = debugIn
 
     def initiate(self,retriesIn):
+        print("Initializing BME280")
         ready = None
         while ready is None and retriesIn:
             try:

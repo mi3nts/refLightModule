@@ -40,6 +40,7 @@ class SCD30:
         self.debug    =  debugIn
 
     def initiate(self,retriesIn):
+        print("Initializing SCD30")
         ready = None
         
         while ready is None and retriesIn:
