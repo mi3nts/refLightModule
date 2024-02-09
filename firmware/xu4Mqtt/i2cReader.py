@@ -96,7 +96,7 @@ if __name__ == "__main__":
                 ltr390.readMqtt();
                 ltr390ReadTime  = time.time()
             if guvas12sdOnline and mSR.getDeltaTimeAM(guvas12sdReadTime,delta):
-                scd30.readMqtt();
+                guvas12sd.readMqtt();
                 guvas12sdReadTime  = time.time()       
 
         except Exception as e:
