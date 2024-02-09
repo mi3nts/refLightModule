@@ -73,7 +73,7 @@ if __name__ == "__main__":
     scd30Online        =  scd30.initiate(30)
     scd30ReadTime      = time.time()
 
-    ltr390Online       =  ltr390.initiate()
+    ltr390Online       =  ltr390.initiate(30)
     ltr390ReadTime     = time.time()
 
     guvas12sdOnline    =  guvas12sd.initiate()
