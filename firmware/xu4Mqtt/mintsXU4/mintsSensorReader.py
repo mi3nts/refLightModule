@@ -36,7 +36,7 @@ dataFolderMQTT = mD.dataFolderMQTT
 latestOn       = mD.latestOn
 mqttOn         = mD.mqttOn
 
-
+debugMints     =  True
 
 
 def sensorFinisher(dateTime,sensorName,sensorDictionary):
@@ -53,7 +53,8 @@ def sensorFinisher(dateTime,sensorName,sensorDictionary):
 
     print("-----------------------------------")
     print(sensorName)
-    # print(sensorDictionary)
+    if debugMints:
+        print(sensorDictionary)
 
 
 def sensorFinisherReference(dateTime,sensorName,sensorDictionary):
