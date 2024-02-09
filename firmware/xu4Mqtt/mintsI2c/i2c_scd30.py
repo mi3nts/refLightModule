@@ -45,7 +45,7 @@ class SCD30:
         while ready is None and retriesIn:
             try:
                 ready = self.get_data_ready()
-
+                print(ready)
             except OSError:
                 pass
             time.sleep(1)
