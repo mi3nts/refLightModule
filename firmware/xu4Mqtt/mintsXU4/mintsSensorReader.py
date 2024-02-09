@@ -51,11 +51,11 @@ def sensorFinisher(dateTime,sensorName,sensorDictionary):
     if(mqttOn):
        mL.writeMQTTLatest(sensorDictionary,sensorName)   
 
-    print("-----------------------------------")
+
     print(sensorName)
     if debugMints:
         print(sensorDictionary)
-
+    print("-----------------------------------")
 
 def sensorFinisherReference(dateTime,sensorName,sensorDictionary):
     # Getting Write Path
