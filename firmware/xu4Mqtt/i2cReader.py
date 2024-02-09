@@ -67,11 +67,11 @@ if __name__ == "__main__":
     # as7265xOnline      =  as7265x.initiate()
     # as7265xReadTime    = time.time()
 
-    # bme280Online       =  bme280.initiate(30)
-    # bme280ReadTime     = time.time()
+    bme280Online       =  bme280.initiate(30)
+    bme280ReadTime     = time.time()
 
-    # scd30Online        =  scd30.initiate(30)
-    # scd30ReadTime      = time.time()
+    scd30Online        =  scd30.initiate(30)
+    scd30ReadTime      = time.time()
 
     # ltr390Online       =  ltr390.initiate()
     # ltr390ReadTime     = time.time()
