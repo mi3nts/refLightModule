@@ -44,7 +44,7 @@ import smbus2
 debug  = False 
 
 
-busNumber = 0 
+busNumber = 1 
 bus       = smbus2.SMBus(busNumber)
 
 scd30     = SCD30(bus,debug)
