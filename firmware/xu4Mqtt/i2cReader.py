@@ -67,11 +67,11 @@ if __name__ == "__main__":
     as7265xOnline      =  as7265x.initiate()
     as7265xReadTime    = time.time()
 
-    bme280Online       =  bme280.initiate(30)
-    bme280ReadTime     = time.time()
+    # bme280Online       =  bme280.initiate(30)
+    # bme280ReadTime     = time.time()
 
-    scd30Online        =  scd30.initiate(30)
-    scd30ReadTime      = time.time()
+    # scd30Online        =  scd30.initiate(30)
+    # scd30ReadTime      = time.time()
 
     # ltr390Online       =  ltr390.initiate()
     # ltr390ReadTime     = time.time()
@@ -86,12 +86,12 @@ if __name__ == "__main__":
             if as7265xOnline and mSR.getDeltaTimeAM(as7265xReadTime,delta):
                 as7265xReadTime  = time.time()
                 as7265x.readMqtt();
-            if bme280Online and mSR.getDeltaTimeAM(bme280ReadTime,delta):
-                bme280ReadTime  = time.time()                
-                bme280.readMqtt();
-            if scd30Online and mSR.getDeltaTimeAM(scd30ReadTime,delta):
-                scd30.readMqtt();
-                scd30ReadTime  = time.time()
+            # if bme280Online and mSR.getDeltaTimeAM(bme280ReadTime,delta):
+            #     bme280ReadTime  = time.time()                
+            #     bme280.readMqtt();
+            # if scd30Online and mSR.getDeltaTimeAM(scd30ReadTime,delta):
+            #     scd30.readMqtt();
+            #     scd30ReadTime  = time.time()
             # if  ltr390Online and mSR.getDeltaTimeAM(ltr390ReadTime,delta):
             #     ltr390.readMqtt();
             #     ltr390ReadTime  = time.time()
