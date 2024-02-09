@@ -1,9 +1,13 @@
-import time
-import math
-import smbus
 
 # from https://www.pibits.net/code/ltr390-uv-light-sensor-a-raspberry-pi-4-in-python.php
 
+
+import time
+import math
+import smbus
+import datetime
+from collections import OrderedDict
+from mintsXU4 import mintsSensorReader as mSR
 ADDR  = (0X53)
 
 LTR390_MAIN_CTRL = (0x00)  # Main control register
@@ -47,14 +51,59 @@ class LTR390:
         self.i2c = smbus.SMBus(0)
         self.address = address
                 
-        self.ID = self.Read_Byte(LTR390_PART_ID)
-        if(self.ID != 0xB2):
-            print("read ID error!,Check the hardware...")
-            return
 
-        # self.Write_Byte(LTR390_MAIN_CTRL, 0x02) # MAIN_CTRL=UVS in Active Mode
-        self.Write_Byte(LTR390_MEAS_RATE, RESOLUTION_18BIT_TIME100MS | RATE_100MS)# default
-        self.Write_Byte(LTR390_GAIN, GAIN_3) # default
+
+    def initiate(self,retriesIn):
+        ready = True
+        while not ready and retriesIn:
+            try:
+                self.ID = self.Read_Byte(LTR390_PART_ID)
+                
+                ready = (self.ID == 0xB2)
+                print("read ID error!,Check the hardware...")
+                time.sleep(1)
+                if ready:
+                    # self.Write_Byte(LTR390_MAIN_CTRL, 0x02) # MAIN_CTRL=UVS in Active Mode
+                    self.Write_Byte(LTR390_MEAS_RATE, RESOLUTION_18BIT_TIME100MS | RATE_100MS)# default
+                    self.Write_Byte(LTR390_GAIN, GAIN_3) # default
+                    time.sleep(1)
+                    self.SetIntVal(5, 20)
+                
+
+            except OSError:
+                pass
+            retriesIn -= 1
+
+        if not retriesIn:
+            return False
+        
+        else:
+            print("LTR390 Found")
+            time.sleep(1)
+            return True       
+
+    def read(self):
+        uv  = self.UVS()
+        als = self.ALS()
+        print("UVS: %d"  %uv)
+        print("ALS: %d"  %als)
+        
+        return [uv,als];
+
+    def readMqtt(self):
+        dateTime  = datetime.datetime.now()
+        uv  = self.UVS()
+        als = self.ALS()
+
+        sensorDictionary =  OrderedDict([
+        ("dateTime"     , str(dateTime)), # always the same
+        ("uv"           ,uv),
+        ("als"          ,als),
+        ])        
+        print(sensorDictionary)
+        mSR.sensorFinisher(dateTime,"LTR390",sensorDictionary)
+        time.sleep(1)   
+        return;
         
     def Read_Byte(self, cmd):
         return self.i2c.read_byte_data(self.address, cmd)
@@ -88,16 +137,16 @@ class LTR390:
         self.i2c.write_byte_data(self.address, 0x25, (low>>8)&0xff)
         self.i2c.write_byte_data(self.address, 0x26, (low>>16)&0x0f)
     
-if __name__ == '__main__':
-    sensor = LTR390()
-    sensor.SetIntVal(5, 20) # uvs/als set low/high int val
-    time.sleep(1)
-    try:
-        while True:
-            uv  = sensor.UVS()
-            als = sensor.ALS()
-            print("UVS: %d"  %uv)
-            print("ALS: %d"  %als)
-            time.sleep(0.5)
-    except KeyboardInterrupt:
-        exit()            
+# if __name__ == '__main__':
+#     sensor = LTR390()
+#     sensor.SetIntVal(5, 20) # uvs/als set low/high int val
+#     time.sleep(1)
+#     try:
+#         while True:
+#             uv  = sensor.UVS()
+#             als = sensor.ALS()
+#             print("UVS: %d"  %uv)
+#             print("ALS: %d"  %als)
+#             time.sleep(0.5)
+#     except KeyboardInterrupt:
+#         exit()            
