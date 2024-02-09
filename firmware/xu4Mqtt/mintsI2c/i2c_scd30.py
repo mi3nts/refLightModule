@@ -44,6 +44,7 @@ class SCD30:
         ready = None
         
         while ready is None and retriesIn:
+            print(retriesIn)
             try:
                 ready = self.get_data_ready()
                 print(ready)

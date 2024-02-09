@@ -28,6 +28,7 @@ class BME280:
         print("Initializing BME280")
         ready = None
         while ready is None and retriesIn:
+            print(retriesIn)
             try:
                 self.calibration_params = bme280.load_calibration_params(self.i2c, self.i2c_addr)
                 ready = True
