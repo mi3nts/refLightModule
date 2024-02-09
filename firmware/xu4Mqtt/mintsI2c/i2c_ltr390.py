@@ -102,7 +102,7 @@ class LTR390:
             ("als"          ,als),
             ])        
         print(sensorDictionary)
-        mSR.sensorFinisher(dateTime,"LTR390",sensorDictionary)
+        # mSR.sensorFinisher(dateTime,"LTR390",sensorDictionary)
         time.sleep(1)   
         return;
         

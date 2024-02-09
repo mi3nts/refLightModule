@@ -43,7 +43,7 @@ class BME280:
             return False
         
         else:
-            print("BME 280 Found - Calibraion Params Set")
+            # print("BME 280 Found - Calibraion Params Set")
             time.sleep(1)
             return True       
       
