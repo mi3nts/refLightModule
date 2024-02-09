@@ -18,7 +18,7 @@ SHUNT_OHMS = 0.1
 MAX_EXPECTED_AMPS = 0.2
 
 # Mints Battery level SoLo nodes
-class MBLSL001:
+class GUVAS12SD:
 
     def __init__(self, busNum,pinNum,resistorGround,resisterHigh):
         print("Initiating INA219 for GUVAS12SD")

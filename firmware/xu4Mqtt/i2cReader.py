@@ -31,8 +31,9 @@ import shutil
 from mintsI2c.i2c_bme280   import BME280
 from mintsI2c.i2c_scd30    import SCD30
 from mintsI2c.i2c_as7265x  import AS7265X
-from mintsI2c.i2c_pa101d   import PAI101D_
-
+from mintsI2c.i2c_ltr390    import LTR390
+from mintsI2c.i2c_guvas12sd import GUVAS12SD
+# from mintsI2c.i2c_pa101d   import PAI101D_
 
 import math
 import sys
@@ -44,32 +45,37 @@ debug  = False
 
 bus     = smbus2.SMBus(0)
 
-scd30   = SCD30(bus,debug)
-bme280  = BME280(bus,debug)
-as7265x = AS7265X(bus,debug)
-pa101d  = PAI101D_(bus,debug)
+scd30     = SCD30(bus,debug)
+bme280    = BME280(bus,debug)
+as7265x   = AS7265X(bus,debug)
+ltr390    = LTR390(bus,debug)
+guvas12sd = GUVAS12SD(bus,debug)
+
+# pa101d  = PAI101D_(bus,debug)
 
 
 
 if __name__ == "__main__":
     
     print()
-    print("============ MINTS POLO NODES ============")
+    print("============ MINTS REFERENCE LIGHT MODULE ============")
     print()
     
     # I2C Devices 
-    as7265xOnline  =  as7265x.initiate()
-    as7265xReadTime  = time.time()
+    as7265xOnline      =  as7265x.initiate()
+    as7265xReadTime    = time.time()
 
-    bme280Online   =  bme280.initiate(30)
-    bme280ReadTime  = time.time()
+    bme280Online       =  bme280.initiate(30)
+    bme280ReadTime     = time.time()
 
-    scd30Online    =  scd30.initiate(30)
-    scd30ReadTime  = time.time()
-    
-    pa101dOnline   =  pa101d.initiate()
-    pa101dGGAReadTime  = time.time()
-    pa101dRMCReadTime  = time.time()    
+    scd30Online        =  scd30.initiate(30)
+    scd30ReadTime      = time.time()
+
+    ltr390Online       =  ltr390.initiate()
+    ltr390ReadTime     = time.time()
+
+    guvas12sdOnline    =  guvas12sd.initiate(30)
+    guvas12sdReadTime  = time.time()
 
     delta = 10
 
@@ -81,28 +87,18 @@ if __name__ == "__main__":
             if bme280Online and mSR.getDeltaTimeAM(bme280ReadTime,delta):
                 bme280ReadTime  = time.time()                
                 bme280.readMqtt();
-            if pa101dOnline and mSR.getDeltaTimeAM(pa101dGGAReadTime,delta):
-                pa101dReadTime  = time.time()
-                pa101d.readMqtt("GGA");                        
             if scd30Online and mSR.getDeltaTimeAM(scd30ReadTime,delta):
                 scd30.readMqtt();
                 scd30ReadTime  = time.time()
-            if pa101dOnline and mSR.getDeltaTimeAM(pa101dRMCReadTime,delta):
-                pa101dReadTime  = time.time()
-                pa101d.readMqtt("RMC");            
+            if  ltr390Online and mSR.getDeltaTimeAM(ltr390ReadTime,delta):
+                ltr390.readMqtt();
+                ltr390ReadTime  = time.time()
+            if guvas12sdOnline and mSR.getDeltaTimeAM(guvas12sdReadTime,delta):
+                scd30.readMqtt();
+                guvas12sdReadTime  = time.time()       
 
         except Exception as e:
             time.sleep(.5)
             print ("Error and type: %s - %s." % (e,type(e)))
             time.sleep(.5)
-        
-                  
-        
-        
-        
-
-        
-        
-        
-        
         
