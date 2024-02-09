@@ -39,6 +39,7 @@ class GUVAS12SD:
             time.sleep(.5)
     
     def initiate(self):
+        print("Initializing GUVAS12SD")        
         time.sleep(1)
         try:
             if "Adafruit_GPIO.I2C" in str(self.ina._i2c):

@@ -23,6 +23,7 @@ class PAI101D_:
         self.gps._i2c = i2c_dev
 
     def initiate(self):
+        print("Initializing PA101D")
         try:
             time.sleep(1)
 

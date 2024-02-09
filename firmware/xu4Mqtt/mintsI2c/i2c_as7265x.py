@@ -105,6 +105,7 @@ class AS7265X():
 
 
     def initiate(self):
+        print("Initializing AS7265X")
         if self.begin(): 
             self.enableBulb(LED_WHITE)
             self.enableBulb(LED_IR)
