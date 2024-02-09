@@ -20,7 +20,12 @@ MAX_EXPECTED_AMPS = 0.2
 # Mints Battery level SoLo nodes
 class GUVAS12SD:
 
-    def __init__(self, busNum,pinNum,resistorGround,resisterHigh):
+    def __init__(self, i2c_dev,debugIn, busNum):
+        # self.i2c = smbus.SMBus(0)
+        # self.address = address
+        self.i2c      = i2c_dev
+        self.debug    = debugIn     
+        
         print("Initiating INA219 for GUVAS12SD")
         self.ina    =None
         

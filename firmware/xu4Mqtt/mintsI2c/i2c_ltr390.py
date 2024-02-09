@@ -47,10 +47,11 @@ GAIN_18 = (0x4)
 
 
 class LTR390:
-    def __init__(self, address=ADDR):
-        self.i2c = smbus.SMBus(0)
-        self.address = address
-                
+    def __init__(self, i2c_dev,debugIn):
+        # self.i2c = smbus.SMBus(0)
+        # self.address = address
+        self.i2c      = i2c_dev
+        self.debug    = debugIn                
 
 
     def initiate(self,retriesIn):
