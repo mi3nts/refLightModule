@@ -103,7 +103,7 @@ rainPorts                = ['/dev/ttyS1'] # Direct connected to the gpio port - 
 
 
 darkSpectrumFile         = \
-    "darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:1_0_s-_StA:5-_BCW:5-_DT:2024-02-11_01:30:39_841764+00:00.pkl"
+    "darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:5_0_s-_StA:5-_BCW:5-_DT:2024-02-11_01:44:13_906446+00:00.pkl"
 
 calibrationFile          = \
     "calibrationFiles/SR200544_cc_20230323_OOIIrrad.CAL"
