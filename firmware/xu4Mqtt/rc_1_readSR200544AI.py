@@ -163,7 +163,7 @@ if __name__ == "__main__":
                                                 "/home/teamlary/mintsData/spectrumDiagrams/" + \
                                                     plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
                     
-
+                    spectrumPlotter = False
                     
          
                 elapsedTime = time.time() - startTime
