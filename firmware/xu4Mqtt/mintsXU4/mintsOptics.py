@@ -176,15 +176,15 @@ def setUpDevice(device,\
 
 def obtainDarkSpecta(
         device,\
-            electricDarkCorrelationUsage,\
-                nonLinearityCorrectionUsage,\
-                    integrationTimeMicroSec,\
-                        scansToAverage,\
-                            boxCarWidth,\
+            dateTime,\
+                electricDarkCorrelationUsage,\
+                    nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                            scansToAverage,\
+                                boxCarWidth,\
                         ):
     print("===========================")
-    print("Obtaining Dark Spectrums:")
-    dateTime     = datetime.now(timezone.utc)
+    print("Obtaining Dark Spectrum for integration time :" + str(integrationTimeMicroSec))
     time.sleep(1)
     waveLengths                = device.get_wavelengths()
     time.sleep(1)
@@ -473,8 +473,9 @@ def publishSR200544(dateTime,\
 
 
 def obtainDarkSpectrums(device,\
-                       integrationTimeMicroSec):
-    dateTime     = datetime.now(timezone.utc)
+                            dateTime,
+                                integrationTimeMicroSec):
+    # dateTime     = datetime.now(timezone.utc)
     print("Collecting a Dark Spectrum")
 
     time.sleep(1)

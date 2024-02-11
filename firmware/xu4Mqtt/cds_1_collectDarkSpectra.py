@@ -56,6 +56,7 @@ integrationTimeMicroSec      = mD.integrationTimeMicroSec
 
 scansToAverage               = mD.scansToAverage
 boxCarWidth                  = mD.boxCarWidth
+integrationTimesInMicroSec = list(range(500000, 6000001, 500000))
 
 
 if __name__ == "__main__":
@@ -74,17 +75,21 @@ if __name__ == "__main__":
 
 
         serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
-
-        mO.obtainDarkSpecta(
-            device,\
-                electricDarkCorrelationUsage,\
-                    nonLinearityCorrectionUsage,\
-                        integrationTimeMicroSec,\
-                            scansToAverage,\
-                                boxCarWidth,\
-                            )
         
-        serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
+        dateTime     = datetime.now(timezone.utc)
+        for integrationTimeMicroSec in integrationTimesInMicroSec:
+            time.sleep(1)
+            mO.obtainDarkSpecta(
+                device,\
+                    dateTime,\
+                        electricDarkCorrelationUsage,\
+                            nonLinearityCorrectionUsage,\
+                                integrationTimeMicroSec,\
+                                    scansToAverage,\
+                                        boxCarWidth,\
+                                )
+            
+            serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
 
         mO.closeDevice(deviceID)
     

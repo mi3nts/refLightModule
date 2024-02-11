@@ -110,7 +110,7 @@ calibrationFile          = \
 
 electricDarkCorrelationUsage = False
 nonLinearityCorrectionUsage  = False
-integrationTimeMicroSec      = 5000000 
+integrationTimeMicroSec      = 1000000 
 integrationTimeSec           = integrationTimeMicroSec/1000000
 scansToAverage               = 5
 boxCarWidth                  = 5 
