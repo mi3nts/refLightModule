@@ -1,11 +1,13 @@
 
 import numpy as np
 from mintsXU4 import mintsDefinitions as mD
+from mintsXU4 import mintsOptics as mO
+import max_count_collector
 
 max_cap=65535.0
 integration_time=mD.integrationTimeMicroSec
 
-def adaptive_integration_time(data_list):
+def adaptive_integration_time(data_list,device):
     global integration_time
     # Convert the list to numpy array
     data_array = np.array(data_list)
@@ -24,6 +26,6 @@ def adaptive_integration_time(data_list):
     if 0.6 * max_cap <= average <= 0.9 * max_cap:
         mD.integrationTimeMicroSec = integration_time # Keep integration_time the same
     else:
-        mD.integrationTimeMicroSec = new_integration_time  # Have to Define function to get new_integration_time
+        mD.integrationTimeMicroSec = max_count_collector(device)  
 
 
