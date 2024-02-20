@@ -929,6 +929,47 @@ def calculateBinSize(floatList):
     return bin_sizes
 
 
+def max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrectionUsage,scansToAverage,boxCarWidth):
+    result_df = pd.DataFrame(columns=['Integration Time', 'Maximum'])
+    for integrationTimeMicroSec in range(500000, 6000001, 500000):
+        mO.setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        scansToAverage,\
+                        boxCarWidth,\
+                        )
+        illuminated_spectrum = device.get_formatted_spectrum()
+        maximum = max(illuminated_spectrum)
+
+        result_df = result_df.append({'Integration Time': boxCarWidth, 'Maximum': maximum}, ignore_index=True)
+
+    # Find the maximum value closest to 75% of max cap
+    closest_to_75_percent = result_df.iloc[(result_df['Maximum'] - 0.75 * max_cap).abs().argsort()[0]]
+
+    return closest_to_75_percent['Integration Time']
+
+
+def adaptive_integration_time(max_list,device,integrationTimeMicroSec):
+
+    # Convert the list to numpy array
+    max_array = np.array(max_list)
+    
+    # Calculate the 25th and 75th quantiles
+    quantile_25 = np.quantile(max_array, 0.25)
+    quantile_75 = np.quantile(max_array, 0.75)
+    
+    # Extract values within the 25th and 75th quantiles
+    extracted_values = max_array[(max_array >= quantile_25) & (max_array <= quantile_75)]
+    
+    # Calculate the average of the extracted values
+    average = np.mean(extracted_values)
+    
+    # Compare the average value to the max cap
+    if 0.6 * max_cap <= average <= 0.9 * max_cap:
+        device.set_integration_time(integrationTimeMicroSec)# Keep integration_time the same
+    else:
+        device.set_integration_time(max_count_collector(device))
 
 
 
