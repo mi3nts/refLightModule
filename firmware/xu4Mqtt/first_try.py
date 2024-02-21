@@ -95,7 +95,8 @@ if __name__ == "__main__":
         #Choose and set first integration time
         integrationTimeMicroSec     = mO.max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrectionUsage,scansToAverage,boxCarWidth)
         integrationTimeSec          = integrationTimeMicroSec/1000000
-
+        print("Integration Time : " + integrationTimeSec + " secs")
+    
     #     unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
     #     mO.setUpDevice(device,\
