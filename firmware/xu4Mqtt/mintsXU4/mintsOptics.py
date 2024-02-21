@@ -925,7 +925,7 @@ def calculateBinSize(floatList):
 def max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrectionUsage,scansToAverage,boxCarWidth):
     result_df = pd.DataFrame(columns=['Integration Time', 'Maximum'])
     for integrationTimeMicroSec in range(500000, 6000001, 500000):
-        mO.setUpDevice(device,\
+        setUpDevice(device,\
                         electricDarkCorrelationUsage,\
                         nonLinearityCorrectionUsage,\
                         integrationTimeMicroSec,\
