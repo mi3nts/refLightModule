@@ -97,7 +97,7 @@ gpsPorts                 = findPortsGPS("u-blox")
     
 rainPorts                = ['/dev/ttyS1'] # Direct connected to the gpio port - May not be available on all polo nodes
 
-maxCap                  = 65535.0
+max_cap                  = 65535.0
 
 
 # For Ref Light Module 

@@ -44,7 +44,7 @@ mqttOn         = mD.mqttOn
 decoder        = json.JSONDecoder(object_pairs_hook=OrderedDict)
 od = OceanDirectAPI()
 
-maxCap         = mD.maxCap 
+max_cap         = mD.max_cap 
 
 # Gives the first device it detects 
 def checkingDevicePresence():
@@ -940,7 +940,7 @@ def max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrecti
                    columns=['Integration Time', 'Maximum'])], sort=False)
         print(result_df)
     # Find the maximum value closest to 75% of max cap
-    closest_to_75_percent = result_df.iloc[(result_df['Maximum'] - 0.75 * mD.max_cap).abs().argsort()[0]]
+    closest_to_75_percent = result_df.iloc[(result_df['Maximum'] - 0.75 * max_cap).abs().argsort()[0]]
  
     return closest_to_75_percent['Integration Time']
  
