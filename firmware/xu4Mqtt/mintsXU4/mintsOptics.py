@@ -44,6 +44,8 @@ mqttOn         = mD.mqttOn
 decoder        = json.JSONDecoder(object_pairs_hook=OrderedDict)
 od = OceanDirectAPI()
 
+maxCap         = mD.maxCap 
+
 # Gives the first device it detects 
 def checkingDevicePresence():
     od.find_usb_devices()
