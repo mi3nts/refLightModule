@@ -20,6 +20,7 @@ import numpy as np
 from datetime import timedelta
 from matplotlib import pyplot as plt
 import pickle
+import pandas as pd
 import re
 import sys
 from oceandirect.OceanDirectAPI import OceanDirectAPI, OceanDirectError
