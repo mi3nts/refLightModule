@@ -100,15 +100,15 @@ if __name__ == "__main__":
         integrationTimeSec          = integrationTimeMicroSec/1000000
         print("Integration Time : " + integrationTimeSec + " secs")
     
-    #     unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
+        unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
-    #     mO.setUpDevice(device,\
-    #                     electricDarkCorrelationUsage,\
-    #                     nonLinearityCorrectionUsage,\
-    #                     integrationTimeMicroSec,\
-    #                     scansToAverage,\
-    #                     boxCarWidth,\
-    #                     )
+        mO.setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        scansToAverage,\
+                        boxCarWidth,\
+                        )
 
     #     try:
     #         while True:
