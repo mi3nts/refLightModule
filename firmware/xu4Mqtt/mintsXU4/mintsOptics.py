@@ -969,7 +969,52 @@ def adaptive_integration_time(max_list,device,integrationTimeMicroSec):
 
 
 
+def saveToPickle(floatList, integrationTimeMicroSec, directory):
+    try:
+        # Create a directory if it doesn't exist
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        
+        # Construct the filename based on integration time
+        fileName = os.path.join(directory, f'dark_spectrum_{integrationTimeMicroSec}.pkl')
+        
+        with open(fileName, 'wb') as file:
+            pickle.dump(floatList, file)
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
+
+
+def storeDarkSpecta(
+        device,\
+            dateTime,\
+                electricDarkCorrelationUsage,\
+                    nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                            scansToAverage,\
+                                boxCarWidth,\
+                        ):
+    print("===========================")
+    print("Obtaining Dark Spectrum for integration time :" + str(integrationTimeMicroSec))
+    time.sleep(1)
+    waveLengths                = device.get_wavelengths()
+    time.sleep(1)
+    serialNumber               = device.get_serial_number()
+    time.sleep(1)   
+
+    setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        scansToAverage,\
+                        boxCarWidth 
+                        )
+    time.sleep(1)
+    
+    formattedSpectrum                   = device.get_formatted_spectrum()
+    
+    
+    saveToPickle(formattedSpectrum,integrationTimeMicroSec,'Dark_Spectra')        
 
 
     # # 00 --------------
