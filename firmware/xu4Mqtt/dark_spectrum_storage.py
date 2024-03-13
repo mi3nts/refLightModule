@@ -55,7 +55,7 @@ integrationTimeMicroSec      = mD.integrationTimeMicroSec
 
 scansToAverage               = mD.scansToAverage
 boxCarWidth                  = mD.boxCarWidth
-integrationTimesInMicroSec = list(range(500000, 6000001, 500000))
+integrationTimesInMicroSec   = list(range(500000, 6000001, 500000)) 
 
 
 if __name__ == "__main__":

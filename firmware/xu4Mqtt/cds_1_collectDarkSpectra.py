@@ -76,7 +76,8 @@ if __name__ == "__main__":
 
         serialNumber, waveLengths   =  mO.getAllSpectrumDetails(device)   
         
-        dateTime     = datetime.now(timezone.utc)
+        dateTime                    = datetime.now(timezone.utc)
+
         for integrationTimeMicroSec in integrationTimesInMicroSec:
             time.sleep(1)
             mO.obtainDarkSpecta(

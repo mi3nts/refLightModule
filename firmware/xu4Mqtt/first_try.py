@@ -100,112 +100,113 @@ if __name__ == "__main__":
         integrationTimeSec          = integrationTimeMicroSec/1000000
         print("Integration Time : " + str(integrationTimeSec) + " secs")
 
-        darkSpectrumFile            = "Dark_Spectra/dark_spectrum_" + str(integrationTimeMicroSec) + ".pkl"
-        darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
+        # darkSpectrumFile            = "Dark_Spectra/dark_spectrum_" + str(integrationTimeMicroSec) + ".pkl"
+        # darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
         # darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
         
-        print(darkSpectra)
-        print()
+        # print(darkSpectra)
+        # print()
 
-        # unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
+        unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
-        # mO.setUpDevice(device,\
-        #                 electricDarkCorrelationUsage,\
-        #                 nonLinearityCorrectionUsage,\
-        #                 integrationTimeMicroSec,\
-        #                 scansToAverage,\
-        #                 boxCarWidth,\
-        #                 )
+        mO.setUpDevice(device,\
+                        electricDarkCorrelationUsage,\
+                        nonLinearityCorrectionUsage,\
+                        integrationTimeMicroSec,\
+                        scansToAverage,\
+                        boxCarWidth,\
+                        )
 
-    #     try:
-    #         while True:
-    #             startTime = time.time()
-    #             print()
-    #             print("========================")
-    #             dateTimeRaw           = datetime.now(timezone.utc)
-    #            darkSpectrumFile            =    "Dark_Spectra/dark_spectrum_{integrationTimeMicroSec}.pkl"
-    #            darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
-    #            darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
+        try:
+            while True:
+                startTime = time.time()
+                print()
+                print("========================")
+                dateTimeRaw                 = datetime.now(timezone.utc)
+                darkSpectrumFile            =    "Dark_Spectra/dark_spectrum_{integrationTimeMicroSec}.pkl"
+                darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
                 
-    #             #Initialize list to store max values to be used for adaptive integration time function
-    #             max_list = []
-
-    #             #Collect spectrum
-    #             illuminatedSpectrum   = device.get_formatted_spectrum()
-    #             print("Collecttion Time:" + str(dateTimeRaw))
-    #             maximum = max(illuminatedSpectrum)
-    #             max_list.append(maximum)
-    #             energyInMicroJoulesPerAreaPerSecPerNanoMeter, zeroCorrectedSpectrum = \
-    #                                 mO.getAbsouluteIrradiance(device,
-    #                                     illuminatedSpectrum,\
-    #                                         darkSpectra,\
-    #                                             calibrationData,\
-    #                                                 unitTransformDenomenator,
-    #                                                     waveLengthSpread\
-    #                                                         )
-
-                
-    #             mO.publishSR200544RC(dateTimeRaw,\
-    #                                     waveLengths,\
-    #                                         illuminatedSpectrum,\
-    #                                             integrationTimeMicroSec,\
-    #                                                 scansToAverage,\
-    #                                                     boxCarWidth)
-                
-    #             # Publishing Absolute Irradiance
-    #             time.sleep(.1)
-    #             mO.publishSR200544(dateTimeRaw,\
-    #                                     waveLengths,\
-    #                                         energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
-    #                                             integrationTimeMicroSec,\
-    #                                                 scansToAverage,\
-    #                                                     boxCarWidth,\
-    #                                                         calibrationDate,\
-    #                                                             darkSpectraTime,
-    #                                                                 "SR200544AI")
-    #             if spectrumPlotter:
-    #                 time.sleep(.1)
-    #                 plotTitle = "Illuminated Spectrum Counts for " + str(dateTimeRaw) 
-    #                 mO.plotter(waveLengths,\
-    #                             illuminatedSpectrum,\
-    #                                 "Wave Lengths (nm)",\
-    #                                     "Illuminated Spectrum (counts) ",\
-    #                                         "Illuminated Spectrum collected on " + str(dateTimeRaw) ,\
-    #                                             "/home/teamlary/mintsData/spectrumDiagrams/" + \
-    #                                                 plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
-
-
-    #                 time.sleep(.1)
-    #                 plotTitle = "Absolute Irradiance for " + str(dateTimeRaw) 
-    #                 mO.plotter(waveLengths,\
-    #                             energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
-    #                                 "Wave Lengths (nm)",\
-    #                                     "Absolute Irradiance(uJ/(cm2*nm*sec)) ",\
-    #                                         "Absolute Irradiance collected on " + str(dateTimeRaw) ,\
-    #                                             "/home/teamlary/mintsData/spectrumDiagrams/" + \
-    #                                                 plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+                # darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
                     
-    #                 spectrumPlotter = False
+                #Initialize list to store max values to be used for adaptive integration time function
+                max_list = []
 
-    #             #Check if integration time is still appropriate, if not, set to new.    
-    #             mO.adaptive_integration_time(max_list,device,integrationTimeMicroSec)
+                #Collect spectrum
+                illuminatedSpectrum   = device.get_formatted_spectrum()
+                print("Collecttion Time:" + str(dateTimeRaw))
+                maximum = max(illuminatedSpectrum)
+                max_list.append(maximum)
+                energyInMicroJoulesPerAreaPerSecPerNanoMeter, zeroCorrectedSpectrum = \
+                                    mO.getAbsouluteIrradiance(device,
+                                        illuminatedSpectrum,\
+                                            darkSpectra,\
+                                                calibrationData,\
+                                                    unitTransformDenomenator,
+                                                        waveLengthSpread\
+                                                            )
 
-    #             elapsedTime = time.time() - startTime
-    #             remainingWaitingTime = totalWaitingTime - elapsedTime - 0.001053
+                
+                mO.publishSR200544RC(dateTimeRaw,\
+                                        waveLengths,\
+                                            illuminatedSpectrum,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth)
+                
+                # Publishing Absolute Irradiance
+                time.sleep(.1)
+                mO.publishSR200544(dateTimeRaw,\
+                                        waveLengths,\
+                                            energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
+                                                integrationTimeMicroSec,\
+                                                    scansToAverage,\
+                                                        boxCarWidth,\
+                                                            calibrationDate,\
+                                                                darkSpectraTime,
+                                                                    "SR200544AI")
+                if spectrumPlotter:
+                    time.sleep(.1)
+                    plotTitle = "Illuminated Spectrum Counts for " + str(dateTimeRaw) 
+                    mO.plotter(waveLengths,\
+                                illuminatedSpectrum,\
+                                    "Wave Lengths (nm)",\
+                                        "Illuminated Spectrum (counts) ",\
+                                            "Illuminated Spectrum collected on " + str(dateTimeRaw) ,\
+                                                "/home/teamlary/mintsData/spectrumDiagrams/" + \
+                                                    plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
 
-    #             # If remaining waiting time is positive, wait for it; otherwise, no additional waiting
-    #             if remainingWaitingTime > 0:
-    #                 time.sleep(remainingWaitingTime)
+
+                    time.sleep(.1)
+                    plotTitle = "Absolute Irradiance for " + str(dateTimeRaw) 
+                    mO.plotter(waveLengths,\
+                                energyInMicroJoulesPerAreaPerSecPerNanoMeter,\
+                                    "Wave Lengths (nm)",\
+                                        "Absolute Irradiance(uJ/(cm2*nm*sec)) ",\
+                                            "Absolute Irradiance collected on " + str(dateTimeRaw) ,\
+                                                "/home/teamlary/mintsData/spectrumDiagrams/" + \
+                                                    plotTitle.replace(" ","_").replace(",","-").replace(".","_"))
+                    
+                    spectrumPlotter = False
+
+                #Check if integration time is still appropriate, if not, set to new.    
+                mO.adaptive_integration_time(max_list,device,integrationTimeMicroSec)
+
+                elapsedTime = time.time() - startTime
+                remainingWaitingTime = totalWaitingTime - elapsedTime - 0.001053
+
+                # If remaining waiting time is positive, wait for it; otherwise, no additional waiting
+                if remainingWaitingTime > 0:
+                    time.sleep(remainingWaitingTime)
 
 
 
 
-    #     except KeyboardInterrupt:
-    #         # Handle a keyboard interrupt (Ctrl+C)
-    #         print("Keyboard interrupt detected. Exiting gracefully.")
+        except KeyboardInterrupt:
+            # Handle a keyboard interrupt (Ctrl+C)
+            print("Keyboard interrupt detected. Exiting gracefully.")
 
-    #         # Perform any necessary cleanup or device closing operations
-    #         mO.closeDevice(deviceID)
+            # Perform any necessary cleanup or device closing operations
+            mO.closeDevice(deviceID)
 
 
     
