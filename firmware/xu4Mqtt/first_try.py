@@ -60,7 +60,7 @@ boxCarWidth                  = mD.boxCarWidth
 fiberDiametorMicroMeter      = mD.fiberDiametorMicroMeter
 
 #Define initial dark spectra and calibration file
-darkSpectrumFile         = mD.darkSpectrumFile
+#darkSpectrumFile         = mD.darkSpectrumFile
 calibrationFile          = mD.calibrationFile
 
 
@@ -91,15 +91,19 @@ if __name__ == "__main__":
         serialNumber, waveLengths   = mO.getAllSpectrumDetails(device)   
         waveLengthSpread            = mO.calculateBinSize(waveLengths)
         calibrationData             = mO.loadCalibrationData(calibrationFile)
-        darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
+        #darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
         calibrationDate             = mO.getCalibrationMeta(calibrationFile)
-        darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
+        
 
         #Choose and set first integration time
         integrationTimeMicroSec     = mO.max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrectionUsage,scansToAverage,boxCarWidth)
         integrationTimeSec          = integrationTimeMicroSec/1000000
         print("Integration Time : " + str(integrationTimeSec) + " secs")
-    
+
+        darkSpectrumFile            =    "Dark_Spectra/dark_spectrum_{integrationTimeMicroSec}.pkl"
+        darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
+        darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
+        
         # unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
         # mO.setUpDevice(device,\
@@ -116,6 +120,9 @@ if __name__ == "__main__":
     #             print()
     #             print("========================")
     #             dateTimeRaw           = datetime.now(timezone.utc)
+    #            darkSpectrumFile            =    "Dark_Spectra/dark_spectrum_{integrationTimeMicroSec}.pkl"
+    #            darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
+    #            darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
                 
     #             #Initialize list to store max values to be used for adaptive integration time function
     #             max_list = []
