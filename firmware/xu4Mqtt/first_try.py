@@ -100,10 +100,13 @@ if __name__ == "__main__":
         integrationTimeSec          = integrationTimeMicroSec/1000000
         print("Integration Time : " + str(integrationTimeSec) + " secs")
 
-        darkSpectrumFile            =    "Dark_Spectra/dark_spectrum_{integrationTimeMicroSec}.pkl"
+        darkSpectrumFile            = "Dark_Spectra/dark_spectrum_{integrationTimeMicroSec}.pkl"
         darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
-        darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
+        # darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
         
+        print(darkSpectra)
+        print()
+
         # unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
         # mO.setUpDevice(device,\
