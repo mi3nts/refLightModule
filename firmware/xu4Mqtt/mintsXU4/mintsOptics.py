@@ -945,7 +945,7 @@ def max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrecti
     # Find the maximum value closest to 75% of max cap
     closest_to_75_percent = result_df.iloc[(result_df['Maximum'] - 0.75 * max_cap).abs().argsort()[0]]
     print("Collecting Integration Time:")
-    print(str(closest_to_75_percent['Integration Time'].iloc[0].values))
+    print(str(closest_to_75_percent['Integration Time'].iloc[0]))
     # print(closest_to_75_percent['Integration Time'])
     # print(closest_to_75_percent['Integration Time'][0])
     # print(closest_to_75_percent['Integration Time'][1])
