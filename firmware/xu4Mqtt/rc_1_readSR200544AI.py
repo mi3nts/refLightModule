@@ -62,13 +62,13 @@ scansToAverage               = mD.scansToAverage
 boxCarWidth                  = mD.boxCarWidth
 fiberDiametorMicroMeter      = mD.fiberDiametorMicroMeter
 
-darkSpectrumFile         = mD.darkSpectrumFile
-calibrationFile          = mD.calibrationFile
+darkSpectrumFile             = mD.darkSpectrumFile
+calibrationFile              = mD.calibrationFile
 
 integrationTimeSec           = integrationTimeMicroSec/1000000
 
 
-areaInSquareCM           = mO.squareMicroMetersToSquareCentimeters(\
+areaInSquareCM               = mO.squareMicroMetersToSquareCentimeters(\
                                 mO.calculateCirceArea(\
                                     fiberDiametorMicroMeter/2))
 

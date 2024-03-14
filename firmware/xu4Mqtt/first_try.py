@@ -72,6 +72,13 @@ areaInSquareCM           = mO.squareMicroMetersToSquareCentimeters(\
 
 totalWaitingTime       = 10
 
+#  At this point this is hardcoded 
+darkSpectrumFilePre         = "darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:"
+
+
+darkSpectrumFilePost        = "_s-_StA:5-_BCW:5-_DT:2024-02-11_01:44:13_906446+00:00.pkl"'
+
+
 
 if __name__ == "__main__":
     
@@ -122,12 +129,22 @@ if __name__ == "__main__":
                 startTime = time.time()
                 print()
                 print("========================")
-                dateTimeRaw                 = datetime.now(timezone.utc)
-                darkSpectrumFile            =    "Dark_Spectra/dark_spectrum_{integrationTimeMicroSec}.pkl"
-                darkSpectra                 = mO.loadDarkSpectra(darkSpectrumFile)
+                dateTimeRaw                   = datetime.now(timezone.utc)
+                integrationTimeMicroSecString = str(integrationTimeMicroSec/1000000) + " s"
+                darkSpectrumFile              = darkSpectrumFilePre + integrationTimeMicroSecString.replace(" ","_").replace(",","-").replace(".","_") +darkSpectrumFilePost 
+                print("Dark Spectrum File")
+                print(darkSpectrumFile)
                 
-                # darkSpectraTime             = mO.getDarkSpectaMeta(darkSpectrumFile)
-                    
+                darkSpectra                   = mO.loadDarkSpectra(darkSpectrumFile)
+                print("Dark Specta:")
+                print(darkSpectrumFile)
+                
+
+                darkSpectraTime               = mO.getDarkSpectaMeta(darkSpectrumFile)
+                print("Dark Spectrum Collection Time")
+                print(darkSpectrumFile)
+
+
                 #Initialize list to store max values to be used for adaptive integration time function
                 max_list = []
 
