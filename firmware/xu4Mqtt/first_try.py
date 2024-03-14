@@ -73,7 +73,7 @@ areaInSquareCM           = mO.squareMicroMetersToSquareCentimeters(\
 totalWaitingTime       = 10
 
 #  At this point this is hardcoded 
-darkSpectrumFilePre         = "darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:"
+darkSpectrumFilePre         = "/home/teamlary/gitHubRepos/refLightModule/firmware/xu4Mqtt/darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:"
 
 
 darkSpectrumFilePost        = "-_StA:5-_BCW:5-_DT:2024-02-11_01:44:13_906446+00:00.pkl"
@@ -89,7 +89,8 @@ if __name__ == "__main__":
     #Set up device
 
     devicesPresent, deviceIDs = mO.checkingDevicePresence()
-
+                # Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:0_5_s-_StA:5-_BCW:5-_DT:2024-02-11_02:07:22_203964+00:00.pkl
+  # darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:2_0_s-_StA:5-_BCW:5-_DT:2024-02-11_01:44:13_906446+00:00.pkl
     if devicesPresent:
         
         print("Ocean Optics Spectrometors found")
@@ -206,6 +207,7 @@ if __name__ == "__main__":
                     spectrumPlotter = False
 
                 #Check if integration time is still appropriate, if not, set to new.    
+                if (currentTime  -startTime )
                 mO.adaptive_integration_time(max_list,device,integrationTimeMicroSec)
 
                 elapsedTime = time.time() - startTime
