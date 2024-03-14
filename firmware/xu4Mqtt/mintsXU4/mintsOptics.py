@@ -967,8 +967,9 @@ def adaptive_integration_time(max_list,device,integrationTimeMicroSec):
     # Compare the average value to the max cap
     if 0.6 * max_cap <= average <= 0.9 * max_cap:
         device.set_integration_time(integrationTimeMicroSec)# Keep integration_time the same
+        return integrationTimeMicroSec
     else:
-        device.set_integration_time(max_count_collector(device))
+        return max_count_collector(device)
 
 
 

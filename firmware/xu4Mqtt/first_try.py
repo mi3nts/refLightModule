@@ -114,7 +114,8 @@ if __name__ == "__main__":
         
         # print(darkSpectra)
         # print()
-
+        max_list = []
+        
         unitTransformDenomenator = (areaInSquareCM*integrationTimeSec)
 
         mO.setUpDevice(device,\
@@ -127,7 +128,8 @@ if __name__ == "__main__":
 
         try:
             while True:
-                startTime = time.time()
+                startTime        = time.time()
+                startTimeITCheck = time.time()
                 print()
                 print("========================")
                 dateTimeRaw                   = datetime.now(timezone.utc)
@@ -147,7 +149,7 @@ if __name__ == "__main__":
 
 
                 #Initialize list to store max values to be used for adaptive integration time function
-                max_list = []
+
 
                 #Collect spectrum
                 illuminatedSpectrum   = device.get_formatted_spectrum()
@@ -207,8 +209,9 @@ if __name__ == "__main__":
                     spectrumPlotter = False
 
                 #Check if integration time is still appropriate, if not, set to new.    
-                if (currentTime  -startTime )
-                mO.adaptive_integration_time(max_list,device,integrationTimeMicroSec)
+                if (time.time() - startTimeITCheck > 3600):
+                    integrationTimeMicroSec = mO.adaptive_integration_time(max_list,device,integrationTimeMicroSec)
+                    max_list = [];
 
                 elapsedTime = time.time() - startTime
                 remainingWaitingTime = totalWaitingTime - elapsedTime - 0.001053
