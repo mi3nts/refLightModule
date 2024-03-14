@@ -76,7 +76,7 @@ totalWaitingTime       = 10
 darkSpectrumFilePre         = "/home/teamlary/gitHubRepos/refLightModule/firmware/xu4Mqtt/darkSpectrums/Dark_Spectra_for_SN:SR200544-_EDCU:False-_NLCU:False-_IT:"
 
 
-darkSpectrumFilePost        = "-_StA:5-_BCW:5-_DT:2024-02-11_01:44:13_906446+00:00.pkl"
+darkSpectrumFilePost        = "-_StA:5-_BCW:5-_DT:2024-03-14_16:23:01_563827+00:00.pkl"
 
 
 
