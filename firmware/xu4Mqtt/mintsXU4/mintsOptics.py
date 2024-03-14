@@ -942,6 +942,9 @@ def max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrecti
         #result_df = pd.concatresult_df.append({'Integration Time': boxCarWidth, 'Maximum': maximum}, ignore_index=True)
         result_df = pd.concat([result_df, pd.DataFrame([[integrationTimeMicroSec, maximum]],\
                    columns=['Integration Time', 'Maximum'])], sort=False)
+        if maximum >= 65535.0:
+            break;
+
         print(result_df)
     # Find the maximum value closest to 75% of max cap
     closest_to_75_percent = result_df.iloc[(result_df['Maximum'] - 0.75 * max_cap).abs().argsort()[0]]
