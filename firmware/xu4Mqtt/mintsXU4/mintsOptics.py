@@ -925,9 +925,10 @@ def calculateBinSize(floatList):
 
 
 def max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrectionUsage,scansToAverage,boxCarWidth):
+
+    print("Max Count Collector:")
     result_df = pd.DataFrame(columns=['Integration Time', 'Maximum'])
-    # for integrationTimeMicroSec in range(500000, 6000001, 500000):
-    for integrationTimeMicroSec in range(500000, 2500001, 500000):
+    for integrationTimeMicroSec in range(500000, 6000001, 500000):
         setUpDevice(device,\
                         electricDarkCorrelationUsage,\
                         nonLinearityCorrectionUsage,\
@@ -944,12 +945,7 @@ def max_count_collector(device,electricDarkCorrelationUsage,nonLinearityCorrecti
         print(result_df)
     # Find the maximum value closest to 75% of max cap
     closest_to_75_percent = result_df.iloc[(result_df['Maximum'] - 0.75 * max_cap).abs().argsort()[0]]
-    print("Collecting Integration Time:")
-    print(str(closest_to_75_percent['Integration Time'].iloc[0]))
-    # print(closest_to_75_percent['Integration Time'])
-    # print(closest_to_75_percent['Integration Time'][0])
-    # print(closest_to_75_percent['Integration Time'][1])
-    return closest_to_75_percent['Integration Time'].iloc[0].values
+    return closest_to_75_percent['Integration Time'].iloc[0]
  
 
 
